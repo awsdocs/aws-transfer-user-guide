@@ -1,11 +1,13 @@
-## My Project
+## AWS Transfer Family User Guide
 
-TODO: Fill this README out!
+AWS Transfer Family is a secure transfer service that enables you to transfer files into and out of AWS storage services.
 
-Be sure to:
+With this guide, learn how to create and manage servers to securely transfer your files into Amazon S3 or EFS storage.
 
-* Change the title in this README
-* Edit your repository description on GitHub
+* [What is Transfer Family?](doc_source/what-is-aws-transfer-family.md)
+* [Getting started](doc_source/getting-started.md)
+* [How AWS Transfer Family works](doc_source/how-aws-transfer-works.md)
+* [Browse the guide](doc_source/index.md)
 
 ## Security
 

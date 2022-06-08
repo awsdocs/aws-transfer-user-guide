@@ -22,10 +22,6 @@ The following procedures describe how to create an IAM policy and role\.
 
 1. In the navigation pane, choose **Policies**, and then choose **Create policy**\.
 
-   On the **Create policy** page, select **Choose a service **\.
-
-1. Choose **Transfer** from the list of services\.
-
 1. On the **Create Policy** page, choose the **JSON** tab\.
 
 1. In the editor that appears, replace the contents of the editor with the IAM policy that you want attach to the IAM role\.

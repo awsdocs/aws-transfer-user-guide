@@ -1,6 +1,6 @@
 # Working with custom identity providers<a name="custom-identity-provider-users"></a>
 
-To authenticate your users, you can use your existing identity provider with AWS Transfer Family\. You integrate your identity provider using an AWS Lambda function, which authenticates and authorizes your users for access to Amazon S3 or Amazon Elastic File System \(Amazon EFS\)\. For details, see [Using AWS Lambda to integrate your identity provider](#custom-lambda-idp)\. 
+To authenticate your users, you can use your existing identity provider with AWS Transfer Family\. You integrate your identity provider using an AWS Lambda function, which authenticates and authorizes your users for access to Amazon S3 or Amazon Elastic File System \(Amazon EFS\)\. For details, see [Using AWS Lambda to integrate your identity provider](#custom-lambda-idp)\. You can also access CloudWatch graphs for metrics such as number of files and bytes transferred in the AWS Transfer Family Management Console, giving you a single pane of glass to monitor file transfers using a centralized dashboard\.
 
 Alternatively, you can provide a RESTful interface with a single Amazon API Gateway method\. Transfer Family calls this method to connect to your identity provider, which authenticates and authorizes your users for access to Amazon S3 or Amazon EFS\. Use this option if you need a RESTful API to integrate your identity provider or if you want to use AWS WAF to leverage its capabilities for geo\-blocking or rate\-limiting requests\. For details, see [Using Amazon API Gateway to integrate your identity provider](#authentication-api-gateway)\.
 
@@ -157,7 +157,13 @@ The `"Url":` line is returned only if you are using an API Gateway method as you
 
 ## Using Amazon API Gateway to integrate your identity provider<a name="authentication-api-gateway"></a>
 
-This section describes how to use an AWS Lambda function to back an API Gateway method\. 
+This section describes how to use an AWS Lambda function to back an API Gateway method\. Use this option if you need a RESTful API to integrate your identity provider or if you want to use AWS WAF to leverage its capabilities for geo\-blocking or rate\-limiting requests\.
+
+**Limitations if using an API Gateway to integrate your identity provider**
++ This method does not support custom domains
++ This method does not a private API Gateway URL
+
+If you need either of these, you can use Lambda as an identity provider, without API Gateway\. For details, see [Using AWS Lambda to integrate your identity provider](#custom-lambda-idp)\.
 
 ### Authenticating using an API Gateway method<a name="authentication-custom-ip"></a>
 
@@ -204,14 +210,10 @@ If you are using the custom identity provider option to enable password–based 
    1. Choose the **Transfer Custom Identity Provider basic template API** that the AWS CloudFormation template generated\.
 
       The following screenshot shows the complete API configuration\. In this example, the method is backed by a Lambda function, but many other integration types are also possible\.  
-  
-  
-
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/apig-config-method.png)
 
    1. In the **Resources** pane, choose **GET**, and then choose **Method Request**\. The following screenshot shows the correct method configuration\.  
-  
-  
-
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/apig-config-method-fields.png)
 
    At this point, your API gateway is ready to be deployed\.
 
@@ -220,9 +222,7 @@ If you are using the custom identity provider option to enable password–based 
    After the API Gateway method is successfully deployed, view its performance in the **Stage Editor** section, as shown in the following screenshot\.
 **Note**  
 Copy the **Invoke URL** address that appears at the top of the screen\. You will need it for the next step\.  
-  
-  
-
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/apig-config-method-invoke.png)
 
 1. Open the AWS Transfer Family console at [https://console\.aws\.amazon\.com/transfer/](https://console.aws.amazon.com/transfer/)\.
 
@@ -239,14 +239,16 @@ Copy the **Invoke URL** address that appears at the top of the screen\. You will
 
 ### Implementing your API Gateway method<a name="authentication-api-method"></a>
 
-To create a custom identity provider for Transfer Family, your API Gateway method must implement a single method that has a resource path of `/servers/serverId/users/username/config`\. The `serverId` and `username` values come from the RESTful resource path\. Optionally, you can add the `sourceIp` and `protocol` values to the RESTful resource path\.
+To create a custom identity provider for Transfer Family, your API Gateway method must implement a single method that has a resource path of `/servers/serverId/users/username/config`\. The `serverId` and `username` values come from the RESTful resource path\. Also, add `sourceIp` and `protocol` as **URL Query String Parameters** in the **Method Request**, as shown in the following image\.
+
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/apig-config-method-request.png)
 
 **Note**  
 The user name must be a minimum of 3 and a maximum of 100 characters\. You can use the following characters in the user name: a–z, A\-Z, 0–9, underscore \(\_\), hyphen \(\-\), period \(\.\), and at sign \(@\)\. However, the user name can't start with a hyphen \(\-\), period \(\.\), or at sign \(@\)\.
 
 If Transfer Family attempts password authentication for your user, the service supplies a `Password:` header field\. In the absence of a `Password:` header, Transfer Family attempts public key authentication to authenticate your user\.
 
-When you are using an identity provider to authenticate and authorize end users, in addition to validating their credentials, you can allow or deny access requests based on the IP addresses of the clients used by your end users\. You can use this feature to ensure that data stored in your S3 buckets or your Amazon EFS file system can be accessed over the supported protocols only from IP addresses that you have specified as trusted\. To enable this feature, you must include the `sourceIp` value in the RESTful resource path\.
+When you are using an identity provider to authenticate and authorize end users, in addition to validating their credentials, you can allow or deny access requests based on the IP addresses of the clients used by your end users\. You can use this feature to ensure that data stored in your S3 buckets or your Amazon EFS file system can be accessed over the supported protocols only from IP addresses that you have specified as trusted\. To enable this feature, you must include `sourceIp` in the Query string\.
 
 If you have multiple protocols enabled for your server and want to provide access using the same user name over multiple protocols, you can do so as long as the credentials specific to each protocol have been set up in your identity provider\. To enable this feature, you must include the `protocol` value in the RESTful resource path\.
 

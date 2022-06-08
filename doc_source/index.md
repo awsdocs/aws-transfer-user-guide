@@ -147,6 +147,7 @@ Amazon's trademarks and trade dress may not be used in
       + [WorkflowDetail](API_WorkflowDetail.md)
       + [WorkflowDetails](API_WorkflowDetails.md)
       + [WorkflowStep](API_WorkflowStep.md)
+   + [Making API Requests](making-api-requests.md)
    + [Common Parameters](CommonParameters.md)
    + [Common Errors](CommonErrors.md)
 + [Document history for AWS Transfer Family](doc-history.md)

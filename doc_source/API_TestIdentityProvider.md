@@ -160,7 +160,7 @@ The following response shows a sample response for a successful test\.
 
 The following response indicates that the specified user belongs to more than one group that has access\.
 
-#### <a name="w322ab1c47c12c89c21b7b5"></a>
+#### <a name="w341ab1c47c12c89c21b7b5"></a>
 
 ```
           "Response":"",
@@ -183,7 +183,7 @@ The following response indicates that the specified user belongs to more than on
 + Public key is *public\-key* 
 + Invokation URL is *invocation\-URL* 
 
-#### <a name="w322ab1c47c12c89c21b9c13"></a>
+#### <a name="w341ab1c47c12c89c21b9c13"></a>
 
 ```
 {

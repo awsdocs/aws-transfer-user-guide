@@ -54,6 +54,7 @@ Required: Yes
       "PreAuthenticationLoginBanner": "string",
       "ProtocolDetails": { 
          "PassiveIp": "string",
+         "SetStatOption": "string",
          "TlsSessionResumptionMode": "string"
       },
       "Protocols": [ "string" ],

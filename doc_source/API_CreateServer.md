@@ -29,6 +29,7 @@ Instantiates an auto\-scaling virtual server based on the selected file transfer
    "PreAuthenticationLoginBanner": "string",
    "ProtocolDetails": { 
       "PassiveIp": "string",
+      "SetStatOption": "string",
       "TlsSessionResumptionMode": "string"
    },
    "Protocols": [ "string" ],
@@ -147,8 +148,9 @@ Required: No
 
  ** [ProtocolDetails](#API_CreateServer_RequestSyntax) **   <a name="TransferFamily-CreateServer-request-ProtocolDetails"></a>
 The protocol settings that are configured for your server\.  
- Use the `PassiveIp` parameter to indicate passive mode \(for FTP and FTPS protocols\)\. Enter a single dotted\-quad IPv4 address, such as the external IP address of a firewall, router, or load balancer\.   
-Use the `TlsSessionResumptionMode` parameter to determine whether or not your Transfer server resumes recent, negotiated sessions through a unique session ID\.  
++  Use the `PassiveIp` parameter to indicate passive mode \(for FTP and FTPS protocols\)\. Enter a single dotted\-quad IPv4 address, such as the external IP address of a firewall, router, or load balancer\. 
++ Use the `SetStatOption` to ignore the error that is generated when the client attempts to use SETSTAT on a file you are uploading to an S3 bucket\. Set the value to `ENABLE_NO_OP` to have the Transfer Family server ignore the SETSTAT command, and upload files without needing to make any changes to your SFTP client\. Note that with `SetStatOption` set to `ENABLE_NO_OP`, Transfer generates a log entry to CloudWatch Logs, so you can determine when the client is making a SETSTAT call\.
++ Use the `TlsSessionResumptionMode` parameter to determine whether or not your Transfer server resumes recent, negotiated sessions through a unique session ID\.
 Type: [ProtocolDetails](API_ProtocolDetails.md) object  
 Required: No
 
@@ -234,7 +236,6 @@ HTTP Status Code: 500
 
  ** ThrottlingException **   
 The request was denied due to request throttling\.  
- HTTP Status Code: 400  
 HTTP Status Code: 400
 
 ## Examples<a name="API_CreateServer_Examples"></a>

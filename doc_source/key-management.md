@@ -33,8 +33,29 @@ On the macOS, Linux, or UNIX operating systems, you use the `ssh-keygen` command
 **Note**  
  `key_name` is the SSH key pair file name\.
 
-   The following shows an example of the `ssh-keygen` output\.  
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/sshkeygen-output.png)
+   The following shows an example of the `ssh-keygen` output\.
+
+   ```
+   ssh-keygen -P "" -m PEM -f my_key_pair
+   Generating public/private rsa key pair.
+   
+   Your identification has been saved in my_key_pair.
+   Your public key has been saved in my_key_pair.pub.
+   The key fingerprint is:
+   SHA256:8tDDwPmanTFcEzjTwPGETVWOGW1nVz+gtCCE8hL7PrQ bob.amazon.com
+   The key's randomart image is:
+   +---[RSA 2048]----+
+   |.o..  BOB&+o.    |
+   |+ .. ++o%.Bo..   |
+   |.   o.+=o* o.    |
+   | . E o *+o       |
+   |  . . . S o      |
+   |   . o   . +     |
+   |    .     o      |
+   |                 |
+   |                 |
+   +----[SHA256]-----+
+   ```
 
 1. Navigate to the `key_name`\.pub file and open it\.
 

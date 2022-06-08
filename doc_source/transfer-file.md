@@ -38,6 +38,14 @@ For SFTP, the following operations are currently not supported for users that ar
 | --- | 
 | SSH\_FXP\_READLINK | SSH\_FXP\_SYMLINK | SSH\_FXP\_STAT when the requested file is a symlink | SSH\_FXP\_REALPATH when the requested path contains any symlink components | 
 
+**Avoid `setstat` errors**  
+Some SFTP file transfer clients can attempt to change the attributes of remote files, including timestamp and permissions, using commands, such as SETSTAT when uploading the file\. However, these commands are not compatible with object storage systems, such as Amazon S3\. Due to this incompatibility, file uploads from these clients can result in errors even when the file is otherwise successfully uploaded\.
++ When you call the `CreateServer` or `UpdateServer` API, use the `ProtocolDetails` option `SetStatOption` to ignore the error that is generated when the client attempts to use SETSTAT on a file you are uploading to an S3 bucket\.
++ Set the value to `ENABLE_NO_OP` to have the Transfer Family server ignore the SETSTAT command, and upload files without needing to make any changes to your SFTP client\.
++ Note that while the `SetStatOption` `ENABLE_NO_OP` setting ignores the error, it *does* generate a log entry in CloudWatch Logs, so you can determine when the client is making a SETSTAT call\.
+
+ For the API details for this option, see [ProtocolDetails](https://docs.aws.amazon.com/transfer/latest/userguide/API_ProtocolDetails.html)\.
+
 **Generate public\-private key pair**  
  Before you can transfer a file, you must have a public\-private key pair available\. If you have not previously generated a key pair, see [Generate SSH keys](key-management.md#sshkeygen)\. 
 

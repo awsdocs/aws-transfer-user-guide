@@ -4,7 +4,7 @@ AWS Transfer Family accesses Amazon Elastic File System \(Amazon EFS\) to servic
 
 The following sections in the *Amazon Elastic File System User Guide* provide more information\.
 + For information about creating a new Amazon EFS file system, see [Getting started with Amazon Elastic File System](https://docs.aws.amazon.com/efs/latest/ug/getting-started.html) in the *Amazon Elastic File System User Guide*\.
-+ For prerequisites to use Amazon EFS with Transfer Family, see [Prerequisites for using AWS Transfer Family with Amazon Amazon EFS](https://docs.aws.amazon.com/efs/latest/ug/using-aws-transfer-integration.html#prerequisites-aws-transfer)\.
++ For prerequisites to use Amazon EFS with Transfer Family, see [Prerequisites for using AWS Transfer Family with Amazon EFS](https://docs.aws.amazon.com/efs/latest/ug/using-aws-transfer-integration.html#prerequisites-aws-transfer)\.
 + To configure your Amazon EFS to work with AWS Transfer Family, see [ Configuring your Amazon EFS to work with AWS Transfer Family](https://docs.aws.amazon.com/efs/latest/ug/using-aws-transfer-integration.html#config-efs-aws-transfer-int)\.
 + To set file and directory permissions, see [ Setting file and directory permissions for AWS Transfer Family users](https://docs.aws.amazon.com/efs/latest/ug/using-aws-transfer-integration.html#efs-access-aws-transfer)\.
 

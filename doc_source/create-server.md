@@ -20,7 +20,7 @@ You also assign the server an endpoint type \(publicly accessible or VPC hosted\
 Additionally, you can assign an Amazon CloudWatch logging role to push events to your CloudWatch Logs, choose a security policy that contains the cryptographic algorithms enabled for use by your server, and add metadata to the server in the form of tags that are key\-value pairs\.
 
 **Important**  
-You incur costs for instantiated servers and for data transfer\. For information about pricing and to use AWS Pricing Calculator to get an estimate of the cost to use Transfer Family, see [AWS Transfer Family pricing](http://aws.amazon.com/sftp/pricing/)\.
+You incur costs for instantiated servers and for data transfer\. For information about pricing and to use AWS Pricing Calculator to get an estimate of the cost to use Transfer Family, see [ pricing](http://aws.amazon.com/aws-transfer-family/pricing/)\.
 
 ## Identity provider options<a name="identity-provider-details"></a>
 

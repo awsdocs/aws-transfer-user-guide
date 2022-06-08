@@ -181,7 +181,6 @@ HTTP Status Code: 500
 
  ** ThrottlingException **   
 The request was denied due to request throttling\.  
- HTTP Status Code: 400  
 HTTP Status Code: 400
 
 ## Examples<a name="API_CreateWorkflow_Examples"></a>
@@ -190,7 +189,7 @@ HTTP Status Code: 400
 
 You can save workflow step information into a text file, and then use that file to create a workflow, as in the following example\. The following example assumes you have saved your workflow steps into ` example-file.json ` \(in the same folder from where you run the command\), and that you wish to create the workflow in the N\. Virginia \(us\-east\-1\) region\. 
 
-#### <a name="w322ab1c47c12c17c15b3b5"></a>
+#### <a name="w341ab1c47c12c17c15b3b5"></a>
 
 ```
 aws transfer create-workflow --description "example workflow from a file" --steps file://example-file.json --region us-east-1

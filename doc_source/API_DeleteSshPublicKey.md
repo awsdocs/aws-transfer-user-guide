@@ -65,7 +65,6 @@ HTTP Status Code: 500
 
  ** ThrottlingException **   
 The request was denied due to request throttling\.  
- HTTP Status Code: 400  
 HTTP Status Code: 400
 
 ## Examples<a name="API_DeleteSshPublicKey_Examples"></a>

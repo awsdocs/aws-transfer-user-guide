@@ -36,9 +36,7 @@ You can specify multiple actions using wildcards \(\*\)\. For example, to specif
 "Action": "transfer:Describe*"
 ```
 
-
-
-To see a list of AWS Transfer Family actions, see [Actions defined by AWS Transfer Family](https://docs.aws.amazon.com/IAM/latest/UserGuide/list_awstransferforsftp.html#awstransferforsftp-actions-as-permissions) in the *IAM User Guide*\.
+To see a list of AWS Transfer Family actions, see [Actions defined by AWS Transfer Family](https://docs.aws.amazon.com/service-authorization/latest/reference/list_awstransferfamily.html#awstransferfamily-actions-as-permissions) in the *Service Authorization Reference*\.
 
 ### Resources<a name="security_iam_service-with-iam-id-based-policies-resources"></a>
 
@@ -52,8 +50,6 @@ For actions that don't support resource\-level permissions, such as listing oper
 "Resource": "*"
 ```
 
-
-
 The Transfer Family server resource has the following ARN\.
 
 ```
@@ -66,7 +62,7 @@ For example, to specify the `s-01234567890abcdef` Transfer Family server in your
 "Resource": "arn:aws:transfer:us-east-1:123456789012:server/s-01234567890abcdef"
 ```
 
-For more information about the format of ARNs, see [Amazon Resource Names \(ARNs\) and AWS service namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)\.
+For more information about the format of ARNs, see [Amazon Resource Names \(ARNs\)](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html) in the *Service Authorization Reference*, or [IAM ARNs](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-arns) in the *IAM User Guide*\.
 
 To specify all instances that belong to a specific account, use the wildcard \(\*\)\.
 
@@ -89,7 +85,7 @@ In some cases you need to specify more than one type of resource, for example, i
             ]
 ```
 
-To see a list of AWS Transfer Family resource types and their ARNs, see [Resources defined by AWS Transfer Family](https://docs.aws.amazon.com/IAM/latest/UserGuide/list_awstransferforsftp.html#awstransferforsftp-resources-for-iam-policies) in the *AWS Identity and Access Management User Guide*\. To learn with which actions you can specify the ARN of each resource, see [Actions defined by AWS Transfer Family](https://docs.aws.amazon.com/IAM/latest/UserGuide/list_awstransferforsftp.html#awstransferforsftp-actions-as-permissions)\.
+To see a list of AWS Transfer Family resources, see [Resource types defined by AWS Transfer Family](https://docs.aws.amazon.com/service-authorization/latest/reference/list_awstransferfamily.html#awstransferfamily-resources-for-iam-policies) in the *Service Authorization Reference*\.
 
 ### Condition keys<a name="security_iam_service-with-iam-id-based-policies-conditionkeys"></a>
 
@@ -103,15 +99,9 @@ If you specify multiple `Condition` elements in a statement, or multiple keys in
 
 AWS supports global condition keys and service\-specific condition keys\. To see all AWS global condition keys, see [AWS global condition context keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html) in the *IAM User Guide*\.
 
-AWS Transfer Family defines its own set of condition keys and also supports using some global condition keys\. To see all AWS global condition keys, see [AWS Global condition context keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html) in the *AWS Identity and Access Management User Guide*\.
-
-
-
-To see a list of AWS Transfer Family condition keys, see [Condition keys for AWS Transfer Family](https://docs.aws.amazon.com/IAM/latest/UserGuide/list_awstransferforsftp.html#awstransferforsftp-policy-keys) in the *AWS Identity and Access Management User Guide*\. To learn with which actions and resources you can use a condition key, see [Actions defined by AWS Transfer Family](https://docs.aws.amazon.com/IAM/latest/UserGuide/list_awstransferforsftp.html#awstransferforsftp-actions-as-permissions)\.
+AWS Transfer Family defines its own set of condition keys and also supports using some global condition keys\. To see a list of AWS Transfer Family condition keys, see [Condition keys for AWS Transfer Family](https://docs.aws.amazon.com/service-authorization/latest/reference/list_awstransferfamily.html#awstransferfamily-policy-keys) in the *Service Authorization Reference*\.
 
 ### Examples<a name="security_iam_service-with-iam-id-based-policies-examples"></a>
-
-
 
 To view examples of AWS Transfer Family identity\-based policies, see [AWS Transfer Family identity\-based policy examples](security_iam_id-based-policy-examples.md)\.
 

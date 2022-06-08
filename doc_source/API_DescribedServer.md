@@ -78,7 +78,7 @@ Required: No
 
  ** ProtocolDetails **   <a name="TransferFamily-Type-DescribedServer-ProtocolDetails"></a>
  The protocol settings that are configured for your server\.   
- Use the `PassiveIp` parameter to indicate passive mode\. Enter a single dotted\-quad IPv4 address, such as the external IP address of a firewall, router, or load balancer\.   
+ Use the `PassiveIp` parameter to indicate passive mode\. Enter a single IPv4 address, such as the public IP address of a firewall, router, or load balancer\.   
 Type: [ProtocolDetails](API_ProtocolDetails.md) object  
 Required: No
 

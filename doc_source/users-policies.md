@@ -76,8 +76,8 @@ To create a session policy, use the following policy variables in your IAM polic
 + `${transfer:HomeFolder}`
 + `${transfer:UserName}`
 
-**Note**  
-You can't use the variables listed preceding as policy variables in an IAM role definition\. You create these variables in an IAM policy and supply them directly when setting up your user\. Also, you can't use the `${aws:Username}` variable in this session policy\. This variable refers to an IAM user name and not the user name required by AWS Transfer Family\.
+**Important**  
+You can't use the variables listed preceding in Managed Policies\. Nor can you use them as policy variables in an IAM role definition\. You create these variables in an IAM policy and supply them directly when setting up your user\. Also, you can't use the `${aws:Username}` variable in this session policy\. This variable refers to an IAM user name and not the user name required by AWS Transfer Family\.
 
 An example of a session policy is shown in the code example following\.
 
@@ -155,8 +155,6 @@ aws transfer update-user --server-id server --user-name user --policy \
 ```
 
 ## Preventing users from running `mkdir` in an S3 bucket<a name="prevent-mkdir"></a>
-
-The 
 
 You can limit users ability to create a directory in an Amazon S3 bucket\. To do so, you create an IAM policy that allows the `s3:PutObject` action but also denies it when the key ends with a "/" \(forward slash\)\. The following example policy allows users to upload files to an Amazon S3 bucket but denies the mkdir command in the Amazon S3 bucket\.
 

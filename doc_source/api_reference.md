@@ -6,5 +6,6 @@ The following sections document the AWS Transfer Family API service calls, data 
 + [Welcome to the AWS Transfer Family API](api-welcome.md)
 + [Actions](API_Operations.md)
 + [Data Types](API_Types.md)
++ [Making API Requests](making-api-requests.md)
 + [Common Parameters](CommonParameters.md)
 + [Common Errors](CommonErrors.md)

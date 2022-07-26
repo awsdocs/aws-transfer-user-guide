@@ -28,6 +28,7 @@ The `UpdateServer` call returns the `ServerId` of the server you updated\.
    "PostAuthenticationLoginBanner": "string",
    "PreAuthenticationLoginBanner": "string",
    "ProtocolDetails": { 
+      "As2Transports": [ "string" ],
       "PassiveIp": "string",
       "SetStatOption": "string",
       "TlsSessionResumptionMode": "string"
@@ -69,7 +70,7 @@ Length Constraints: Maximum length of 1600\.
 Required: No
 
  ** [EndpointDetails](#API_UpdateServer_RequestSyntax) **   <a name="TransferFamily-UpdateServer-request-EndpointDetails"></a>
-The virtual private cloud \(VPC\) endpoint settings that are configured for your server\. When you host your endpoint within your VPC, you can make it accessible only to resources within your VPC, or you can attach Elastic IP addresses and make it accessible to clients over the internet\. Your VPC's default security groups are automatically assigned to your endpoint\.  
+The virtual private cloud \(VPC\) endpoint settings that are configured for your server\. When you host your endpoint within your VPC, you can make your endpoint accessible only to resources within your VPC, or you can attach Elastic IP addresses and make your endpoint accessible to clients over the internet\. Your VPC's default security groups are automatically assigned to your endpoint\.  
 Type: [EndpointDetails](API_EndpointDetails.md) object  
 Required: No
 
@@ -83,14 +84,16 @@ Valid Values:` PUBLIC | VPC | VPC_ENDPOINT`
 Required: No
 
  ** [HostKey](#API_UpdateServer_RequestSyntax) **   <a name="TransferFamily-UpdateServer-request-HostKey"></a>
-The RSA or ECDSA private key to use for your server\.  
+The RSA, ECDSA, or ED25519 private key to use for your server\.  
 Use the following command to generate an RSA 2048 bit key with no passphrase:  
  `ssh-keygen -t rsa -b 2048 -N "" -m PEM -f my-new-server-key`\.  
-Use a minimum value of 2048 for the `-b` option: you can create a stronger key using 3072 or 4096\.  
+Use a minimum value of 2048 for the `-b` option\. You can create a stronger key by using 3072 or 4096\.  
 Use the following command to generate an ECDSA 256 bit key with no passphrase:  
  `ssh-keygen -t ecdsa -b 256 -N "" -m PEM -f my-new-server-key`\.  
 Valid values for the `-b` option for ECDSA are 256, 384, and 521\.  
-For both of these commands, you can replace *my\-new\-server\-key* with a string of your choice\.  
+Use the following command to generate an ED25519 key with no passphrase:  
+ `ssh-keygen -t ed25519 -N "" -f my-new-server-key`\.  
+For all of these commands, you can replace *my\-new\-server\-key* with a string of your choice\.  
 If you aren't planning to migrate existing users from an existing SFTP\-enabled server to a new server, don't update the host key\. Accidentally changing a server's host key can be disruptive\.
 For more information, see [Change the host key for your SFTP\-enabled server](https://docs.aws.amazon.com/transfer/latest/userguide/edit-server-config.html#configuring-servers-change-host-key) in the * AWS Transfer Family User Guide*\.  
 Type: String  
@@ -103,14 +106,14 @@ Type: [IdentityProviderDetails](API_IdentityProviderDetails.md) object
 Required: No
 
  ** [LoggingRole](#API_UpdateServer_RequestSyntax) **   <a name="TransferFamily-UpdateServer-request-LoggingRole"></a>
-Specifies the Amazon Resource Name \(ARN\) of the AWS Identity and Access Management \(IAM\) role that allows a server to turn on Amazon CloudWatch logging for Amazon S3 or Amazon EFS events\. When set, user activity can be viewed in your CloudWatch logs\.  
+The Amazon Resource Name \(ARN\) of the AWS Identity and Access Management \(IAM\) role that allows a server to turn on Amazon CloudWatch logging for Amazon S3 or Amazon EFSevents\. When set, you can view user activity in your CloudWatch logs\.  
 Type: String  
 Length Constraints: Maximum length of 2048\.  
 Pattern: `^$|arn:.*role/.*`   
 Required: No
 
  ** [PostAuthenticationLoginBanner](#API_UpdateServer_RequestSyntax) **   <a name="TransferFamily-UpdateServer-request-PostAuthenticationLoginBanner"></a>
-Specify a string to display when users connect to a server\. This string is displayed after the user authenticates\.  
+Specifies a string to display when users connect to a server\. This string is displayed after the user authenticates\.  
 The SFTP protocol does not support post\-authentication display banners\.
 Type: String  
 Length Constraints: Maximum length of 512\.  
@@ -118,7 +121,7 @@ Pattern: `[\x09-\x0D\x20-\x7E]*`
 Required: No
 
  ** [PreAuthenticationLoginBanner](#API_UpdateServer_RequestSyntax) **   <a name="TransferFamily-UpdateServer-request-PreAuthenticationLoginBanner"></a>
-Specify a string to display when users connect to a server\. This string is displayed before the user authenticates\. For example, the following banner displays details about using the system\.  
+Specifies a string to display when users connect to a server\. This string is displayed before the user authenticates\. For example, the following banner displays details about using the system:  
  `This system is for the use of authorized users only. Individuals using this computer system without authority, or in excess of their authority, are subject to having all of their activities on this system monitored and recorded by system personnel.`   
 Type: String  
 Length Constraints: Maximum length of 512\.  
@@ -127,24 +130,27 @@ Required: No
 
  ** [ProtocolDetails](#API_UpdateServer_RequestSyntax) **   <a name="TransferFamily-UpdateServer-request-ProtocolDetails"></a>
 The protocol settings that are configured for your server\.  
-+  Use the `PassiveIp` parameter to indicate passive mode \(for FTP and FTPS protocols\)\. Enter a single dotted\-quad IPv4 address, such as the external IP address of a firewall, router, or load balancer\. 
-+ Use the `SetStatOption` to ignore the error that is generated when the client attempts to use SETSTAT on a file you are uploading to an S3 bucket\. Set the value to `ENABLE_NO_OP` to have the Transfer Family server ignore the SETSTAT command, and upload files without needing to make any changes to your SFTP client\. Note that with `SetStatOption` set to `ENABLE_NO_OP`, Transfer generates a log entry to CloudWatch Logs, so you can determine when the client is making a SETSTAT call\.
-+ Use the `TlsSessionResumptionMode` parameter to determine whether or not your Transfer server resumes recent, negotiated sessions through a unique session ID\.
++  To indicate passive mode \(for FTP and FTPS protocols\), use the `PassiveIp` parameter\. Enter a single dotted\-quad IPv4 address, such as the external IP address of a firewall, router, or load balancer\. 
++ To ignore the error that is generated when the client attempts to use the `SETSTAT` command on a file that you are uploading to an Amazon S3 bucket, use the `SetStatOption` parameter\. To have the AWS Transfer Family server ignore the `SETSTAT` command and upload files without needing to make any changes to your SFTP client, set the value to `ENABLE_NO_OP`\. If you set the `SetStatOption` parameter to `ENABLE_NO_OP`, Transfer Family generates a log entry to Amazon CloudWatch Logs, so that you can determine when the client is making a `SETSTAT` call\.
++ To determine whether your AWS Transfer Family server resumes recent, negotiated sessions through a unique session ID, use the `TlsSessionResumptionMode` parameter\.
++  `As2Transports` indicates the transport method for the AS2 messages\. Currently, only HTTP is supported\.
 Type: [ProtocolDetails](API_ProtocolDetails.md) object  
 Required: No
 
  ** [Protocols](#API_UpdateServer_RequestSyntax) **   <a name="TransferFamily-UpdateServer-request-Protocols"></a>
 Specifies the file transfer protocol or protocols over which your file transfer protocol client can connect to your server's endpoint\. The available protocols are:  
-+ Secure Shell \(SSH\) File Transfer Protocol \(SFTP\): File transfer over SSH
-+ File Transfer Protocol Secure \(FTPS\): File transfer with TLS encryption
-+ File Transfer Protocol \(FTP\): Unencrypted file transfer
-If you select `FTPS`, you must choose a certificate stored in AWSCertificate Manager \(ACM\) which will be used to identify your server when clients connect to it over FTPS\.  
-If `Protocol` includes either `FTP` or `FTPS`, then the `EndpointType` must be `VPC` and the `IdentityProviderType` must be `AWS_DIRECTORY_SERVICE` or `API_GATEWAY`\.  
-If `Protocol` includes `FTP`, then `AddressAllocationIds` cannot be associated\.  
-If `Protocol` is set only to `SFTP`, the `EndpointType` can be set to `PUBLIC` and the `IdentityProviderType` can be set to `SERVICE_MANAGED`\.
++  `SFTP` \(Secure Shell \(SSH\) File Transfer Protocol\): File transfer over SSH
++  `FTPS` \(File Transfer Protocol Secure\): File transfer with TLS encryption
++  `FTP` \(File Transfer Protocol\): Unencrypted file transfer
++  `AS2` \(Applicability Statement 2\): used for transporting structured business\-to\-business data
++ If you select `FTPS`, you must choose a certificate stored in AWS Certificate Manager \(ACM\) which is used to identify your server when clients connect to it over FTPS\.
++ If `Protocol` includes either `FTP` or `FTPS`, then the `EndpointType` must be `VPC` and the `IdentityProviderType` must be `AWS_DIRECTORY_SERVICE` or `API_GATEWAY`\.
++ If `Protocol` includes `FTP`, then `AddressAllocationIds` cannot be associated\.
++ If `Protocol` is set only to `SFTP`, the `EndpointType` can be set to `PUBLIC` and the `IdentityProviderType` can be set to `SERVICE_MANAGED`\.
++ If `Protocol` includes `AS2`, then the `EndpointType` must be `VPC`, and domain must be Amazon S3\.
 Type: Array of strings  
-Array Members: Minimum number of 1 item\. Maximum number of 3 items\.  
-Valid Values:` SFTP | FTP | FTPS`   
+Array Members: Minimum number of 1 item\. Maximum number of 4 items\.  
+Valid Values:` SFTP | FTP | FTPS | AS2`   
 Required: No
 
  ** [SecurityPolicyName](#API_UpdateServer_RequestSyntax) **   <a name="TransferFamily-UpdateServer-request-SecurityPolicyName"></a>
@@ -162,7 +168,7 @@ Pattern: `^s-([0-9a-f]{17})$`
 Required: Yes
 
  ** [WorkflowDetails](#API_UpdateServer_RequestSyntax) **   <a name="TransferFamily-UpdateServer-request-WorkflowDetails"></a>
-Specifies the workflow ID for the workflow to assign and the execution role used for executing the workflow\.  
+Specifies the workflow ID for the workflow to assign and the execution role that's used for executing the workflow\.  
 To remove an associated workflow from a server, you can provide an empty `OnUpload` object, as in the following example\.  
  `aws transfer update-server --server-id s-01234567890abcdef --workflow-details '{"OnUpload":[]}'`   
 Type: [WorkflowDetails](API_WorkflowDetails.md) object  

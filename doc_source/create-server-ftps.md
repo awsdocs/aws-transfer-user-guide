@@ -30,11 +30,11 @@ The certificate must be a valid SSL/TLS X\.509 version 3 certificate with FQDN o
    + **AWS Directory Service for Microsoft Active Directory**: you provide an AWS Directory Service directory to access the endpoint\. By doing so, you can use credentials stored in your Active Directory to authenticate your users\. To learn more about working with AWS Managed Microsoft AD identity providers, see [Using the AWS Directory Service identity provider](directory-services-users.md)\.
 **Note**  
  Cross\-Account and Shared directories are not supported for AWS Managed Microsoft AD\.   
-
+![\[Console screenshot showing Choose identity provider dialog box with Managed AD selected.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/create-server-choose-idp-directory-services.png)
    + **Custom**: choose either of the following options:
      + **AWS Lambda** to integrate your identity provider: use your existing identity providers, backed by a Lambda function\. You provide the name of the Lambda function\. For more details, see [Using AWS Lambda to integrate your identity provider](custom-identity-provider-users.md#custom-lambda-idp)
      + **Amazon API Gateway method** backed by a Lambda function: create an API Gateway for use as an identity provider\. You provide an Amazon API Gateway URL and an invocation role\. For more details, see [Using Amazon API Gateway to integrate your identity provider](custom-identity-provider-users.md#authentication-api-gateway)\.  
-
+![\[Console screenshot showing Choose identity provider dialog box with Custom selected.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/custom-lambda-console.png)
 
 1. In **Choose an endpoint**, do the following:
 **Note**  

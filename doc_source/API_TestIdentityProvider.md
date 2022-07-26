@@ -46,7 +46,7 @@ The available protocols are:
 + File Transfer Protocol Secure \(FTPS\)
 + File Transfer Protocol \(FTP\)
 Type: String  
-Valid Values:` SFTP | FTP | FTPS`   
+Valid Values:` SFTP | FTP | FTPS | AS2`   
 Required: No
 
  ** [SourceIp](#API_TestIdentityProvider_RequestSyntax) **   <a name="TransferFamily-TestIdentityProvider-request-SourceIp"></a>
@@ -160,7 +160,7 @@ The following response shows a sample response for a successful test\.
 
 The following response indicates that the specified user belongs to more than one group that has access\.
 
-#### <a name="w341ab1c47c12c89c21b7b5"></a>
+#### <a name="w339ab1c54c12d140c21b7b5"></a>
 
 ```
           "Response":"",
@@ -181,9 +181,9 @@ The following response indicates that the specified user belongs to more than on
 + User role is *user\-role\-api\-gateway* 
 + Home directory is *myuser\-bucket* 
 + Public key is *public\-key* 
-+ Invokation URL is *invocation\-URL* 
++ Invocation URL is *invocation\-URL* 
 
-#### <a name="w341ab1c47c12c89c21b9c13"></a>
+#### <a name="w339ab1c54c12d140c21b9c13"></a>
 
 ```
 {

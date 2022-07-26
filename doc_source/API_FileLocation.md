@@ -10,7 +10,7 @@ Type: [EfsFileLocation](API_EfsFileLocation.md) object
 Required: No
 
  ** S3FileLocation **   <a name="TransferFamily-Type-FileLocation-S3FileLocation"></a>
-Specifies the S3 details for the file being used, such as bucket, Etag, and so forth\.  
+Specifies the S3 details for the file being used, such as bucket, ETag, and so forth\.  
 Type: [S3FileLocation](API_S3FileLocation.md) object  
 Required: No
 

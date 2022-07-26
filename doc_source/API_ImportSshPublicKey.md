@@ -29,9 +29,9 @@ Required: Yes
 
  ** [SshPublicKeyBody](#API_ImportSshPublicKey_RequestSyntax) **   <a name="TransferFamily-ImportSshPublicKey-request-SshPublicKeyBody"></a>
 The public key portion of an SSH key pair\.  
+ AWS Transfer Family accepts RSA, ECDSA, and ED25519 keys\.  
 Type: String  
 Length Constraints: Maximum length of 2048\.  
-Pattern: `^ssh-rsa\s+[A-Za-z0-9+/]+[=]{0,3}(\s+.+)?\s*$`   
 Required: Yes
 
  ** [UserName](#API_ImportSshPublicKey_RequestSyntax) **   <a name="TransferFamily-ImportSshPublicKey-request-UserName"></a>
@@ -107,32 +107,25 @@ HTTP Status Code: 400
 
 ### Example<a name="API_ImportSshPublicKey_Example_1"></a>
 
-The following example returns the properties assigned to a server\.
+This command imports an ECDSA key stored in the `id_ecdsa.pub` file\.
 
-#### Sample Request<a name="API_ImportSshPublicKey_Example_1_Request"></a>
+#### <a name="w339ab1c54c12c89c17b3b5"></a>
 
 ```
-{
-   "ServerId": "s-01234567890abcdef",
-   "SshPublicKeyBody": "AAAAB3NzaC1yc2EAAAADAQABAAABAQCOtfCAis3aHfM6yc8KWAlMQxVDBHyccCde9MdLf4DQNXn8HjAHf+Bc1vGGCAREFUL1NO2PEEKING3ALLOWEDfIf+JBecywfO35Cm6IKIV0JF2YOPXvOuQRs80hQaBUvQL9xw6VEb4xzbit2QB6",
-   "UserName": "my_user"
-}
+aws transfer import-ssh-public-key --server-id s-021345abcdef6789 --ssh-public-key-body file://id_ecdsa.pub --user-name jane-doe
 ```
 
 ### Example<a name="API_ImportSshPublicKey_Example_2"></a>
 
-This example illustrates one usage of ImportSshPublicKey\.
+If you run the previous command, the system returns the following information\.
 
-#### Sample Response<a name="API_ImportSshPublicKey_Example_2_Response"></a>
+#### <a name="w339ab1c54c12c89c17b5b5"></a>
 
 ```
-         
 {
-   "User": { 
-      "ServerId": "s-01234567890abcdef",
-      "SshPublicKeyId": "MySSHPublicKey",
-      "UserName": "my_user"
-   }
+    "ServerId": "s-021345abcdef6789",
+   "SshPublicKeyId": "key-1234567890abcdef0",
+   "UserName": "jane-doe"
 }
 ```
 

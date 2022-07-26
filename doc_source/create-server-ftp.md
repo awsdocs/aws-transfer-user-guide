@@ -7,17 +7,17 @@ File Transfer Protocol \(FTP\) is a network protocol used for the transfer of da
 1. Open the AWS Transfer Family console at [https://console\.aws\.amazon\.com/transfer/](https://console.aws.amazon.com/transfer/) and select **Servers** from the navigation pane, then choose **Create server**\.
 
 1. In **Choose protocols**, select **FTP**, and then choose **Next**\.  
-
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/create-server-choose-protocols-ftp.png)
 
 1. In **Choose an identity provider**, choose the identity provider that you want to use to manage user access\. You have the following options:
    + **AWS Directory Service for Microsoft Active Directory**: you provide an AWS Directory Service directory to access the endpoint\. By doing so, you can use credentials stored in your Active Directory to authenticate your users\. To learn more about working with AWS Managed Microsoft AD identity providers, see [Using the AWS Directory Service identity provider](directory-services-users.md)\.
 **Note**  
  Cross\-Account and Shared directories are not supported for AWS Managed Microsoft AD\.   
-
+![\[Console screenshot showing Choose identity provider dialog box with Managed AD selected.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/create-server-choose-idp-directory-services.png)
    + **Custom**: choose either of the following options:
      + **AWS Lambda** to integrate your identity provider: use your existing identity providers, backed by a Lambda function\. You provide the name of the Lambda function\. For more details, see [Using AWS Lambda to integrate your identity provider](custom-identity-provider-users.md#custom-lambda-idp)
      + **Amazon API Gateway method** backed by a Lambda function: create an API Gateway for use as an identity provider\. You provide an Amazon API Gateway URL and an invocation role\. For more details, see [Using Amazon API Gateway to integrate your identity provider](custom-identity-provider-users.md#authentication-api-gateway)\.  
-
+![\[Console screenshot showing Choose identity provider dialog box with Custom selected.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/custom-lambda-console.png)
 
 1. In **Choose an endpoint**, do the following:
 **Note**  
@@ -85,6 +85,6 @@ You will need to review each step after the step you chose to edit\.
 
 It can take a couple of minutes before the status for your new server changes to **Online**\. At that point, your server can perform file operations for your users\.
 
-
+![\[Console screenshot showing servers section with server ID and status of starting.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/servers-page.png)
 
 **Next steps** – For the next step, continue on to [Working with custom identity providers](custom-identity-provider-users.md) to set up users\.

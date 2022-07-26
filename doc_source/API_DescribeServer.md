@@ -53,6 +53,7 @@ Required: Yes
       "PostAuthenticationLoginBanner": "string",
       "PreAuthenticationLoginBanner": "string",
       "ProtocolDetails": { 
+         "As2Transports": [ "string" ],
          "PassiveIp": "string",
          "SetStatOption": "string",
          "TlsSessionResumptionMode": "string"

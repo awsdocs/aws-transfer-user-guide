@@ -159,7 +159,7 @@ On the AWS Transfer Family console, you can change the server host key\.
 
 1. On the **Server details** page, choose **Edit** next to **Additional details**\.
 
-1. In the **Server Host Key** section, enter an RSA private key that will be used to identify your server when clients connect to it over the SFTP\-enabled server\.
+1. In the **Server Host Key** section, enter an RSA, ECDSA, or ED25519 private key that is used to identify your server when clients connect to it over the SFTP\-enabled server\.
 
 1. Choose **Save**\. You are returned to the **Server details** page\.
 

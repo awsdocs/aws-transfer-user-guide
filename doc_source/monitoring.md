@@ -83,7 +83,7 @@ The confused deputy problem is a security issue where an entity that doesn't hav
 **Note**  
 In the following examples, replace each *user input placeholder* with your own information\.
 
-The following example logging policy allows any server in the account to assume the role\.
+The following example logging/invocation policy allows any server in the account to assume the role\.
 
 ```
 {
@@ -109,7 +109,7 @@ The following example logging policy allows any server in the account to assume 
 }
 ```
 
-The following example logging policy allows a specific server to assume the role\.
+The following example logging/invocation policy allows a specific server to assume the role\.
 
 ```
 {

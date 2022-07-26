@@ -119,12 +119,12 @@ Required: No
  ** [Steps](#API_CreateWorkflow_RequestSyntax) **   <a name="TransferFamily-CreateWorkflow-request-Steps"></a>
 Specifies the details for the steps that are in the specified workflow\.  
  The `TYPE` specifies which of the following actions is being taken for this step\.   
-+  *COPY*: copy the file to another location
-+  *CUSTOM*: custom step with a lambda target
-+  *DELETE*: delete the file
-+  *TAG*: add a tag to the file
++  *COPY*: Copy the file to another location\.
++  *CUSTOM*: Perform a custom step with an AWS Lambda function target\.
++  *DELETE*: Delete the file\.
++  *TAG*: Add a tag to the file\.
  Currently, copying and tagging are supported only on S3\. 
- For file location, you specify either the S3 bucket and key, or the EFS filesystem ID and path\.   
+ For file location, you specify either the S3 bucket and key, or the EFS file system ID and path\.   
 Type: Array of [WorkflowStep](API_WorkflowStep.md) objects  
 Array Members: Maximum number of 8 items\.  
 Required: Yes
@@ -189,7 +189,7 @@ HTTP Status Code: 400
 
 You can save workflow step information into a text file, and then use that file to create a workflow, as in the following example\. The following example assumes you have saved your workflow steps into ` example-file.json ` \(in the same folder from where you run the command\), and that you wish to create the workflow in the N\. Virginia \(us\-east\-1\) region\. 
 
-#### <a name="w341ab1c47c12c17c15b3b5"></a>
+#### <a name="w339ab1c54c12c26c15b3b5"></a>
 
 ```
 aws transfer create-workflow --description "example workflow from a file" --steps file://example-file.json --region us-east-1

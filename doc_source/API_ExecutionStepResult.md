@@ -5,7 +5,7 @@ Specifies the following details for the step: error \(if any\), outputs \(if any
 ## Contents<a name="API_ExecutionStepResult_Contents"></a>
 
  ** Error **   <a name="TransferFamily-Type-ExecutionStepResult-Error"></a>
-Specifies the details for an error, if it occurred during execution of the specified workfow step\.  
+Specifies the details for an error, if it occurred during execution of the specified workflow step\.  
 Type: [ExecutionError](API_ExecutionError.md) object  
 Required: No
 
@@ -17,10 +17,10 @@ Required: No
 
  ** StepType **   <a name="TransferFamily-Type-ExecutionStepResult-StepType"></a>
 One of the available step types\.  
-+  *COPY*: copy the file to another location
-+  *CUSTOM*: custom step with a lambda target
-+  *DELETE*: delete the file
-+  *TAG*: add a tag to the file
++  *COPY*: Copy the file to another location\.
++  *CUSTOM*: Perform a custom step with an AWS Lambda function target\.
++  *DELETE*: Delete the file\.
++  *TAG*: Add a tag to the file\.
 Type: String  
 Valid Values:` COPY | CUSTOM | TAG | DELETE`   
 Required: No

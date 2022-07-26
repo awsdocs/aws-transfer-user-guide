@@ -1,6 +1,6 @@
 # Create an SFTP\-enabled server<a name="create-server-sftp"></a>
 
-Secure Shell \(SSH\) File Transfer Protocol \(SFTP\) is a network protocol used for secure transfer of data over the internet\. The protocol supports the full security and authentication functionality of SSH\. It is widely used to exchange data, including sensitive information between business partners in a variety of industries such as financial services, healthcare, retail, and advertising\.
+Secure Shell \(SSH\) File Transfer Protocol \(SFTP\) is a network protocol used for secure transfer of data over the internet\. The protocol supports the full security and authentication functionality of SSH\. It's widely used to exchange data, including sensitive information between business partners in a variety of industries such as financial services, healthcare, retail, and advertising\.
 
 **Note**  
  SFTP servers for Transfer Family operate over port 22\. 
@@ -18,11 +18,11 @@ Secure Shell \(SSH\) File Transfer Protocol \(SFTP\) is a network protocol used 
    + **AWS Directory Service for Microsoft Active Directory**: you provide an AWS Directory Service directory to access the endpoint\. By doing so, you can use credentials stored in your Active Directory to authenticate your users\. To learn more about working with AWS Managed Microsoft AD identity providers, see [Using the AWS Directory Service identity provider](directory-services-users.md)\.
 **Note**  
  Cross\-Account and Shared directories are not supported for AWS Managed Microsoft AD\.   
-
+![\[Console screenshot showing Choose identity provider dialog box with Managed AD selected.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/create-server-choose-idp-directory-services.png)
    + **Custom**: choose either of the following options:
      + **AWS Lambda** to integrate your identity provider: use your existing identity providers, backed by a Lambda function\. You provide the name of the Lambda function\. For more details, see [Using AWS Lambda to integrate your identity provider](custom-identity-provider-users.md#custom-lambda-idp)
      + **Amazon API Gateway method** backed by a Lambda function: create an API Gateway for use as an identity provider\. You provide an Amazon API Gateway URL and an invocation role\. For more details, see [Using Amazon API Gateway to integrate your identity provider](custom-identity-provider-users.md#authentication-api-gateway)\.  
-
+![\[Console screenshot showing Choose identity provider dialog box with Custom selected.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/custom-lambda-console.png)
 
 1. Choose **Next**\.
 
@@ -70,7 +70,7 @@ If **FIPS Enabled endpoint** is selected, the `TransferSecurityPolicy-FIPS-2020-
       For more information about security policies, see [Working with security policies](security-policies.md)\.  
 ![\[Console screenshot showing cryptographic algorithm options section with a security policy selected.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/create-server-configure-additional-details-cryptographic-algorithm-options.png)
 
-   1. \(Optional\) For **Server Host Key**, enter an RSA private key that will be used to identify your server when clients connect to it over SFTP\.
+   1. \(Optional\) For **Server Host Key**, enter an RSA, ED25519, or ECDSA private key that will be used to identify your server when clients connect to it over SFTP\.
 **Note**  
 This section is only for migrating users from an existing SFTP\-enabled server\.  
 ![\[Console screenshot showing server host key section.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/create-server-configure-additional-details-server-host-key.png)

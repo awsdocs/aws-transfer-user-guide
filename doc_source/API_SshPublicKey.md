@@ -11,9 +11,9 @@ Required: Yes
 
  ** SshPublicKeyBody **   <a name="TransferFamily-Type-SshPublicKey-SshPublicKeyBody"></a>
 Specifies the content of the SSH public key as specified by the `PublicKeyId`\.  
+ AWS Transfer Family accepts RSA, ECDSA, and ED25519 keys\.  
 Type: String  
 Length Constraints: Maximum length of 2048\.  
-Pattern: `^ssh-rsa\s+[A-Za-z0-9+/]+[=]{0,3}(\s+.+)?\s*$`   
 Required: Yes
 
  ** SshPublicKeyId **   <a name="TransferFamily-Type-SshPublicKey-SshPublicKeyId"></a>

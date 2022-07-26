@@ -23,7 +23,7 @@ To use AWS Managed Microsoft AD, you must perform the following steps:
 
 1. Use the Transfer Family console to create a server that uses AWS Managed Microsoft AD as its identity provider\. 
 
-1. Create access from one or more of your AWS Directory Service groups\. 
+1. Add access from one or more of your AWS Directory Service groups\. 
 
 1. Although not required, we recommend that you test and verify user access\.
 
@@ -64,7 +64,7 @@ This section describes how to use AWS Directory Service for Microsoft Active Dir
 If you select **FTPS**, you must provide the AWS Certificate Manager certificate\. 
 
 1. For **Choose an identity provider**, choose **AWS Directory Service**\.  
-
+![\[Console screenshot showing Choose identity provider section with Directory Service selected.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/create-server-choose-idp-directory-services.png)
 
 1. The **Directory** list contains all the managed directories that you have configured\. Choose a directory from the list, and choose **Next**\.
 **Note**  
@@ -95,7 +95,7 @@ If you grant access to groupA, Bob is granted access\.
 
 1. Navigate to your server details page\.
 
-1.  In the **Accesses** section, choose **Create access**\. 
+1.  In the **Accesses** section, choose **Add access**\. 
 
 1.  Enter the SID for the AWS Managed Microsoft AD directory that you want to have access to this server\.
 **Note**  
@@ -118,13 +118,13 @@ You can limit the portions of the bucket that users see by creating a session po
 
 1. Choose your server\.
 
-1. Choose **Create access**\.
+1. Choose **Add access**\.
 
    1.  Enter the SID for the group\. 
 **Note**  
 For information about how to find the SID, see [Before you start](#managed-ad-prereq)\.
 
-1. Choose **Create access**\.
+1. Choose **Add access**\.
 
  In the **Accesses** section, the accesses for the server are listed\. 
 
@@ -147,14 +147,14 @@ A user must be in exactly one group \(an external ID\) that is listed in the **A
 
 You see a successful identity provider test, showing that the selected user has been granted access to the server\.
 
-
+![\[Console screenshot of the successful identity provider testing response.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/identity-provider-test-success.png)
 
 If the user belongs to more than one group that has access, you receive the following response\.
 
 ```
-          "Response":"",
-          "StatusCode":200,
-          "Message":"More than one associated access found for user's groups."
+"Response":"",
+"StatusCode":200,
+"Message":"More than one associated access found for user's groups."
 ```
 
 ### Deleting server access for a group<a name="directory-services-misc"></a>
@@ -172,7 +172,7 @@ If the user belongs to more than one group that has access, you receive the foll
 After you configure your server and users, you can connect to the server using SSH and use the fully qualified user name for a user that has access\. 
 
 ```
-            sftp user@active-directory-domain@vpc-endpoint
+sftp user@active-directory-domain@vpc-endpoint
 ```
 
 For example: `transferuserexample@mycompany.com@vpce-0123456abcdef-789xyz.vpc-svc-987654zyxabc.us-east-1.vpce.amazonaws.com`\.
@@ -304,7 +304,7 @@ Get-ADGroup -Filter {samAccountName -like "YourGroupName*"} -Properties * | Sele
 
 1. Open [https://console\.aws\.amazon\.com/transfer/](https://console.aws.amazon.com/transfer/)\.
 
-1. Navigate to your server details page and in the **Accesses** section, choose **Create access**\. 
+1. Navigate to your server details page and in the **Accesses** section, choose **Add access**\. 
 
 1. Enter the SID you received from the output of the previous procedure\.
 

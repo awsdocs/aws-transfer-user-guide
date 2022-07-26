@@ -4,6 +4,13 @@
 
 ## Contents<a name="API_ProtocolDetails_Contents"></a>
 
+ ** As2Transports **   <a name="TransferFamily-Type-ProtocolDetails-As2Transports"></a>
+Indicates the transport method for the AS2 messages\. Currently, only HTTP is supported\.  
+Type: Array of strings  
+Array Members: Fixed number of 1 item\.  
+Valid Values:` HTTP`   
+Required: No
+
  ** PassiveIp **   <a name="TransferFamily-Type-ProtocolDetails-PassiveIp"></a>
  Indicates passive mode, for FTP and FTPS protocols\. Enter a single IPv4 address, such as the public IP address of a firewall, router, or load balancer\. For example:   
  ` aws transfer update-server --protocol-details PassiveIp=0.0.0.0 `   

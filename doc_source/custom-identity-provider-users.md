@@ -160,8 +160,8 @@ The `"Url":` line is returned only if you are using an API Gateway method as you
 This section describes how to use an AWS Lambda function to back an API Gateway method\. Use this option if you need a RESTful API to integrate your identity provider or if you want to use AWS WAF to leverage its capabilities for geo\-blocking or rate\-limiting requests\.
 
 **Limitations if using an API Gateway to integrate your identity provider**
-+ This method does not support custom domains
-+ This method does not a private API Gateway URL
++ This configuration does not support custom domains\.
++ This configuration does not support a private API Gateway URL\.
 
 If you need either of these, you can use Lambda as an identity provider, without API Gateway\. For details, see [Using AWS Lambda to integrate your identity provider](#custom-lambda-idp)\.
 

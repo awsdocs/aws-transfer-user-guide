@@ -17,6 +17,9 @@ For more information, see [Policies and permissions in IAM](https://docs.aws.ama
 **Note**  
 In the following examples, replace each *user input placeholder* with your own information\. 
 
+**Note**  
+In our examples, we use both `ArnLike` and `ArnEquals`\. They are functionally identical, and therefore you may use either when you construct your policies\. Transfer Family documentation uses `ArnLike` when the condition contains a wildcard character, and `ArnEquals` to indicate an exact match condition\.
+
 ## AWS Transfer Family User role cross\-service confused deputy prevention<a name="user-role-cross-service"></a>
 
 The following example policy allows any user of any server in the account to assume the role\.
@@ -145,9 +148,12 @@ The following example policy allows a specific workflow to assume the role\.
 }
 ```
 
-## AWS Transfer Family Logging role cross\-service confused deputy prevention<a name="logging-role-cross-service"></a>
+## AWS Transfer Family logging and invocation role cross\-service confused deputy prevention<a name="logging-role-cross-service"></a>
 
-The following example logging policy allows any server in the account to assume the role\.
+**Note**  
+The following examples can be used in both logging and invocation roles\.
+
+The following example logging/invocation policy allows any server in the account to assume the role\.
 
 ```
 {
@@ -173,7 +179,7 @@ The following example logging policy allows any server in the account to assume 
 }
 ```
 
-The following example logging policy allows a specific server to assume the role\.
+The following example logging/invocation policy allows a specific server to assume the role\.
 
 ```
 {

@@ -15,7 +15,7 @@ To use AWS Transfer Family, you take the following high\-level steps:
 
 1. Create an Amazon S3 bucket or Amazon EFS file system\.
 
-    For information about using Amazon S3, see [Create an Amazon S3 bucket](requirements-S3.md)\. For information about using Amazon Elastic File System, see [Create an Amazon EFS file system](requirements-efs.md) \.
+    For information about using Amazon S3, see [Create an Amazon S3 bucket](requirements-S3.md)\. For information about using Amazon Elastic File System, see [Create an Amazon EFS file system](requirements-efs.md)\.
 
 1. Create an IAM role that contains two IAM policies:
    + An IAM policy that includes the permissions to enable AWS Transfer Family to access your Amazon S3 bucket or Amazon EFS file system\. This IAM policy determines what level of access you provide your AWS Transfer Family users\.

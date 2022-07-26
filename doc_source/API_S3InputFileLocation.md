@@ -16,7 +16,7 @@ Pattern: `^[a-z0-9][\.\-a-z0-9]{1,61}[a-z0-9]$`
 Required: No
 
  ** Key **   <a name="TransferFamily-Type-S3InputFileLocation-Key"></a>
-The name assigned to the file when it was created in S3\. You use the object key to retrieve the object\.  
+The name assigned to the file when it was created in Amazon S3\. You use the object key to retrieve the object\.  
 Type: String  
 Length Constraints: Maximum length of 1024\.  
 Pattern: `[\P{M}\p{M}]*`   

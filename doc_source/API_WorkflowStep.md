@@ -32,10 +32,10 @@ Required: No
 
  ** Type **   <a name="TransferFamily-Type-WorkflowStep-Type"></a>
  Currently, the following step types are supported\.   
-+  *COPY*: copy the file to another location
-+  *CUSTOM*: custom step with a lambda target
-+  *DELETE*: delete the file
-+  *TAG*: add a tag to the file
++  *COPY*: Copy the file to another location\.
++  *CUSTOM*: Perform a custom step with an AWS Lambda function target\.
++  *DELETE*: Delete the file\.
++  *TAG*: Add a tag to the file\.
 Type: String  
 Valid Values:` COPY | CUSTOM | TAG | DELETE`   
 Required: No

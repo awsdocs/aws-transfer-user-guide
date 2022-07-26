@@ -11,8 +11,8 @@
 + [Troubleshoot workflow copy errors](#source-bucket-region)
 + [Troubleshoot missing POSIX profile](#missing-posix-profile)
 + [Troubleshoot testing your identity provider](#blank-test-identity-provider)
-+ [Troubleshoot Amazon S3 file upload errors](#random-access-writes-s3)
-+ [Troubleshoot using Ed25519 keys](#ed25519key)
++ [Troubleshoot file upload issues](#file-upload-issues)
++ [Troubleshoot AS2 issues](#as2-troubleshooting-issues)
 
 ## Troubleshoot Amazon EFS service\-managed users<a name="transfer-service-managed-efs"></a>
 
@@ -303,7 +303,15 @@ The most likely cause is that the authentication failed because of an incorrect 
 
 Make sure that you are using the correct credentials for your user, and make updates to the user name or password, if necessary\.
 
-## Troubleshoot Amazon S3 file upload errors<a name="random-access-writes-s3"></a>
+## Troubleshoot file upload issues<a name="file-upload-issues"></a>
+
+This section describes possible solutions for the following issues:
+
+**Topics**
++ [Troubleshoot Amazon S3 file upload errors](#random-access-writes-s3)
++ [Troubleshoot unreadable file names](#non-utf8-issues)
+
+### Troubleshoot Amazon S3 file upload errors<a name="random-access-writes-s3"></a>
 
 **Description**
 
@@ -317,24 +325,20 @@ When you're using Amazon S3 for your server's storage, Transfer Family does not 
 
 If your Transfer Family server is using Amazon S3 for its storage, disable any options for your client software that mention using multiple connections for a single transfer\.
 
-## Troubleshoot using Ed25519 keys<a name="ed25519key"></a>
+### Troubleshoot unreadable file names<a name="non-utf8-issues"></a>
 
 **Description**
 
-You receive an error when you attempt to update an SFTP server or SFTP user to use an Ed25519 public or private key\.
-+ If you attempt to update the Transfer Family server's `hostkey`, you receive one of the following messages:
-  + If you're using the AWS Command Line Interface \(AWS CLI\), you receive the error Invalid host key format\.
-  + If you're using the console, you receive the message **Enter a valid RSA private key**\.
-+ If you attempt to update an SFTP user's SSH public key, you receive one of the following messages:
-  + If you're using the CLI, you receive a validation error\.
-  + If you're using the console, you receive the message **Enter a valid SSH public key**\.
+You see corrupted file names in some of your uploaded files\. Users sometimes encounter problems with FTP and SFTP transfers that garble certain characters in file names, such as umlauts, accented letters, or certain scripts, such as Chinese or Arabic\. 
 
 **Cause**
 
-Transfer Family does not currently support ED25519 keys\.
+Although the FTP and SFTP protocols can allow for character encoding of files names to be negotiated by clients, Amazon S3 and Amazon EFS do not\. Instead, they require UTF\-8 character encoding\. As a result, certain characters are not rendered correctly\. 
 
 **Solution**
 
-You can use only RSA keys for Transfer Family SFTP servers and users\.
+To solve this problem, review your client application for file name character encoding and make sure it is set to UTF\-8\.
 
-For more information, see the [SshPublicKeyBody](https://docs.aws.amazon.com/transfer/latest/userguide/API_ImportSshPublicKey.html#TransferFamily-ImportSshPublicKey-request-SshPublicKeyBody.html) or [HostKey](https://docs.aws.amazon.com/transfer/latest/userguide/API_UpdateServer.html#TransferFamily-UpdateServer-request-HostKey) parameter descriptions in the API documentation\.
+## Troubleshoot AS2 issues<a name="as2-troubleshooting-issues"></a>
+
+Error messages and troubleshooting tips for Applicability Statement 2 \(AS2\)\-enabled servers are described here: [AS2 error codes](as2-config-etc.md#as2-error-codes)\.

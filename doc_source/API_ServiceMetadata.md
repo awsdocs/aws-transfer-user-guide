@@ -1,6 +1,6 @@
 # ServiceMetadata<a name="API_ServiceMetadata"></a>
 
-A container object for the session details associated with a workflow\.
+A container object for the session details that are associated with a workflow\.
 
 ## Contents<a name="API_ServiceMetadata_Contents"></a>
 

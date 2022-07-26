@@ -59,7 +59,7 @@ To add the necessary tags, you need to add 2 keys, one for `aws:transfer:customH
    },
    {
       "Key": "aws:transfer:customHostname",
-      "Value": "abc.example.com"
+      "Value": "custom-host-name"
    }
  ]
 ```
@@ -70,29 +70,16 @@ To add the necessary tags, you need to add 2 keys, one for `aws:transfer:customH
  Your public, hosted zones and their IDs are available on Amazon Route 53\.   
 Sign in to the AWS Management Console and open the Route 53 console at [https://console\.aws\.amazon\.com/route53/](https://console.aws.amazon.com/route53/)\.
 
-To add these tags, you can use the console or issue a CLI command\.
-
-------
-#### [ Console ]
-
-**To add Key\-Value pair tags for a custom hostname**
-
-1. Open the AWS Transfer Family console at [https://console\.aws\.amazon\.com/transfer/](https://console.aws.amazon.com/transfer/)\.
-
-1. In the **Tags** section, select **Manage tags**\.
-
-1.  On the **Manage tags** screen, select **Add tag**\. 
-
-1.  Enter your key and value for the hosted zone ID and click **Save**\. Repeat this step to add the key and value for the custom hostname\. 
-
-------
-#### [ API ]
-
- To add the key\-value pairs using the API, issue the following commands: 
+To add these tags, you can issue the following CLI commands\.
 
 ```
 aws transfer tag-resource --arn "server-ARN:server/server-ID" --tags Key="aws:transfer:route53HostedZoneId,Value=/hostedzone/HOSTED-ZONE-ID"
-aws transfer tag-resource --arn "server-ARN:server/server-ID" --tags Key="aws:transfer:customHostname",Value="abc.example.com"
+aws transfer tag-resource --arn "server-ARN:server/server-ID" --tags Key="aws:transfer:customHostname",Value="custom-host-name"
 ```
 
-------
+The following commands contain sample values:
+
+```
+aws transfer tag-resource --arn "arn:aws:transfer:us-east-1:111122223333:server/s-1234567890abcdef0" --tags Key="aws:transfer:route53HostedZoneId,Value="/hostedzone/example.com"
+aws transfer tag-resource --arn "arn:aws:transfer:us-east-1:111122223333:server/s-1234567890abcdef0" --tags Key="aws:transfer:customHostname",Value="abc.example.com"
+```

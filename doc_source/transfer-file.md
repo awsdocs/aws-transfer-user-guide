@@ -9,11 +9,12 @@ This client works only with servers that are enabled for Secure Shell \(SSH\) Fi
 + FileZilla \(Windows, macOS, and Linux\)
 
 The following limitations apply to every client:
++ Amazon S3 and Amazon EFS \(due to the NFSv4 protocol\) require filenames to be in UTF\-8 encoding\. Using different encoding can lead to unexpected results\. For Amazon S3, see [Object key naming guidelines](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-keys.html#object-key-guidelines)\.
 + For File Transfer Protocol over SSL \(FTPS\), only Explicit mode is supported\. Implicit mode is not supported\.
 + For File Transfer Protocol \(FTP\) and FTPS, only Passive mode is supported\.
 + For FTP and FTPS, only STREAM mode is supported\.
 + For FTP and FTPS, only Image/Binary mode is supported\.
-+ For FTP and FTPS, TLS \- PROT C \(unprotected\) TLS for the data connection is the default but PROT C is not supported in the AWS Transfer Family FTPS protocol\. So for FTPS, you will need to issue PROT P for your data operation to be accepted\.
++ For FTP and FTPS, TLS \- PROT C \(unprotected\) TLS for the data connection is the default but PROT C is not supported in the AWS Transfer Family FTPS protocol\. So for FTPS, you need to issue PROT P for your data operation to be accepted\.
 + If you are using Amazon S3 for your server's storage, and if your client contains an option to use multiple connections for a single transfer, make sure to disable the option\. Otherwise, large file uploads can fail in unpredictable ways\. Note that if you are using Amazon EFS as your storage backend, EFS *does* support multiple connections for a single transfer\.
 
 The following is a list of available commands for FTP and FTPS:
@@ -38,26 +39,26 @@ For SFTP, the following operations are currently not supported for users that ar
 | --- | 
 | SSH\_FXP\_READLINK | SSH\_FXP\_SYMLINK | SSH\_FXP\_STAT when the requested file is a symlink | SSH\_FXP\_REALPATH when the requested path contains any symlink components | 
 
-**Avoid `setstat` errors**  
-Some SFTP file transfer clients can attempt to change the attributes of remote files, including timestamp and permissions, using commands, such as SETSTAT when uploading the file\. However, these commands are not compatible with object storage systems, such as Amazon S3\. Due to this incompatibility, file uploads from these clients can result in errors even when the file is otherwise successfully uploaded\.
-+ When you call the `CreateServer` or `UpdateServer` API, use the `ProtocolDetails` option `SetStatOption` to ignore the error that is generated when the client attempts to use SETSTAT on a file you are uploading to an S3 bucket\.
-+ Set the value to `ENABLE_NO_OP` to have the Transfer Family server ignore the SETSTAT command, and upload files without needing to make any changes to your SFTP client\.
-+ Note that while the `SetStatOption` `ENABLE_NO_OP` setting ignores the error, it *does* generate a log entry in CloudWatch Logs, so you can determine when the client is making a SETSTAT call\.
-
- For the API details for this option, see [ProtocolDetails](https://docs.aws.amazon.com/transfer/latest/userguide/API_ProtocolDetails.html)\.
-
 **Generate public\-private key pair**  
  Before you can transfer a file, you must have a public\-private key pair available\. If you have not previously generated a key pair, see [Generate SSH keys](key-management.md#sshkeygen)\. 
 
-Following, you can find how to transfer files with each client\.
-
 **Topics**
++ [Avoid `setstat` errors](#avoid-set-stat)
 + [Use OpenSSH](#openssh)
 + [Use WinSCP](#winscp)
 + [Use Cyberduck](#cyberduck)
 + [Use FileZilla](#filezilla)
 + [Use a Perl client](#using-clients-with-perl-modules)
 + [Post upload processing](#post-processing-upload)
+
+## Avoid `setstat` errors<a name="avoid-set-stat"></a>
+
+Some SFTP file transfer clients can attempt to change the attributes of remote files, including timestamp and permissions, using commands, such as SETSTAT when uploading the file\. However, these commands are not compatible with object storage systems, such as Amazon S3\. Due to this incompatibility, file uploads from these clients can result in errors even when the file is otherwise successfully uploaded\.
++ When you call the `CreateServer` or `UpdateServer` API, use the `ProtocolDetails` option `SetStatOption` to ignore the error that is generated when the client attempts to use SETSTAT on a file you are uploading to an S3 bucket\.
++ Set the value to `ENABLE_NO_OP` to have the Transfer Family server ignore the SETSTAT command, and upload files without needing to make any changes to your SFTP client\.
++ Note that while the `SetStatOption` `ENABLE_NO_OP` setting ignores the error, it *does* generate a log entry in CloudWatch Logs, so you can determine when the client is making a SETSTAT call\.
+
+ For the API details for this option, see [ProtocolDetails](https://docs.aws.amazon.com/transfer/latest/userguide/API_ProtocolDetails.html)\.
 
 ## Use OpenSSH<a name="openssh"></a>
 
@@ -152,7 +153,8 @@ If you leave this option selected, large file uploads can fail in unpredictable 
    You can use drag\-and\-drop methods to copy files between the target and source windows\. You can use toolbar icons to upload, download, delete, edit, or modify the properties of files in WinSCP\.
 
 **Note**  
-Because Amazon S3 manages object timestamps, be sure to disable WinSCP timestamp settings before you perform file transfers\. To do so, in the **WinSCP Transfer settings** dialog box, disable the **Set permissions** upload option and the **Preserve timestamp** common option\.
+This note does not apply if you are using Amazon EFS for storage\.  
+Commands that attempt to change attributes of remote files, including timestamps, are not compatible with object storage systems such as Amazon S3\. Therefore, if you are using Amazon S3 for storage, be sure to disable WinSCP timestamp settings \(or use the `SetStatOption` as described in [Avoid `setstat` errors](#avoid-set-stat)\) before you perform file transfers\. To do so, in the **WinSCP Transfer settings** dialog box, disable the **Set permissions** upload option and the **Preserve timestamp** common option\.
 
 ## Use Cyberduck<a name="cyberduck"></a>
 
@@ -243,7 +245,7 @@ You can view post upload processing information including Amazon S3 object metad
 
 ### Amazon S3 object metadata<a name="post-processing-S3-object-metadata"></a>
 
-As a part of your object's metadata you will see a key called `x-amz-meta-user-agent` whose value is `AWSTransfer` and `x-amz-meta-user-agent-id` whose value is `username@server-id`\. The `username` is the Transfer Family user who uploaded the file and `server-id` is the server used for the upload\. This information can be accessed using the [HeadObject](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectHEAD.html) operation on the S3 object inside your Lambda function\.
+As a part of your object's metadata you see a key called `x-amz-meta-user-agent` whose value is `AWSTransfer` and `x-amz-meta-user-agent-id` whose value is `username@server-id`\. The `username` is the Transfer Family user who uploaded the file and `server-id` is the server used for the upload\. This information can be accessed using the [HeadObject](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectHEAD.html) operation on the S3 object inside your Lambda function\.
 
 
 

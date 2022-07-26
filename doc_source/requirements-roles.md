@@ -51,6 +51,8 @@ Next, you create an IAM role and attach the new IAM policy to it\.
 Next, you establish a trust relationship between AWS Transfer Family and AWS\.<a name="establish-trust-transfer"></a>
 
 **To establish a trust relationship**
+**Note**  
+In our examples, we use both `ArnLike` and `ArnEquals`\. They are functionally identical, and therefore you may use either when you construct your policies\. Transfer Family documentation uses `ArnLike` when the condition contains a wildcard character, and `ArnEquals` to indicate an exact match condition\.
 
 1. In the IAM console, choose the role that you just created\.
 
@@ -86,12 +88,12 @@ Next, you establish a trust relationship between AWS Transfer Family and AWS\.<a
    }
    ```
 
-   You can also use the `ArnEquals` condition if you are looking to restrict to a particular server instead of any server in the user account\. For example: 
+   You can also use the `ArnLike` condition if you are looking to restrict to a particular server instead of any server in the user account\. For example: 
 
    ```
    "Condition": {    
-       "ArnEquals": {
-           "aws:SourceArn": "arn:aws:transfer:region:account-id:server/server-id"
+       "ArnLike": {
+           "aws:SourceArn": "arn:aws:transfer:region:account-id:user/server-id/*"
        }
    }
    ```

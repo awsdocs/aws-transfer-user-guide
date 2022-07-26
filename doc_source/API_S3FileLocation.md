@@ -1,6 +1,6 @@
 # S3FileLocation<a name="API_S3FileLocation"></a>
 
-Specifies the details for the file location for the file being used in the workflow\. Only applicable if you are using S3 storage\.
+Specifies the details for the file location for the file that's being used in the workflow\. Only applicable if you are using S3 storage\.
 
 ## Contents<a name="API_S3FileLocation_Contents"></a>
 
@@ -19,7 +19,7 @@ Pattern: `^.+$`
 Required: No
 
  ** Key **   <a name="TransferFamily-Type-S3FileLocation-Key"></a>
-The name assigned to the file when it was created in S3\. You use the object key to retrieve the object\.  
+The name assigned to the file when it was created in Amazon S3\. You use the object key to retrieve the object\.  
 Type: String  
 Length Constraints: Maximum length of 1024\.  
 Pattern: `[\P{M}\p{M}]*`   

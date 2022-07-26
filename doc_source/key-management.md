@@ -3,7 +3,7 @@
 In this section, you can find information about SSH keys, how to generate them, and how to rotate them\.
 
 **Note**  
- Currently, Transfer Family does not accept elliptical curve keys \(keys beginning with `ecdsa`\)\.
+AWS Transfer Family accepts RSA, ECDSA, and ED25519 keys\.
 
 **Topics**
 + [Generate SSH keys](#sshkeygen)
@@ -29,31 +29,46 @@ On the macOS, Linux, or UNIX operating systems, you use the `ssh-keygen` command
 
 1. On macOS, Linux, or UNIX operating systems, open a command terminal\.
 
-1. At the prompt, enter the following command: `ssh-keygen -P "" -m PEM -f key_name`\.
+1. AWS Transfer Family accepts RSA\-, ECDSA\-, and ED25519\-formatted keys\. Choose the appropriate command based on the type of key\-pair you are generating\.
+   + To generate an RSA 4096\-bit key pair:
+
+     ```
+     ssh-keygen -t rsa -b 4096 -N "" -f key_name
+     ```
+   + To generate an ECDSA 521\-bit key\-pair \(ECDSA has bit sizes of 256, 384, and 521\):
+
+     ```
+     ssh-keygen -t ecdsa -b 521 -N "" -f key_name
+     ```
+   + To generate an ED25519 key pair:
+
+     ```
+     ssh-keygen -t ed25519 -N "" -f key_name
+     ```
 **Note**  
  `key_name` is the SSH key pair file name\.
 
    The following shows an example of the `ssh-keygen` output\.
 
    ```
-   ssh-keygen -P "" -m PEM -f my_key_pair
+   ssh-keygen -t rsa -b 4096 -N "" -f key_name
    Generating public/private rsa key pair.
    
-   Your identification has been saved in my_key_pair.
-   Your public key has been saved in my_key_pair.pub.
+   Your identification has been saved in key_name.
+   Your public key has been saved in key_name.pub.
    The key fingerprint is:
    SHA256:8tDDwPmanTFcEzjTwPGETVWOGW1nVz+gtCCE8hL7PrQ bob.amazon.com
    The key's randomart image is:
-   +---[RSA 2048]----+
-   |.o..  BOB&+o.    |
-   |+ .. ++o%.Bo..   |
-   |.   o.+=o* o.    |
-   | . E o *+o       |
-   |  . . . S o      |
-   |   . o   . +     |
-   |    .     o      |
-   |                 |
-   |                 |
+   +---[RSA 4096]----+
+   |    . ....E      |
+   | .   = ...       |
+   |. . . = ..o      |
+   | . o +  oo =     |
+   |  + =  .S.= *    |
+   | . o o ..B + o   |
+   |     .o.+.* .    |
+   |     =o*+*.      |
+   |    ..*o*+.      |
    +----[SHA256]-----+
    ```
 
@@ -100,7 +115,10 @@ There are two methods used to perform SSH key rotation:
 
 1. Enter the new SSH public key and choose **Add key**\.
 **Important**  
-The format of the SSH public key is `ssh-rsa <string>`\.
+The format of the SSH public key depends on the type of key you generated\.  
+For RSA keys, the format is `ssh-rsa <string>`\.
+For ED25519 keys, the format is `ssh-ed25519 <string>`\.
+For ECDSA keys, the key begins with `ecdsa-sha2-nistp256`, `ecdsa-sha2-nistp384`, or `ecdsa-sha2-nistp521`, depending on the size of the key you generated\. The beginning string is then followed by *<string>*, similar to the other key types\.
 
    You are returned to the **User details** page, and the new SSH public key that you just entered appears in the **SSH public keys** section\.
 

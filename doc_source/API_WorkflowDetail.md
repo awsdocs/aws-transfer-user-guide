@@ -1,6 +1,6 @@
 # WorkflowDetail<a name="API_WorkflowDetail"></a>
 
-Specifies the workflow ID for the workflow to assign and the execution role used for executing the workflow\.
+Specifies the workflow ID for the workflow to assign and the execution role that's used for executing the workflow\.
 
 ## Contents<a name="API_WorkflowDetail_Contents"></a>
 

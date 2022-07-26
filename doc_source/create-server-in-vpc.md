@@ -81,7 +81,7 @@ By default, the `TransferSecurityPolicy-2020-06` security policy is attached to 
 
       For more information about security policies, see [Working with security policies](security-policies.md)\.
 
-   1. \(Optional\) For **Server Host Key**, enter an RSA private key that will be used to identify your server when clients connect to it over SFTP\.
+   1. \(Optional\) For **Server Host Key**, enter an RSA, ED25519, or ECDSA private key that will be used to identify your server when clients connect to it over SFTP\.
 **Note**  
 This section is only for migrating users from an existing SFTP\-enabled server\.
 
@@ -127,7 +127,7 @@ This procedure uses the service\-managed option\. If you choose **Custom**, you 
    1. \(Optional\) For **Custom hostname**, choose one of the following:
       + **Amazon Route 53 DNS alias** – if the hostname that you want to use is registered with Route 53\. You can then enter the hostname\.
       + **Other DNS** – if the hostname that you want to use is registered with another DNS provider\. You can then enter the hostname\.
-      + **None** – to use the server's endpoint and not use a custom hostname\. The server hostname takes the form `serverId.server.transfer.regionId.amazonaws.com`\.
+      + **None** – to use the server's endpoint and not use a custom hostname\. The server hostname takes the form `server-id.server.transfer.region.amazonaws.com`\.
 
         To learn more about working with custom hostnames, see [Working with custom hostnames](requirements-dns.md)\.
 
@@ -162,7 +162,7 @@ By default, the `TransferSecurityPolicy-2020-06` security policy is attached to 
 
       For more information about security policies, see [Working with security policies](security-policies.md)\.
 
-   1. \(Optional\) For **Server Host Key**, enter an RSA private key that will be used to identify your server when clients connect to it over SFTP\.
+   1. \(Optional\) For **Server Host Key**, enter an RSA, ED25519, or ECDSA private key that will be used to identify your server when clients connect to it over SFTP\.
 **Note**  
 This section is only for migrating users from an existing SFTP\-enabled server\.
 

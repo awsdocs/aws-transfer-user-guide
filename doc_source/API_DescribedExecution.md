@@ -39,7 +39,7 @@ Type: [ExecutionResults](API_ExecutionResults.md) object
 Required: No
 
  ** ServiceMetadata **   <a name="TransferFamily-Type-DescribedExecution-ServiceMetadata"></a>
-A container object for the session details associated with a workflow\.  
+A container object for the session details that are associated with a workflow\.  
 Type: [ServiceMetadata](API_ServiceMetadata.md) object  
 Required: No
 

@@ -24,16 +24,16 @@ Valid Values:` PUBLIC | VPC | VPC_ENDPOINT`
 Required: No
 
  ** IdentityProviderType **   <a name="TransferFamily-Type-ListedServer-IdentityProviderType"></a>
-Specifies the mode of authentication for a server\. The default value is `SERVICE_MANAGED`, which allows you to store and access user credentials within the AWS Transfer Family service\.  
-Use `AWS_DIRECTORY_SERVICE` to provide access to Active Directory groups in AWS Managed Active Directory or Microsoft Active Directory in your on\-premises environment or in AWS using AD Connectors\. This option also requires you to provide a Directory ID using the `IdentityProviderDetails` parameter\.  
-Use the `API_GATEWAY` value to integrate with an identity provider of your choosing\. The `API_GATEWAY` setting requires you to provide an API Gateway endpoint URL to call for authentication using the `IdentityProviderDetails` parameter\.  
-Use the `AWS_LAMBDA` value to directly use a Lambda function as your identity provider\. If you choose this value, you must specify the ARN for the lambda function in the `Function` parameter for the `IdentityProviderDetails` data type\.  
+The mode of authentication for a server\. The default value is `SERVICE_MANAGED`, which allows you to store and access user credentials within the AWS Transfer Family service\.  
+Use `AWS_DIRECTORY_SERVICE` to provide access to Active Directory groups in AWS Directory Service for Microsoft Active Directory or Microsoft Active Directory in your on\-premises environment or in AWS using AD Connector\. This option also requires you to provide a Directory ID by using the `IdentityProviderDetails` parameter\.  
+Use the `API_GATEWAY` value to integrate with an identity provider of your choosing\. The `API_GATEWAY` setting requires you to provide an Amazon API Gateway endpoint URL to call for authentication by using the `IdentityProviderDetails` parameter\.  
+Use the `AWS_LAMBDA` value to directly use an AWS Lambda function as your identity provider\. If you choose this value, you must specify the ARN for the Lambda function in the `Function` parameter or the `IdentityProviderDetails` data type\.  
 Type: String  
 Valid Values:` SERVICE_MANAGED | API_GATEWAY | AWS_DIRECTORY_SERVICE | AWS_LAMBDA`   
 Required: No
 
  ** LoggingRole **   <a name="TransferFamily-Type-ListedServer-LoggingRole"></a>
-Specifies the Amazon Resource Name \(ARN\) of the AWS Identity and Access Management \(IAM\) role that allows a server to turn on Amazon CloudWatch logging for Amazon S3 or Amazon EFS events\. When set, user activity can be viewed in your CloudWatch logs\.  
+The Amazon Resource Name \(ARN\) of the AWS Identity and Access Management \(IAM\) role that allows a server to turn on Amazon CloudWatch logging for Amazon S3 or Amazon EFSevents\. When set, you can view user activity in your CloudWatch logs\.  
 Type: String  
 Length Constraints: Minimum length of 20\. Maximum length of 2048\.  
 Pattern: `arn:.*role/.*`   
@@ -47,7 +47,7 @@ Pattern: `^s-([0-9a-f]{17})$`
 Required: No
 
  ** State **   <a name="TransferFamily-Type-ListedServer-State"></a>
-Specifies the condition of a server for the server that was described\. A value of `ONLINE` indicates that the server can accept jobs and transfer files\. A `State` value of `OFFLINE` means that the server cannot perform file transfer operations\.  
+The condition of the server that was described\. A value of `ONLINE` indicates that the server can accept jobs and transfer files\. A `State` value of `OFFLINE` means that the server cannot perform file transfer operations\.  
 The states of `STARTING` and `STOPPING` indicate that the server is in an intermediate state, either not fully able to respond, or not fully offline\. The values of `START_FAILED` or `STOP_FAILED` can indicate an error condition\.  
 Type: String  
 Valid Values:` OFFLINE | ONLINE | STARTING | STOPPING | START_FAILED | STOP_FAILED`   

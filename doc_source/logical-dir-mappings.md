@@ -12,7 +12,7 @@ You can create your own directory structure across buckets and prefixes\. This f
 
 Before you build your logical directory mappings, you should understand the following rules:
 + When `Entry` is `"/"`, you can have only one mapping because overlapping paths are not allowed\.
-+ Targets can use the `${Transfer:UserName}` variable if the bucket or file system path has been parameterized based on the user name\.
++ Targets can use the `${transfer:UserName}` variable if the bucket or file system path has been parameterized based on the user name\.
 + Targets can be paths in different buckets or file systems, but you must make sure that the mapped IAM role \(the `Role` parameter in the response\) provides access to those buckets or file systems\.
 + Do not specify the `HomeDirectory` parameter because this value is implied by the `Entry` `Target` pairs when using the `LOGICAL` value for the `HomeDirectoryType` parameter\.
 + Do not use leading or trailing slashes \(/\) when you specify the `Target`\. For example, `/DOC-EXAMPLE-BUCKET/images` is acceptable, while `DOC-EXAMPLE-BUCKET/images` and `/DOC-EXAMPLE-BUCKET/images/` are not\.
@@ -47,11 +47,11 @@ For chroot, create a directory structure that consists of a single `Entry` and `
 
 ------
 
-You can use an absolute path as in the previous example, or you can use a dynamic substitution for the user name with `${Transfer:UserName}`, as in the following example\.
+You can use an absolute path as in the previous example, or you can use a dynamic substitution for the user name with `${transfer:UserName}`, as in the following example\.
 
 ```
 [{"Entry": "/", "Target":
-"/mybucket/${Transfer:UserName}"}]
+"/mybucket/${transfer:UserName}"}]
 ```
 
 In the preceding example, the user is locked to their root directory and cannot traverse up higher in the hierarchy\.

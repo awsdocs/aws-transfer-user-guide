@@ -1,6 +1,6 @@
 # CreateProfile<a name="API_CreateProfile"></a>
 
-Creates the profile for the AS2 process\. The agreement is between the partner and the AS2 process\.
+Creates the local or partner profile to use for AS2 transfers\.
 
 ## Request Syntax<a name="API_CreateProfile_RequestSyntax"></a>
 
@@ -39,7 +39,9 @@ Pattern: `^cert-([0-9a-f]{17})$`
 Required: No
 
  ** [ProfileType](#API_CreateProfile_RequestSyntax) **   <a name="TransferFamily-CreateProfile-request-ProfileType"></a>
-Indicates whether to list only `LOCAL` type profiles or only `PARTNER` type profiles\. If not supplied in the request, the command lists all types of profiles\.  
+Determines the type of profile to create:  
++ Specify `LOCAL` to create a local profile\. A local profile represents the AS2\-enabled Transfer Family server organization or party\.
++ Specify `PARTNER` to create a partner profile\. A partner profile represents a remote organization, external to Transfer Family\.
 Type: String  
 Valid Values:` LOCAL | PARTNER`   
 Required: Yes
@@ -98,7 +100,7 @@ The following example creates a profile, and returns the profile ID\.
 
 The certificate IDs are created when you run `import-certificate`, one for the signing certificate, and one for the encryption certificate\.
 
-#### <a name="w339ab1c54c12c17c15b3b7"></a>
+#### <a name="w385ab1c52c12c17c15b3b7"></a>
 
 ```
 aws transfer create-profile --as2-id MYCORP --certificate-ids c-abcdefg123456hijk 
@@ -109,7 +111,7 @@ aws transfer create-profile --as2-id MYCORP --certificate-ids c-abcdefg123456hij
 
 The API call returns the profile ID for the new profile\.
 
-#### <a name="w339ab1c54c12c17c15b5b5"></a>
+#### <a name="w385ab1c52c12c17c15b5b5"></a>
 
 ```
 {

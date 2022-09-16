@@ -89,7 +89,7 @@ The outbound process is defined as a message or file being sent from AWS to an e
 
 1. A transfer HTTP client performs an HTTP POST request to transmit the payload to the partner's AS2 server\. 
 
-1. The process returns the signed MDN response, either inline with the HTTP response \(for synchronous MDN\) or though a separate HTTP POST request \(asynchronous MDN\)\.
+1. The process returns the signed MDN response, inline with the HTTP response \(synchronous MDN\)\.
 
 1. As the file moves between different stages of transmission, the process delivers the MDN response receipt and processing details to the customer\. 
 
@@ -117,7 +117,9 @@ For inbound file transfers, note the following:
   + `connector-id`
   + `failure-message`
   + `file-path`
+  + `message-subject`
   + `mdn-message-id`
+  + `mdn-subject`
   + `requester-file-name`
   + `requester-content-type`
   + `server-id`
@@ -143,9 +145,9 @@ For outbound transfers, the naming is similar, with the difference that there is
   If you run this command, MDN and JSON files are saved in `DOC-EXAMPLE-BUCKET/AS2-folder/processed` \(for successful transfers\), or `DOC-EXAMPLE-BUCKET/AS2-folder/failed` \(for unsuccessful transfers\)\.
 + A JSON file is created and saved as `original_filename.transferId.messageId.original_extension.json`\.
 + An MDN file is created and saved as `original_filename.transferId.messageId.original_extension.mdn`\.
-+ If there is an outbound file named `openAs2TestOutboundSyncMdn.dat`, the following files are created:
-  + **JSON** – `openAs2TestOutboundSyncMdn.dedf4601-4e90-4043-b16b-579af35e0d83.fbe18db8-7361-42ff-8ab6-49ec1e435f34@c9c705f0baaaabaa.dat.json`
-  + **MDN** – `openAs2TestOutboundSyncMdn.dedf4601-4e90-4043-b16b-579af35e0d83.fbe18db8-7361-42ff-8ab6-49ec1e435f34@c9c705f0baaaabaa.dat.mdn`
++ If there is an outbound file named `ExampleFileOutTestOutboundSyncMdn.dat`, the following files are created:
+  + **JSON** – `ExampleFileOutTestOutboundSyncMdn.dedf4601-4e90-4043-b16b-579af35e0d83.fbe18db8-7361-42ff-8ab6-49ec1e435f34@c9c705f0baaaabaa.dat.json`
+  + **MDN** – `ExampleFileOutTestOutboundSyncMdn.dedf4601-4e90-4043-b16b-579af35e0d83.fbe18db8-7361-42ff-8ab6-49ec1e435f34@c9c705f0baaaabaa.dat.mdn`
 
 You can also check the CloudWatch logs to view the details of your transfers, including any that failed\.
 
@@ -158,17 +160,18 @@ Sample outbound file that is successfully transferred:
 ```
 {
   "requester-content-type": "application/octet-stream",
-  "subject": "Test run from Id 8d4dae49ab8646f392862e5c957b605e to partner b52ba41754f84182a6b312b748744d49",
-  "requester-file-name": "openAs2TestOutboundSyncMdn-necco-9lmCr79hV.dat",
+  "mesage-subject": "File xyzTest from MyCompany_OID to partner YourCompany",
+  "requester-file-name": "TestOutboundSyncMdn-9lmCr79hV.dat",
   "as2-from": "MyCompany_OID",
   "connector-id": "c-c21c63ceaaf34d99b",
   "status-code": "COMPLETED",
   "disposition": "automatic-action/MDN-sent-automatically; processed",
   "transfer-size": 3198,
   "mdn-message-id": "OPENAS2-11072022063009+0000-df865189-1450-435b-9b8d-d8bc0cee97fd@PartnerA_OID_MyCompany_OID",
+  "mdn-subject": "Message be18db8-7361-42ff-8ab6-49ec1e435f34@c9c705f0baaaabaa has been accepted",
   "as2-to": "PartnerA_OID",
   "transfer-id": "dedf4601-4e90-4043-b16b-579af35e0d83",
-  "file-path": "/DOC-EXAMPLE-BUCKET/as2IntegCell0002/openAs2/openAs2TestOutboundSyncMdn-necco-9lmCr79hV.dat",
+  "file-path": "/DOC-EXAMPLE-BUCKET/as2testcell0000/openAs2/TestOutboundSyncMdn-9lmCr79hV.dat",
   "as2-message-id": "fbe18db8-7361-42ff-8ab6-49ec1e435f34@c9c705f0baaaabaa",
   "timestamp": "2022-07-11T06:30:10.791274Z"
 }
@@ -205,6 +208,7 @@ Sample inbound file that is successfully transferred:
   "status-code": "COMPLETED",
   "disposition": "automatic-action/MDN-sent-automatically; processed",
   "transfer-size": 1050,
+  "mdn-subject": "Message Disposition Notification",
   "as2-message-id": "OPENAS2-11072022233606+0000-5dab0452-0ca1-4f9b-b622-fba84effff3c@MyCompany_OID_PartnerA_OID",
   "as2-to": "PartnerA_OID",
   "agreement-id": "a-f5c5cbea5f7741988",

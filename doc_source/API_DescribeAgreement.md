@@ -25,7 +25,7 @@ Pattern: `^a-([0-9a-f]{17})$`
 Required: Yes
 
  ** [ServerId](#API_DescribeAgreement_RequestSyntax) **   <a name="TransferFamily-DescribeAgreement-request-ServerId"></a>
-The server ID that's associated with the agreement\.  
+The server identifier that's associated with the agreement\.  
 Type: String  
 Length Constraints: Fixed length of 19\.  
 Pattern: `^s-([0-9a-f]{17})$`   

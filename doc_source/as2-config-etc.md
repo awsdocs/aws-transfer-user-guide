@@ -49,8 +49,12 @@ The following limits are in place for AS2 file transfers\.
 | Inbound AS2 requests in progress per server | 100 | Yes | 
 | Outbound AS2 requests per second per connector | 25 | Yes | 
 | Outbound AS2 requests in progress per connector | 100 | Yes | 
-| Maximum file size \(compressed or uncompressed\) | 500 MB | Yes | 
+| Maximum file size \(compressed or uncompressed\) | 50 MB | Yes | 
 | Inactivity timeout | 350 seconds | No | 
+| Maximum number of partner profiles per account | 1000 \(up to 10 certificates per partner profile: not adjustable\) | Yes | 
+| Maximum number of certificates per account | 1000 | Yes | 
+| Maximum number of connectors per account | 100 | Yes | 
+| Maximum number of agreements per server | 100 | Yes | 
 
 **Known limitations**
 + Server\-side TCP keep\-alive is not supported\. The connection times out after 350 seconds of inactivity unless the client sends keep\-alive packets\.

@@ -46,6 +46,9 @@ Use the following Windows PowerShell command to retrieve the SID for a group, re
 Get-ADGroup -Filter {samAccountName -like "YourGroupName*"} -Properties * | Select SamAccountName,ObjectSid
 ```
 
+**Note**  
+If you are using AWS Directory Service as your identity provider, and if `userPrincipalName` and `SamAccountName` have different values, AWS Transfer Family accepts the value in `SamAccountName`\. Transfer Family does not accept the value specified in `userPrincipalName`\.
+
 ### Choosing AWS Managed Microsoft AD as your identity provider<a name="managed-ad-identity-provider"></a>
 
 This section describes how to use AWS Directory Service for Microsoft Active Directory with a server\.
@@ -186,7 +189,7 @@ After authenticating, the user is located in the home directory that you specifi
 
 ### Connecting AWS Transfer Family to a self\-managed Active Directory using forests and trusts<a name="directory-services-ad-trust"></a>
 
-Users in your self\-managed Active Directory \(AD\) can also have SSO access to AWS accounts and Transfer Family servers\. To do that, AWS Directory Service has the following options available:
+Users in your self\-managed Active Directory \(AD\) can also use AWS IAM Identity Center \(successor to AWS Single Sign\-On\) for single sign\-on access to AWS accounts and Transfer Family servers\. To do that, AWS Directory Service has the following options available:
 + One\-way forest trust \(outgoing from AWS Managed Microsoft AD and incoming for on\-premises Active Directory\) works only for the root domain\.
 + For child domains, you can use either of the following:
   + Use two\-way trust between AWS Managed Microsoft AD and on\-premises Active Directory

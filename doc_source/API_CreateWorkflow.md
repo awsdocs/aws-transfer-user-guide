@@ -189,7 +189,7 @@ HTTP Status Code: 400
 
 You can save workflow step information into a text file, and then use that file to create a workflow, as in the following example\. The following example assumes you have saved your workflow steps into ` example-file.json ` \(in the same folder from where you run the command\), and that you wish to create the workflow in the N\. Virginia \(us\-east\-1\) region\. 
 
-#### <a name="w339ab1c54c12c26c15b3b5"></a>
+#### <a name="w385ab1c52c12c26c15b3b5"></a>
 
 ```
 aws transfer create-workflow --description "example workflow from a file" --steps file://example-file.json --region us-east-1

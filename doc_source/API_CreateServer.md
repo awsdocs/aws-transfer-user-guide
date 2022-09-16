@@ -96,7 +96,7 @@ Valid Values:` PUBLIC | VPC | VPC_ENDPOINT`
 Required: No
 
  ** [HostKey](#API_CreateServer_RequestSyntax) **   <a name="TransferFamily-CreateServer-request-HostKey"></a>
-The RSA, ECDSA, or ED25519 private key to use for your server\.  
+The RSA, ECDSA, or ED25519 private key to use for your SFTP\-enabled server\. You can add multiple host keys, in case you want to rotate keys, or have a set of active keys that use different algorithms\.  
 Use the following command to generate an RSA 2048 bit key with no passphrase:  
  `ssh-keygen -t rsa -b 2048 -N "" -m PEM -f my-new-server-key`\.  
 Use a minimum value of 2048 for the `-b` option\. You can create a stronger key by using 3072 or 4096\.  
@@ -107,7 +107,7 @@ Use the following command to generate an ED25519 key with no passphrase:
  `ssh-keygen -t ed25519 -N "" -f my-new-server-key`\.  
 For all of these commands, you can replace *my\-new\-server\-key* with a string of your choice\.  
 If you aren't planning to migrate existing users from an existing SFTP\-enabled server to a new server, don't update the host key\. Accidentally changing a server's host key can be disruptive\.
-For more information, see [Change the host key for your SFTP\-enabled server](https://docs.aws.amazon.com/transfer/latest/userguide/edit-server-config.html#configuring-servers-change-host-key) in the * AWS Transfer Family User Guide*\.  
+For more information, see [Update host keys for your SFTP\-enabled server](https://docs.aws.amazon.com/transfer/latest/userguide/edit-server-config.html#configuring-servers-change-host-key) in the * AWS Transfer Family User Guide*\.  
 Type: String  
 Length Constraints: Maximum length of 4096\.  
 Required: No
@@ -207,7 +207,7 @@ If the action is successful, the service sends back an HTTP 200 response\.
 The following data is returned in JSON format by the service\.
 
  ** [ServerId](#API_CreateServer_ResponseSyntax) **   <a name="TransferFamily-CreateServer-response-ServerId"></a>
-The service\-assigned ID of the server that is created\.  
+The service\-assigned identifier of the server that is created\.  
 Type: String  
 Length Constraints: Fixed length of 19\.  
 Pattern: `^s-([0-9a-f]{17})$` 

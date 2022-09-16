@@ -112,13 +112,13 @@ If the action is successful, the service sends back an HTTP 200 response\.
 The following data is returned in JSON format by the service\.
 
  ** [ExternalId](#API_UpdateAccess_ResponseSyntax) **   <a name="TransferFamily-UpdateAccess-response-ExternalId"></a>
-The external ID of the group whose users have access to your Amazon S3 or Amazon EFS resources over the enabled protocols using AWSTransfer Family\.  
+The external identifier of the group whose users have access to your Amazon S3 or Amazon EFS resources over the enabled protocols using AWSTransfer Family\.  
 Type: String  
 Length Constraints: Minimum length of 1\. Maximum length of 256\.  
 Pattern: `^S-1-[\d-]+$` 
 
  ** [ServerId](#API_UpdateAccess_ResponseSyntax) **   <a name="TransferFamily-UpdateAccess-response-ServerId"></a>
-The ID of the server that the user is attached to\.  
+The identifier of the server that the user is attached to\.  
 Type: String  
 Length Constraints: Fixed length of 19\.  
 Pattern: `^s-([0-9a-f]{17})$` 

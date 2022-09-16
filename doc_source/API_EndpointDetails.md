@@ -30,7 +30,7 @@ Type: Array of strings
 Required: No
 
  ** VpcEndpointId **   <a name="TransferFamily-Type-EndpointDetails-VpcEndpointId"></a>
-The ID of the VPC endpoint\.  
+The identifier of the VPC endpoint\.  
 This property can only be set when `EndpointType` is set to `VPC_ENDPOINT`\.  
 For more information, see [Discontinuing the use of VPC\_ENDPOINTYou can change the endpoint type for your server using the Transfer Family console, AWS CLI, API, SDKs, or AWS CloudFormation\. To change your server’s endpoint type, see [Updating the AWS Transfer Family server endpoint type from VPC\_ENDPOINT to VPC](update-endpoint-type-vpc.md)\.](create-server-in-vpc.md#deprecate-vpc-endpoint)\.
 Type: String  
@@ -39,7 +39,7 @@ Pattern: `^vpce-[0-9a-f]{17}$`
 Required: No
 
  ** VpcId **   <a name="TransferFamily-Type-EndpointDetails-VpcId"></a>
-The VPC ID of the VPC in which a server's endpoint will be hosted\.  
+The VPC identifier of the VPC in which a server's endpoint will be hosted\.  
 This property can only be set when `EndpointType` is set to `VPC`\.
 Type: String  
 Required: No

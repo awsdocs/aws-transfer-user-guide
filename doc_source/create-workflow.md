@@ -63,8 +63,12 @@ If you do not already have a workflow, choose **Create a new Workflow** to creat
    1. Choose an execution role\. This is the role that Transfer Family assumes when executing the workflow's steps\. For more information, see [IAM policies for workflows](workflow-execution-role.md)\. Choose **Save**\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/workflows-addtoserver.png)
 
-**Execute a workflow**  
+**Execute a workflow**
+
 To execute a workflow, you upload a file to a Transfer Family server that you configured with an associated workflow\.
+
+**Note**  
+If you remove a workflow from a server, and replace it with a new one, you need to wait approximately 10 minutes before executing the new workflow\. The Transfer Family server caches the workflow details, and it takes 10 minutes for the server to refresh its cache\.
 
 **Example**  
 

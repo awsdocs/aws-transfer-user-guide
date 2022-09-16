@@ -14,7 +14,8 @@ Also, note that the `GetObjectACL` and `PutObjectACL` statements are only requir
         {
             "Sid": "AllowListingOfUserFolder",
             "Action": [
-                "s3:ListBucket"  
+                "s3:ListBucket",
+                "s3:GetBucketLocation"
             ],
             "Effect": "Allow",
             "Resource": [
@@ -28,8 +29,7 @@ Also, note that the `GetObjectACL` and `PutObjectACL` statements are only requir
                 "s3:PutObject",
                 "s3:GetObject",
                 "s3:DeleteObject",
-                "s3:DeleteObjectVersion",
-                "s3:GetBucketLocation", 
+                "s3:DeleteObjectVersion", 
                 "s3:GetObjectVersion",
                 "s3:GetObjectACL",
                 "s3:PutObjectACL"

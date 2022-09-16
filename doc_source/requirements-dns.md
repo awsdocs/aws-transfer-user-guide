@@ -44,7 +44,7 @@ To do so, set your domain to the endpoint hostname for the server\. An endpoint 
 
 ## Custom hostnames for non\-console created servers<a name="tag-custom-hostname-cdk"></a>
 
-When you create a server using AWS Cloud Development Kit \(CDK\) or through the CLI, you must add tags if you want that server to have a custom hostname\. When you create a Transfer Family server by using the console, the tagging is done automatically\.
+When you create a server using AWS Cloud Development Kit \(AWS CDK\) or through the CLI, you must add tags if you want that server to have a custom hostname\. When you create a Transfer Family server by using the console, the tagging is done automatically\.
 
 **Note**  
  You also need to create a DNS record to redirect traffic from your domain to your server endpoint\. 

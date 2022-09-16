@@ -17,7 +17,7 @@ For information about the parameters that are common to all actions, see [Common
 The request accepts the following data in JSON format\.
 
  ** [ProfileId](#API_DeleteProfile_RequestSyntax) **   <a name="TransferFamily-DeleteProfile-request-ProfileId"></a>
-The ID of the profile that you are deleting\.  
+The identifier of the profile that you are deleting\.  
 Type: String  
 Length Constraints: Fixed length of 19\.  
 Pattern: `^p-([0-9a-f]{17})$`   

@@ -69,7 +69,7 @@ If the action is successful, the service sends back an HTTP 200 response\.
 The following data is returned in JSON format by the service\.
 
  ** [Access](#API_DescribeAccess_ResponseSyntax) **   <a name="TransferFamily-DescribeAccess-response-Access"></a>
-The external ID of the server that the access is attached to\.  
+The external identifier of the server that the access is attached to\.  
 Type: [DescribedAccess](API_DescribedAccess.md) object
 
  ** [ServerId](#API_DescribeAccess_ResponseSyntax) **   <a name="TransferFamily-DescribeAccess-response-ServerId"></a>

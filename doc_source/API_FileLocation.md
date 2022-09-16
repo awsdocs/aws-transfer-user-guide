@@ -5,7 +5,7 @@ Specifies the Amazon S3 or EFS file details to be used in the step\.
 ## Contents<a name="API_FileLocation_Contents"></a>
 
  ** EfsFileLocation **   <a name="TransferFamily-Type-FileLocation-EfsFileLocation"></a>
-Specifies the Amazon EFS ID and the path for the file being used\.  
+Specifies the Amazon EFS identifier and the path for the file being used\.  
 Type: [EfsFileLocation](API_EfsFileLocation.md) object  
 Required: No
 

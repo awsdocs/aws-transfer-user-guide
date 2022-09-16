@@ -7,7 +7,7 @@ AWS Transfer Family supports transferring data from or to the following AWS stor
 + Amazon Elastic File System \(Amazon EFS\) Network File System \(NFS\) file systems\. For information about Amazon EFS, see [What Is Amazon Elastic File System?](https://docs.aws.amazon.com/efs/latest/ug/whatisefs.html)
 
 AWS Transfer Family supports transferring data over the following protocols:
-+ Secure Shell \(SSH\) File Transfer Protocol \(SFTP\)
++ Secure Shell \(SSH\) File Transfer Protocol \(SFTP\): version 3
 + File Transfer Protocol Secure \(FTPS\)
 + File Transfer Protocol \(FTP\)
 + Applicability Statement 2 \(AS2\)
@@ -17,7 +17,7 @@ AWS Transfer Family supports transferring data over the following protocols:
 
 File transfer protocols are used in data exchange workflows across different industries such as financial services, healthcare, advertising, and retail, among others\. Transfer Family simplifies the migration of file transfer workflows to AWS\.
 
-Common use cases for using Transfer Family with Amazon S3 are the following:
+The following are some common use cases for using Transfer Family with Amazon S3:
 + Data lakes in AWS for uploads from third parties such as vendors and partners\.
 + Subscription\-based data distribution with your customers\.
 + Internal transfers within your organization\.

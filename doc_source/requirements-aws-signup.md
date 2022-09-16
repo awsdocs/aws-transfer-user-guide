@@ -4,13 +4,15 @@ When you sign up for Amazon Web Services \(AWS\), your AWS account is automatica
 
 If you have an AWS account already, skip to the next task\. If you don't have an AWS account, use the following procedure to create one\.
 
-**To create an AWS account**
+If you do not have an AWS account, complete the following steps to create one\.
 
-1. Open [https://portal.aws.amazon.com/billing/signup](https://portal.aws.amazon.com/billing/signup)\.
+**To sign up for an AWS account**
+
+1. Open [https://portal\.aws\.amazon\.com/billing/signup](https://portal.aws.amazon.com/billing/signup)\.
 
 1. Follow the online instructions\.
 
-   Part of the sign\-up procedure involves receiving a phone call and entering a verification code using the phone keypad\.
+   Part of the sign\-up procedure involves receiving a phone call and entering a verification code on the phone keypad\.
 
 For information about pricing and to use AWS Pricing Calculator to get an estimate of the cost to use Transfer Family, see [AWS Transfer Family pricing](http://aws.amazon.com/sftp/pricing/)\.
 

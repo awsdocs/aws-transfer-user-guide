@@ -1,6 +1,6 @@
 # Working with security policies<a name="security-policies"></a>
 
-Server security policies in AWS Transfer Family allow you to limit the set of cryptographic algorithms \(message authentication codes \(MACs\), key exchanges \(KEXs\), and cipher suites\) associated with your server\. For a list of supported cryptographic algorithms, see [Cryptographic algorithms](#cryptographic-algorithms)\.
+Server security policies in AWS Transfer Family allow you to limit the set of cryptographic algorithms \(message authentication codes \(MACs\), key exchanges \(KEXs\), and cipher suites\) associated with your server\. For a list of supported cryptographic algorithms, see [Cryptographic algorithms](#cryptographic-algorithms)\. For a list of supported key algorithms for use with server host keys and service\-managed user keys, see [Supported algorithms for user and server keys](key-management.md#key-algorithms)\.
 
 **Note**  
  We support TLS 1\.2\.
@@ -33,8 +33,6 @@ The following is a list of supported cryptographic algorithms for each security 
 |  aes256\-ctr  |  ♦  |  ♦  |  ♦  |  ♦  | 
 |  aes256\-gcm@openssh\.com  |  ♦  |  ♦  |  ♦  |  ♦  | 
 |  chacha20\-poly1305@openssh\.com  |     |  ♦  |     |  ♦  | 
-|  aes256\-cbc  |  ♦  |     |     |     | 
-|  aes192\-cbc  |  ♦  |     |     |     | 
 |  KEXs  | 
 | --- |
 |  diffie\-hellman\-group14\-sha256  |     |  ♦  |  ♦  |  ♦  | 
@@ -85,9 +83,7 @@ The following shows the TransferSecurityPolicy\-2022\-03 security policy\. This 
       "aes256-gcm@openssh.com",
       "aes128-gcm@openssh.com",
       "aes256-ctr",
-      "aes192-ctr",
-      "aes256-cbc",
-      "aes192-cbc"
+      "aes192-ctr"
     ],
     "SshKexs": [
       "curve25519-sha256",
@@ -222,6 +218,8 @@ The following shows the TransferSecurityPolicy\-2018\-11 security policy\. This 
 ```
 
 ## TransferSecurityPolicy\-FIPS\-2020\-06<a name="security-policy-transfer-fips-2020-06"></a>
+
+The FIPS certification details for AWS Transfer Family can be found at [https://csrc.nist.gov/projects/cryptographic-module-validation-program/validated-modules/search/all](https://csrc.nist.gov/projects/cryptographic-module-validation-program/validated-modules/search/all)
 
 The following shows the TransferSecurityPolicy\-FIPS\-2020\-06 security policy\. This security policy contains all supported FIPS compliant cryptographic algorithms\. This is the default security policy for FIPS enabled server endpoints\.
 

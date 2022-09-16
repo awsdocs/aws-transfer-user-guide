@@ -1,6 +1,6 @@
 # ListedWorkflow<a name="API_ListedWorkflow"></a>
 
-Contains the ID, text description, and Amazon Resource Name \(ARN\) for the workflow\.
+Contains the identifier, text description, and Amazon Resource Name \(ARN\) for the workflow\.
 
 ## Contents<a name="API_ListedWorkflow_Contents"></a>
 

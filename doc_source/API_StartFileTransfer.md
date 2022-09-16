@@ -1,6 +1,6 @@
 # StartFileTransfer<a name="API_StartFileTransfer"></a>
 
-Begins an outbound file transfer\. You specify the `ConnectorId` and the file paths for where to send the files\. 
+Begins an outbound file transfer to a remote AS2 server\. You specify the `ConnectorId` and the file paths for where to send the files\. 
 
 ## Request Syntax<a name="API_StartFileTransfer_RequestSyntax"></a>
 

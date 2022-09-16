@@ -17,7 +17,7 @@ For information about the parameters that are common to all actions, see [Common
 The request accepts the following data in JSON format\.
 
  ** [CertificateId](#API_DeleteCertificate_RequestSyntax) **   <a name="TransferFamily-DeleteCertificate-request-CertificateId"></a>
-The ID of the certificate object that you are deleting\.  
+The identifier of the certificate object that you are deleting\.  
 Type: String  
 Length Constraints: Fixed length of 22\.  
 Pattern: `^cert-([0-9a-f]{17})$`   

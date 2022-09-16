@@ -90,23 +90,23 @@ Some AS2\-enabled servers, such as OpenAS2, require that you use the same certif
 1. Run the following commands to create Certificate Signing Requests \(CSRs\) for the root key to sign\.
 
    ```
-   /usr/bin/openssl req -new -key signing-key.pem -subj
+   /usr/bin/openssl req -new -key signing-key.pem -subj \
    "/C=US/ST=MA/L=Boston/O=TransferFamilyCustomer/OU=IT-dept/CN=Signer" -out signing-key-csr.pem
    ```
 
    ```
-   /usr/bin/openssl req -new -key encryption-key.pem -subj
+   /usr/bin/openssl req -new -key encryption-key.pem -subj \
    "/C=US/ST=MA/L=Boston/O=TransferFamilyCustomer/OU=IT-dept/CN=Encrypter" -out encryption-key-csr.pem
    ```
 
 1. Next, you must create a `signing-cert.conf` file and an `encryption-cert.conf` file\.
-   + Run this command to create the `signing-cert.conf` file:
+   + Use a text editor to create the `signing-cert.conf` file with the following contents:
 
      ```
      authorityKeyIdentifier=keyid,issuer
      keyUsage = digitalSignature, nonRepudiation
      ```
-   + Run this command to create the `encryption-cert.conf` file:
+   + Use a text editor to create the `encryption-cert.conf` file with the following contents:
 
      ```
      authorityKeyIdentifier=keyid,issuer
@@ -116,12 +116,12 @@ Some AS2\-enabled servers, such as OpenAS2, require that you use the same certif
 1. Finally, you create the signed certificates by running the following commands\.
 
    ```
-   /usr/bin/openssl x509 -req -sha256 -CAcreateserial -days 1825 -in signing-key-csr.pem -out signing-cert.pem -CA
+   /usr/bin/openssl x509 -req -sha256 -CAcreateserial -days 1825 -in signing-key-csr.pem -out signing-cert.pem -CA \
    root-ca.pem -CAkey root-ca-key.pem -extfile signing-cert.conf
    ```
 
    ```
-   /usr/bin/openssl x509 -req -sha256 -CAcreateserial -days 1825 -in encryption-key-csr.pem -out encryption-cert.pem
+   /usr/bin/openssl x509 -req -sha256 -CAcreateserial -days 1825 -in encryption-key-csr.pem -out encryption-cert.pem \
    -CA root-ca.pem -CAkey root-ca-key.pem -extfile encryption-cert.conf
    ```
 
@@ -149,7 +149,8 @@ To use these instructions, you need the following:
    ```
    aws transfer create-server --endpoint-type VPC \
    --endpoint-details VpcId=vpc-abcdef01,SubnetIds=subnet-abcdef01,subnet-abcdef01,subnet-
-   021345ab,SecurityGroupIds=sg-abcdef01234567890,sg-1234567890abcdef0 --protocols AS2
+   021345ab,SecurityGroupIds=sg-abcdef01234567890,sg-1234567890abcdef0 --protocols AS2 \
+   --protocol-details As2Transports=HTTP
    ```
 
 1. \(Optional\) You can make the VPC endpoint public\. You can attach Elastic IP addresses to a Transfer Family server only through an `update-server` operation\. The following commands stop the server, update it with Elastic IP addresses, and then start it again\.
@@ -160,7 +161,7 @@ To use these instructions, you need the following:
 
    ```
    aws transfer update-server --server-id your-server-id --endpoint-details \
-   VpcIAddressAllocationIds=eipalloc-abcdef01234567890,eipalloc-1234567890abcdef0,eipalloc-abcd012345ccccccc
+   AddressAllocationIds=eipalloc-abcdef01234567890,eipalloc-1234567890abcdef0,eipalloc-abcd012345ccccccc
    ```
 
    ```
@@ -225,7 +226,7 @@ To import the signing and encryption certificates that you created in step 1, ru
 
 ```
 aws transfer import-certificate --usage SIGNING --certificate file://signing-cert.pem \
-            --private-key file://signingkey.pem --certificate-chain file://root-ca.pem
+            --private-key file://signing-key.pem --certificate-chain file://root-ca.pem
 ```
 
 This command returns your signing `CertificateId`\. In the next section, this certificate ID is referred to as `my-signing-cert-id`\.
@@ -269,7 +270,7 @@ This command returns your profile ID\. In the next section, this ID is referred 
 Now create the partner profile by running the following command\. This command uses only your partner's public key certificates\. To use this command, replace the `user input placeholders` with your own information; for example, your partner's AS2 name and certificate IDs\.
 
 ```
-aws transfer create- profile --as2-id PARTNER-COMPANY --profile-type PARTNER --certificate-ids \
+aws transfer create-profile --as2-id PARTNER-COMPANY --profile-type PARTNER --certificate-ids \
 partner-signing-cert-id partner-encrypt-cert-id
 ```
 
@@ -301,15 +302,15 @@ To create an agreement, you need the following items:
 Create the agreement by running the following command\.
 
 ```
-aws transfer create-agreement --agreement-name "ExampleAgreementName" --server-id your-server-id \
---profile-id your-profile-id --partner-profile-id your-partner-profile-id --base-folder /DOC-EXAMPLE-BUCKET/AS2-inbox \
+aws transfer create-agreement --description "ExampleAgreementName" --server-id your-server-id \
+--local-profile-id your-profile-id --partner-profile-id your-partner-profile-id --base-directory /DOC-EXAMPLE-BUCKET/AS2-inbox \
 --access-role arn:aws:iam::111111111111:role/TransferAS2AccessRole
 ```
 
 If successful, this command returns the ID for the agreement\. You can then view the details of the agreement with the following command\.
 
 ```
-aws transfer describe-agreement --agreement-id agreement-id
+aws transfer describe-agreement --agreement-id agreement-id --server-id your-server-id
 ```
 
 ## Step 6: Create a connector between you and your partner<a name="as2-create-connector-example"></a>

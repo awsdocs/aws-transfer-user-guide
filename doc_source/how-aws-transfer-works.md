@@ -1,9 +1,10 @@
 # How AWS Transfer Family works<a name="how-aws-transfer-works"></a>
 
 AWS Transfer Family is a fully managed AWS service that you can use to transfer files into and out of Amazon Simple Storage Service \(Amazon S3\) storage or Amazon Elastic File System \(Amazon EFS\) file systems over the following protocols:
-+ Secure Shell \(SSH\) File Transfer Protocol \(SFTP\)
++ Secure Shell \(SSH\) File Transfer Protocol \(SFTP\): version 3
 + File Transfer Protocol Secure \(FTPS\)
 + File Transfer Protocol \(FTP\)
++ Applicability Statement 2 \(AS2\)
 
  AWS Transfer Family supports up to 3 Availability Zones and is backed by an auto scaling, redundant fleet for your connection and transfer requests\. For an example on how to build for higher redundancy and minimize network latency by using Latency\-based routing, see [Minimize network latency with your AWS Transfer for SFTP servers](http://aws.amazon.com/blogs/storage/minimize-network-latency-with-your-aws-transfer-for-sftp-servers/)\. 
 

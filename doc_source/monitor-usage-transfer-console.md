@@ -4,12 +4,12 @@
 
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/transfer/latest/userguide/monitor-usage-transfer-console.html)
 
- The **Monitoring** section contains four, individual graphs\. 
+ The **Monitoring** section contains four, individual graphs\. These graphs show the bytes in, bytes out, files in, and files out\. 
 
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/metrics.png)
+![\[The Monitoring console section showing the BytesIn, BytesOut, FilesIn, and FilesOut graphs.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/metrics.png)
 
- You can select the expand icon \(![\[Image NOT FOUND\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/expand.png)\) to open the selected graph in its own window\. You can also click a graph's vertical ellipsis \(![\[Image NOT FOUND\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/vertical-ellipsis.png)\) to open a dropdown menu with the following items: 
-+ **Enlarge**: opens the selected graph in its own window\.
-+ **Refresh**: reloads the graph using most recent data\.
-+ **View in metrics**: opens the corresponding metrics details in CloudWatch\.
-+ **View logs**: opens the corresponding log group in CloudWatch\.
+ To open the selected graph in its own window, choose the expand icon \(![\[Image NOT FOUND\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/expand.png)\)\. You can also click a graph's vertical ellipsis icon \(![\[Image NOT FOUND\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/vertical-ellipsis.png)\) to open a dropdown menu with the following items: 
++ **Enlarge** – Opens the selected graph in its own window\.
++ **Refresh** – Reloads the graph with the most recent data\.
++ **View in metrics** – Opens the corresponding metrics details in Amazon CloudWatch\.
++ **View logs** – Opens the corresponding log group in CloudWatch\.

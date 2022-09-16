@@ -9,6 +9,7 @@ In either case, you can create a new server using the [AWS Transfer Family conso
 **Topics**
 + [Using AWS Lambda to integrate your identity provider](#custom-lambda-idp)
 + [Lambda resource\-based policy](#lambda-resource-policy)
++ [Event message structure](#event-message-structure)
 + [Lambda functions for authentication](#authentication-lambda-examples)
 + [Using Amazon API Gateway to integrate your identity provider](#authentication-api-gateway)
 
@@ -19,7 +20,7 @@ Create an AWS Lambda function that connects to your custom identity provider\. Y
 **Note**  
 Before you create a Transfer Family server that uses Lambda as the identity provider, you must create the function\. For an example Lambda function, see [Default Lambda function](#authentication-lambda-examples-default)\. Or, you can deploy a CloudFormation stack that uses a [Lambda function templates](#lambda-idp-templates)\. Also, make sure your Lambda function uses a resource\-based policy that trusts Transfer Family\. For an example policy, see [Lambda resource\-based policy](#lambda-resource-policy)\.
 
-1. Open the AWS Transfer Family console at [https://console\.aws\.amazon\.com/transfer/](https://console.aws.amazon.com/transfer/)\.
+1. Open the [AWS Transfer Family console](https://console.aws.amazon.com/transfer/)\.
 
 1. Choose **Create server** to open the **Create server** page\. For **Choose an identity provider**, choose **Custom Identity Provider**, as shown in the following screenshot\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/custom-lambda-console.png)
@@ -56,6 +57,49 @@ You must have a policy that references the Transfer Family server and Lambda ARN
   ]
 }
 ```
+
+## Event message structure<a name="event-message-structure"></a>
+
+The event message structure from SFTP server sent to the authorizer Lambda function for a custom IDP is as follows\.
+
+```
+{
+    'username': 'value',
+    'password': 'value',
+    'protocol': 'SFTP',
+    'serverId': 's-abcd123456',
+    'sourceIp': '192.168.0.100'
+}
+```
+
+Where `username` and `password` are the values for username and password that are sent to the server\.
+
+For example, you enter the following command to connect:
+
+```
+sftp bobusa@server_hostname
+```
+
+You are then prompted to enter your password:
+
+```
+Enter password:
+    mysecretpassword
+```
+
+You can check this from your Lambda function by printing the passed event from within the Lambda function\. It should look similar to the following text block\.
+
+```
+{
+    'username': 'bobusa',
+    'password': 'mysecretpassword',
+    'protocol': 'SFTP',
+    'serverId': 's-abcd123456',
+    'sourceIp': '192.168.0.100'
+}
+```
+
+The event structure is similar for FTP and FTPS: the only difference is those values are used for the `protocol` parameter, rather than SFTP\.
 
 ## Lambda functions for authentication<a name="authentication-lambda-examples"></a>
 
@@ -111,7 +155,7 @@ After you create your custom identity provider, you should test your configurati
 
 **To test your configuration by using the AWS Transfer Family console**
 
-1. Open the AWS Transfer Family console at [https://console\.aws\.amazon\.com/transfer/](https://console.aws.amazon.com/transfer/)\.
+1. Open the [AWS Transfer Family console](https://console.aws.amazon.com/transfer/)\. 
 
 1. On the **Servers** page, choose your new server, choose **Actions**, and then choose **Test**\.
 

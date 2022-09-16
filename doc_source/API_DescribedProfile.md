@@ -1,6 +1,6 @@
 # DescribedProfile<a name="API_DescribedProfile"></a>
 
-The details for a local or partner AS2 profile\. profile\.
+The details for a local or partner AS2 profile\. 
 
 ## Contents<a name="API_DescribedProfile_Contents"></a>
 

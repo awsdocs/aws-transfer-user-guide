@@ -129,7 +129,7 @@ If the action is successful, the service sends back an HTTP 200 response\.
 The following data is returned in JSON format by the service\.
 
  ** [ServerId](#API_CreateUser_ResponseSyntax) **   <a name="TransferFamily-CreateUser-response-ServerId"></a>
-The ID of the server that the user is attached to\.  
+The identifier of the server that the user is attached to\.  
 Type: String  
 Length Constraints: Fixed length of 19\.  
 Pattern: `^s-([0-9a-f]{17})$` 

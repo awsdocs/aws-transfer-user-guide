@@ -30,16 +30,18 @@ AWS Transfer Family provides several methods for authenticating and managing use
 
 | Action | AWS Transfer Family service managed | AWS Managed Microsoft AD | Amazon API Gateway | AWS Lambda | 
 | --- | --- | --- | --- | --- | 
-|  Logical home directory  |  Yes  |  Yes  |  Yes  |  Yes  | 
-|  AWS Identity and Access Management \(IAM\) and POSIX  |  Yes  |  Yes  |  Yes  |  Yes  | 
-|  Ad hoc access structure  |  Yes  |  No  |  Yes  |  Yes  | 
-|  Password authentication  |  No  |  Yes  |  Yes  |  Yes  | 
+| Supported protocols | SFTP | SFTP, FTPS, FTP | SFTP, FTPS, FTP | SFTP, FTPS, FTP | 
 |  Key\-based authentication  |  Yes  |  No  |  Yes  |  Yes  | 
+|  Password authentication  |  No  |  Yes  |  Yes  |  Yes  | 
+|  AWS Identity and Access Management \(IAM\) and POSIX  |  Yes  |  Yes  |  Yes  |  Yes  | 
+|  Logical home directory  |  Yes  |  Yes  |  Yes  |  Yes  | 
+| Parameterized access \(username\-based\) | Yes | Yes | Yes | Yes | 
+|  Ad hoc access structure  |  Yes  |  No  |  Yes  |  Yes  | 
 |  AWS WAF  |  No  |  No  |  Yes  |  No  | 
 
 Notes:
 + IAM is used to control access for Amazon S3 backing storage, and POSIX is used for Amazon EFS\.
-+ *Ad hoc* refers to the ability to send the user profile at run time\. For example, you can land users in their home directories by passing the user name as a variable\.
++ *Ad hoc* refers to the ability to send the user profile at runtime\. For example, you can land users in their home directories by passing the user name as a variable\.
 + For details about AWS WAF, see [Add a web application firewall](web-application-firewall.md)\.
 
 In the following procedures, you can create an SFTP\-enabled server, FTPS\-enabled server, FTP\-enabled server, or AS2\-enabled server\.

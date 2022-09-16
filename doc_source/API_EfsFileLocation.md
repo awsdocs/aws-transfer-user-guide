@@ -7,7 +7,7 @@ Reserved for future use\.
 ## Contents<a name="API_EfsFileLocation_Contents"></a>
 
  ** FileSystemId **   <a name="TransferFamily-Type-EfsFileLocation-FileSystemId"></a>
-The ID of the file system, assigned by Amazon EFS\.  
+The identifier of the file system, assigned by Amazon EFS\.  
 Type: String  
 Length Constraints: Maximum length of 128\.  
 Pattern: `^(arn:aws[-a-z]*:elasticfilesystem:[0-9a-z-:]+:(access-point/fsap|file-system/fs)-[0-9a-f]{8,40}|fs(ap)?-[0-9a-f]{8,40})$`   

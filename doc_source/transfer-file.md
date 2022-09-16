@@ -1,6 +1,7 @@
 # Transferring files using a client<a name="transfer-file"></a>
 
 You transfer files over the AWS Transfer Family service by specifying the transfer operation in a client\. AWS Transfer Family supports the following clients:
++ We support version 3 of the SFTP protocol\.
 + OpenSSH \(macOS and Linux\)
 **Note**  
 This client works only with servers that are enabled for Secure Shell \(SSH\) File Transfer Protocol \(SFTP\)\.

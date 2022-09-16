@@ -15,7 +15,10 @@ Before you build your logical directory mappings, you should understand the foll
 + Targets can use the `${transfer:UserName}` variable if the bucket or file system path has been parameterized based on the user name\.
 + Targets can be paths in different buckets or file systems, but you must make sure that the mapped IAM role \(the `Role` parameter in the response\) provides access to those buckets or file systems\.
 + Do not specify the `HomeDirectory` parameter because this value is implied by the `Entry` `Target` pairs when using the `LOGICAL` value for the `HomeDirectoryType` parameter\.
-+ Do not use leading or trailing slashes \(/\) when you specify the `Target`\. For example, `/DOC-EXAMPLE-BUCKET/images` is acceptable, while `DOC-EXAMPLE-BUCKET/images` and `/DOC-EXAMPLE-BUCKET/images/` are not\.
++ Targets should begin with a slash \(/\) character, but do not use trailing slashes \(/\) when you specify the `Target`\. For example, `/DOC-EXAMPLE-BUCKET/images` is acceptable, while `DOC-EXAMPLE-BUCKET/images` and `/DOC-EXAMPLE-BUCKET/images/` are not\.
+
+**Important**  
+The root directory must exist on start\-up\. For Amazon S3, this means you must have already created an empty\-byte object ending with `/` to create the root folder\.
 
 ## Implementing logical directories and chroot<a name="implement-log-dirs"></a>
 

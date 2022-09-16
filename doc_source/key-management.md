@@ -6,8 +6,24 @@ In this section, you can find information about SSH keys, how to generate them, 
 AWS Transfer Family accepts RSA, ECDSA, and ED25519 keys\.
 
 **Topics**
++ [Supported algorithms for user and server keys](#key-algorithms)
 + [Generate SSH keys](#sshkeygen)
 + [Rotate SSH keys](#keyrotation)
+
+## Supported algorithms for user and server keys<a name="key-algorithms"></a>
+
+The following key algorithms are supported for use within AWS Transfer Family:
++ For ED25519: `ssh-ed25519`
++ For RSA:
+  + `rsa-sha2-256`
+  + `rsa-sha2-512`
++ For ECDSA:
+  + `ecdsa-sha2-nistp256`
+  + `ecdsa-sha2-nistp384`
+  + `ecdsa-sha2-nistp521`
+
+**Note**  
+We support `ssh-rsa` with SHA1 for our older security policies \(all policies except for [TransferSecurityPolicy\-2022\-03](security-policies.md#security-policy-transfer-2022-03)\)\.
 
 ## Generate SSH keys<a name="sshkeygen"></a>
 

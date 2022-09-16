@@ -13,9 +13,11 @@ Required: No
 
  ** PassiveIp **   <a name="TransferFamily-Type-ProtocolDetails-PassiveIp"></a>
  Indicates passive mode, for FTP and FTPS protocols\. Enter a single IPv4 address, such as the public IP address of a firewall, router, or load balancer\. For example:   
- ` aws transfer update-server --protocol-details PassiveIp=0.0.0.0 `   
-Replace ` 0.0.0.0 ` in the example above with the actual IP address you want to use\.  
+ `aws transfer update-server --protocol-details PassiveIp=0.0.0.0`   
+Replace `0.0.0.0` in the example above with the actual IP address you want to use\.  
  If you change the `PassiveIp` value, you must stop and then restart your Transfer Family server for the change to take effect\. For details on using passive mode \(PASV\) in a NAT environment, see [Configuring your FTPS server behind a firewall or NAT with AWS Transfer Family](http://aws.amazon.com/blogs/storage/configuring-your-ftps-server-behind-a-firewall-or-nat-with-aws-transfer-family/)\. 
+ *Special values*   
+The `AUTO` and `0.0.0.0` are special values for the `PassiveIp` parameter\. The value `PassiveIp=AUTO` is assigned by default to FTP and FTPS type servers\. In this case, the server automatically responds with one of the endpoint IPs within the PASV response\. `PassiveIp=0.0.0.0` has a more unique application for its usage\. For example, if you have a High Availability \(HA\) Network Load Balancer \(NLB\) environment, where you have 3 subnets, you can only specify a single IP address using the `PassiveIp` parameter\. This reduces the effectiveness of having High Availability\. In this case, you can specify `PassiveIp=0.0.0.0`\. This tells the client to use the same IP address as the Control connection and utilize all AZs for their connections\. Note, however, that not all FTP clients support the `PassiveIp=0.0.0.0` response\. FileZilla and WinSCP do support it\. If you are using other clients, check to see if your client supports the `PassiveIp=0.0.0.0` response\.  
 Type: String  
 Length Constraints: Maximum length of 15\.  
 Required: No

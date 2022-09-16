@@ -14,11 +14,15 @@ By orchestrating file\-processing tasks, managed workflows help you preprocess d
 
 To quickly replicate and standardize common post\-upload file processing tasks spanning multiple business units in your organization, you can deploy workflows by using infrastructure as code \(IaC\)\. Managed workflows are initiated only on fully uploaded files, ensuring that data quality is maintained\. Built\-in exception handling helps you quickly react to file\-processing outcomes, while offering you control over how to handle failures\. In addition, each workflow step produces detailed logs, which you can audit to trace the data lineage\.
 
-To get started, first set up your workflow to contain preprocessing actions, such as copying, tagging, and other steps based on your requirements\. Next, map the workflow to a server, so that on file arrival, the actions specified in this workflow are evaluated and initiated in real time\. To monitor your workflow executions, see [Using CloudWatch metrics for Transfer Family](monitoring.md#metrics)\. For detailed execution logs and troubleshooting information, see [Troubleshoot workflow\-related errors using Amazon CloudWatch](troubleshooting.md#workflows-cloudwatch-errors)\.
+To get started, perform the following tasks:
 
-For more help getting started with managed workflows, see the following resources: 
-+ [AWS Transfer Family Managed Workflows Demo video](https://www.youtube.com/watch?v=t-iNqCRospw)
-+ [Building a Cloud\-Native File Transfer Platform Using AWS Transfer Family Workflows blog post](http://aws.amazon.com/blogs/architecture/building-a-cloud-native-file-transfer-platform-using-aws-transfer-family-workflows/)
+1. Set up your workflow to contain preprocessing actions, such as copying, tagging, and other steps based on your requirements\. See [Create a workflow](create-workflow.md) for details\.
+
+1. Configure an execution role, which Transfer Family uses to run the workflow\. See [IAM policies for workflows](workflow-execution-role.md) for details\.
+
+1. Map the workflow to a server, so that on file arrival, the actions specified in this workflow are evaluated and initiated in real time\. See [ Configure and execute a workflow ](create-workflow.md#configure-workflow) for details\.
+
+To monitor your workflow executions, see [Using CloudWatch metrics for Transfer Family](monitoring.md#metrics)\. For detailed execution logs and troubleshooting information, see [Troubleshoot workflow\-related errors using Amazon CloudWatch](troubleshooting.md#workflows-cloudwatch-errors)\.
 
 **Topics**
 + [Create a workflow](create-workflow.md)
@@ -29,3 +33,7 @@ For more help getting started with managed workflows, see the following resource
 + [Monitor workflow execution](cloudwatch-workflow.md)
 + [Create workflow from template](workflow-template.md)
 + [Managed workflows restrictions and limitations](limitations-workflow.md)
+
+For more help getting started with managed workflows, see the following resources: 
++ [AWS Transfer Family Managed Workflows Demo video](https://www.youtube.com/watch?v=t-iNqCRospw)
++ [Building a Cloud\-Native File Transfer Platform Using AWS Transfer Family Workflows blog post](http://aws.amazon.com/blogs/architecture/building-a-cloud-native-file-transfer-platform-using-aws-transfer-family-workflows/)

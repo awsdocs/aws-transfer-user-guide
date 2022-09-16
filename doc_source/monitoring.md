@@ -4,6 +4,7 @@ You can monitor activity in your server using Amazon CloudWatch and AWS CloudTra
 
 **Topics**
 + [Enable AWS CloudTrail logging](#monitoring-enable-cloudtrail)
++ [Creating Amazon CloudWatch alarms](#monitoring-cloudwatch-examples)
 + [Logging Amazon S3 API calls to S3 access logs](#monitoring-s3-access-logs)
 + [Log activity with CloudWatch](#monitoring-enabling)
 + [Examples to limit confused deputy problem](#cloudwatch-confused-deputy)
@@ -17,6 +18,49 @@ If you have [Amazon S3 object level logging enabled](https://docs.aws.amazon.com
 
 **Important**  
 The maximum length of the `RoleSessionName` is 64 characters\. If the `RoleSessionName` is longer, the `server-id` gets truncated\.
+
+## Creating Amazon CloudWatch alarms<a name="monitoring-cloudwatch-examples"></a>
+
+The following example shows how to create Amazon CloudWatch alarms using the AWS Transfer Family metric, `FilesIn`\.
+
+------
+#### [ CDK ]
+
+```
+new cloudwatch.Metric({
+  namespace: "AWS/Transfer",
+  metricName: "FilesIn",
+  dimensionsMap: { ServerId: "s-00000000000000000" },
+  statistic: "Average",
+  period: cdk.Duration.minutes(1),
+}).createAlarm(this, "AWS/Transfer FilesIn", {
+  threshold: 1000,
+  evaluationPeriods: 10,
+  datapointsToAlarm: 5,
+  comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
+});
+```
+
+------
+#### [ AWS CloudFormation ]
+
+```
+Type: AWS::CloudWatch::Alarm
+Properties:
+  Namespace: AWS/Transfer
+  MetricName: FilesIn
+  Dimensions:
+    - Name: ServerId
+      Value: s-00000000000000000
+  Statistic: Average
+  Period: 60
+  Threshold: 1000
+  EvaluationPeriods: 10
+  DatapointsToAlarm: 5
+  ComparisonOperator: GreaterThanOrEqualToThreshold
+```
+
+------
 
 ## Logging Amazon S3 API calls to S3 access logs<a name="monitoring-s3-access-logs"></a>
 
@@ -78,7 +122,7 @@ On the CloudWatch page for your server, you can see records of user authenticati
 
 ## Examples to limit confused deputy problem<a name="cloudwatch-confused-deputy"></a>
 
-The confused deputy problem is a security issue where an entity that doesn't have permission to perform an action can coerce a more\-privileged entity to perform the action\. In AWS, cross\-service impersonation can result in the confused deputy problem\. For more details, see [Cross\-service confused deputy prevention](confused-deputy.md)
+The confused deputy problem is a security issue where an entity that doesn't have permission to perform an action can coerce a more\-privileged entity to perform the action\. In AWS, cross\-service impersonation can result in the confused deputy problem\. For more details, see [Cross\-service confused deputy prevention](confused-deputy.md)\.
 
 **Note**  
 In the following examples, replace each *user input placeholder* with your own information\.

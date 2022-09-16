@@ -4,13 +4,13 @@
 *****Copyright &copy; Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
 
 -----
-Amazon's trademarks and trade dress may not be used in 
-     connection with any product or service that is not Amazon's, 
-     in any manner that is likely to cause confusion among customers, 
-     or in any manner that disparages or discredits Amazon. All other 
-     trademarks not owned by Amazon are the property of their respective
-     owners, who may or may not be affiliated with, connected to, or 
-     sponsored by Amazon.
+Amazon's trademarks and trade dress may not be used in
+connection with any product or service that is not Amazon's,
+in any manner that is likely to cause confusion among customers,
+or in any manner that disparages or discredits Amazon. All other
+trademarks not owned by Amazon are the property of their respective
+owners, who may or may not be affiliated with, connected to, or
+sponsored by Amazon.
 
 -----
 ## Contents
@@ -91,6 +91,7 @@ Amazon's trademarks and trade dress may not be used in
       + [DeleteAgreement](API_DeleteAgreement.md)
       + [DeleteCertificate](API_DeleteCertificate.md)
       + [DeleteConnector](API_DeleteConnector.md)
+      + [DeleteHostKey](API_DeleteHostKey.md)
       + [DeleteProfile](API_DeleteProfile.md)
       + [DeleteServer](API_DeleteServer.md)
       + [DeleteSshPublicKey](API_DeleteSshPublicKey.md)
@@ -101,18 +102,21 @@ Amazon's trademarks and trade dress may not be used in
       + [DescribeCertificate](API_DescribeCertificate.md)
       + [DescribeConnector](API_DescribeConnector.md)
       + [DescribeExecution](API_DescribeExecution.md)
+      + [DescribeHostKey](API_DescribeHostKey.md)
       + [DescribeProfile](API_DescribeProfile.md)
       + [DescribeSecurityPolicy](API_DescribeSecurityPolicy.md)
       + [DescribeServer](API_DescribeServer.md)
       + [DescribeUser](API_DescribeUser.md)
       + [DescribeWorkflow](API_DescribeWorkflow.md)
       + [ImportCertificate](API_ImportCertificate.md)
+      + [ImportHostKey](API_ImportHostKey.md)
       + [ImportSshPublicKey](API_ImportSshPublicKey.md)
       + [ListAccesses](API_ListAccesses.md)
       + [ListAgreements](API_ListAgreements.md)
       + [ListCertificates](API_ListCertificates.md)
       + [ListConnectors](API_ListConnectors.md)
       + [ListExecutions](API_ListExecutions.md)
+      + [ListHostKeys](API_ListHostKeys.md)
       + [ListProfiles](API_ListProfiles.md)
       + [ListSecurityPolicies](API_ListSecurityPolicies.md)
       + [ListServers](API_ListServers.md)
@@ -130,6 +134,7 @@ Amazon's trademarks and trade dress may not be used in
       + [UpdateAgreement](API_UpdateAgreement.md)
       + [UpdateCertificate](API_UpdateCertificate.md)
       + [UpdateConnector](API_UpdateConnector.md)
+      + [UpdateHostKey](API_UpdateHostKey.md)
       + [UpdateProfile](API_UpdateProfile.md)
       + [UpdateServer](API_UpdateServer.md)
       + [UpdateUser](API_UpdateUser.md)
@@ -143,6 +148,7 @@ Amazon's trademarks and trade dress may not be used in
       + [DescribedCertificate](API_DescribedCertificate.md)
       + [DescribedConnector](API_DescribedConnector.md)
       + [DescribedExecution](API_DescribedExecution.md)
+      + [DescribedHostKey](API_DescribedHostKey.md)
       + [DescribedProfile](API_DescribedProfile.md)
       + [DescribedSecurityPolicy](API_DescribedSecurityPolicy.md)
       + [DescribedServer](API_DescribedServer.md)
@@ -162,6 +168,7 @@ Amazon's trademarks and trade dress may not be used in
       + [ListedCertificate](API_ListedCertificate.md)
       + [ListedConnector](API_ListedConnector.md)
       + [ListedExecution](API_ListedExecution.md)
+      + [ListedHostKey](API_ListedHostKey.md)
       + [ListedProfile](API_ListedProfile.md)
       + [ListedServer](API_ListedServer.md)
       + [ListedUser](API_ListedUser.md)

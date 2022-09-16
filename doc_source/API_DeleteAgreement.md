@@ -25,7 +25,7 @@ Pattern: `^a-([0-9a-f]{17})$`
 Required: Yes
 
  ** [ServerId](#API_DeleteAgreement_RequestSyntax) **   <a name="TransferFamily-DeleteAgreement-request-ServerId"></a>
-The server ID associated with the agreement that you are deleting\.  
+The server identifier associated with the agreement that you are deleting\.  
 Type: String  
 Length Constraints: Fixed length of 19\.  
 Pattern: `^s-([0-9a-f]{17})$`   

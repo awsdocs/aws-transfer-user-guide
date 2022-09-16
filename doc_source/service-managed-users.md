@@ -43,8 +43,8 @@ Assigning the user a home directory and restricting the user to that home direct
 1. For **SSH public key**, enter the public SSH key portion of the SSH key pair\.
 
    Your key is validated by the service before you can add your new user\.
-**Important**  
-The format of the SSH public key is `ssh-rsa <string>`\. For instructions on how to generate an SSH key pair, see [Generate SSH keys](key-management.md#sshkeygen)\.
+**Note**  
+For instructions on how to generate an SSH key pair, see [Generate SSH keys](key-management.md#sshkeygen)\.
 
 1. \(Optional\) For **Key** and **Value**, enter one or more tags as key\-value pairs, and choose **Add tag**\.
 
@@ -103,8 +103,8 @@ When you select the **Restricted** option, symlinks don't resolve for Amazon EFS
 1. For **SSH public key**, enter the public SSH key portion of the SSH key pair\.
 
    Your key is validated by the service before you can add your new user\.
-**Important**  
-The format of the SSH public key is `ssh-rsa <string>`\. For instructions on how to generate an SSH key pair, see [Generate SSH keys](key-management.md#sshkeygen)\.
+**Note**  
+For instructions on how to generate an SSH key pair, see [Generate SSH keys](key-management.md#sshkeygen)\.
 
 1. \(Optional\) Enter any tags for the user\. For **Key** and **Value**, enter one or more tags as key\-value pairs, and choose **Add tag**\.
 

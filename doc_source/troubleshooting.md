@@ -3,7 +3,7 @@
  This section describes some common issues that might arise when using AWS Transfer Family and how to fix them\. 
 
 **Topics**
-+ [Troubleshoot Amazon EFS service\-managed users](#transfer-service-managed-efs)
++ [Troubleshoot service\-managed users](#transfer-service-managed-issues)
 + [Troubleshoot Amazon API Gateway issues](#transfer-apigateway)
 + [Troubleshoot policies for encrypted Amazon S3 buckets](#encrypted-buckets)
 + [Troubleshoot authentication issues](#auth-issues)
@@ -14,7 +14,15 @@
 + [Troubleshoot file upload issues](#file-upload-issues)
 + [Troubleshoot AS2 issues](#as2-troubleshooting-issues)
 
-## Troubleshoot Amazon EFS service\-managed users<a name="transfer-service-managed-efs"></a>
+## Troubleshoot service\-managed users<a name="transfer-service-managed-issues"></a>
+
+This section describes possible solutions for the following issues
+
+**Topics**
++ [Troubleshoot Amazon EFS service\-managed users](#transfer-service-managed-efs)
++ [Troubleshoot public key body too long](#pgp-keys)
+
+### Troubleshoot Amazon EFS service\-managed users<a name="transfer-service-managed-efs"></a>
 
 **Description**
 
@@ -32,6 +40,25 @@ Couldn't canonicalize: Permission denied
  **Solution** 
 
  Increase the policy permissions for your user's role\. You can add an AWS managed policy, such as `AmazonElasticFileSystemClientFullAccess`\. 
+
+### Troubleshoot public key body too long<a name="pgp-keys"></a>
+
+**Description**
+
+When you try to create a service\-managed user, you receive the following error:
+
+```
+Failed to create user (1 validation error detected:
+'sshPublicKeyBody' failed to satisfy constraint: Member must have length less than or equal to 2048)
+```
+
+**Cause**
+
+You might be entering a PGP key for the public key body, and AWS Transfer Family does not support PGP keys for service\-managed users\.
+
+**Solution**
+
+If the PGP key is RSA\-based, you can convert it to PEM format\. For example, Ubuntu provides a conversion tool here: [https://manpages\.ubuntu\.com/manpages/xenial/man1/openpgp2ssh\.1\.html](https://manpages.ubuntu.com/manpages/xenial/man1/openpgp2ssh.1.html)
 
 ## Troubleshoot Amazon API Gateway issues<a name="transfer-apigateway"></a>
 
@@ -189,6 +216,7 @@ Transfer Family emits workflow execution status into CloudWatch Logs\. The follo
 + `"type": "StepErrored"`
 + `"type": "ExecutionErrored"`
 + `"type": "ExecutionThrottled"`
++ `"Service failure on starting workflow"`
 
 You can filter your workflow's execution logs using different filter and pattern syntax\. For example, you can create a log filter in your CloudWatch logs to capture workflow execution logs that contain the **ExecutionErrored** message\. For details, see [Real\-time processing of log data with subscriptions](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Subscriptions.html) and [Filter and pattern syntax](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html) in the *Amazon CloudWatch Logs User Guide*\.
 
@@ -218,6 +246,10 @@ When a workflow is not able to execute any step, it generates an `ExecutionError
 *Executionthrottled*
 
 Execution is throttled if a workflow is getting triggered at a rate that is faster than the system can support\. This log message indicates that you must slow down your execution rate for workflows\. If you are not able to scale down your workflow\-execution rate, contact AWS Support at [Contact AWS](https://aws.amazon.com/contact-us)\.
+
+*Service failure on starting workflow*
+
+If you remove a workflow from a server, and replace it with a new one, you need to wait approximately 10 minutes before executing the new workflow\. The Transfer Family server caches the workflow details, and it takes 10 minutes for the server to refresh its cache\.
 
 ## Troubleshoot workflow copy errors<a name="source-bucket-region"></a>
 

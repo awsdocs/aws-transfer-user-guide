@@ -4,6 +4,7 @@ AWS Transfer Family is a secure transfer service that you can use to transfer fi
 + Secure Shell \(SSH\) File Transfer Protocol \(SFTP\)
 + File Transfer Protocol Secure \(FTPS\)
 + File Transfer Protocol \(FTP\)
++ Applicability Statement 2 \(AS2\)
 
 File transfer protocols are used in data exchange workflows across different industries such as financial services, healthcare, advertising, and retail, among others\. AWS Transfer Family simplifies the migration of file transfer workflows to AWS\.
 

@@ -92,7 +92,7 @@ This section is only for migrating users from an existing SFTP\-enabled server\.
 1. In **Review and create**, review your choices\. If you:
    + Want to edit any of them, choose **Edit** next to the step\.
 **Note**  
-You will need to review each step after the step you chose to edit\.
+You will need to review each step after the step that you chose to edit\.
    + Have no changes, choose **Create server** to create your server\. You are taken to the **Servers** page, shown following, where your new server is listed\.
 
 It can take a couple of minutes before the status for your new server changes to **Online**\. At that point, your server can perform file operations for your users\.
@@ -170,13 +170,13 @@ This section is only for migrating users from an existing SFTP\-enabled server\.
 
    1. Choose **Next**\.
 
-   1.  \(Optional\) For **Managed workflows**, select a workflow ID and a corresponding role that Transfer Family should assume when executing the workflow\. To learn more about processing your files using managed workflows, see [AWS Transfer Family managed workflows](transfer-workflows.md)\.  
-![\[Console screenshot showing the tags section.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/workflows-addtoserver.png)
+   1.  \(Optional\) For **Managed workflows**, choose a workflow ID and a corresponding role that Transfer Family should assume when executing the workflow\. To learn more about processing your files by using managed workflows, see [AWS Transfer Family managed workflows](transfer-workflows.md)\.  
+![\[The Managed workflows console section.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/workflows-addtoserver.png)
 
 1. In **Review and create**, review your choices\. If you:
    + Want to edit any of them, choose **Edit** next to the step\.
 **Note**  
-You will need to review each step after the step you chose to edit\.
+You will need to review each step after the step that you chose to edit\.
    + Have no changes, choose **Create server** to create your server\. You are taken to the **Servers** page, shown following, where your new server is listed\.
 
 You can choose the server ID to see the detailed settings of the server that you just created\. After the column **Public IPv4 address** has been populated, the Elastic IP addresses that you provided are successfully associated with your server's endpoint\.

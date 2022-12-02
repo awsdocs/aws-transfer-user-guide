@@ -13,11 +13,15 @@ Use this tutorial to get started with AWS Transfer Family \(Transfer Family\)\. 
 
 Before you begin, be sure to complete the requirements in [Setting up](setting-up.md)\. As part of this setup, you create an Amazon Simple Storage Service \(Amazon S3\) bucket and an AWS Identity and Access Management \(IAM\) user role\.
 
+There are permissions required for using the AWS Transfer Family console, and there are permissions required for configuring other AWS services that Transfer Family uses, such as Amazon Simple Storage Service, AWS Certificate Manager, Amazon Elastic File System, and Amazon Route 53\. For example, for users that are transferring files into and out of AWS using Transfer Family, **AmazonS3FullAccess** grants permissions to setup and use an Amazon S3 bucket\. Some of the permissions in this policy are needed to create Amazon S3 buckets\.
+
+To use the Transfer Family console, you require the following:
++ **AWSTransferConsoleFullAccess** grants permissions for your SFTP user to create Transfer Family resources\.
++ **IAMFullAccess** \(or specifically a policy that allows creation of IAM roles\) is only needed if you want Transfer Family to automatically create a logging role for your server in Amazon CloudWatch Logs or a user role for a user logging into a server\. 
++ To create and delete VPC server types, you need to add the actions **ec2:CreateVpcEndpoint** and **ec2:DeleteVpcEndpoints** to your policy\.
+
 **Note**  
-The role you create needs permissions defined in **AmazonS3FullAccess**, **AWSTransferConsoleFullAccess**, and **IAMFullAccess** policies\.   
-**AmazonS3FullAccess** grants permissions to setup and use an Amazon S3 bucket\.
-**AWSTransferConsoleFullAccess** grants permissions for your SFTP user to create Transfer Family resources\.
-**IAMFullAccess** grants permissions to create the roles and policies you need\. 
+The **AmazonS3FullAccess** and **IAMFullAccess** polices are, themselves, not needed for general usage of AWS Transfer Family\. They are presented here as a simple way to make sure that all of the permissions that you need are covered\. Additionally, these are AWS managed policies, which are standard policies that are available to all AWS customers\. You can view the individual permissions in these policies and determine a minimal set that you need for your purposes\.
 
 ## Step 1: Sign in to the AWS Transfer Family console<a name="getting-started-logging-in"></a>
 

@@ -70,7 +70,7 @@ This client works only with an SFTP\-enabled server\.
 
 **To transfer files over AWS Transfer Family using the OpenSSH command line utility**
 
-1. On Linux or macOS, open a command terminal\.
+1. On Linux, macOS, or Windows, open a command terminal\.
 
 1. At the prompt, enter the following command: 
 

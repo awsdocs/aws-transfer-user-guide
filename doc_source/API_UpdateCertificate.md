@@ -83,6 +83,10 @@ HTTP Status Code: 400
 The request has failed because the AWSTransfer Family service is not available\.  
 HTTP Status Code: 500
 
+ ** ThrottlingException **   
+The request was denied due to request throttling\.  
+HTTP Status Code: 400
+
 ## Examples<a name="API_UpdateCertificate_Examples"></a>
 
 ### Example<a name="API_UpdateCertificate_Example_1"></a>

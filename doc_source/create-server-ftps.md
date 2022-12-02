@@ -88,7 +88,7 @@ The **Server Host Key** section is used only for migrating users from an existin
    1. Choose **Next**\.  
 ![\[The Tags console section.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/create-server-configure-additional-details-tags.png)
 
-   1.  \(Optional\) For **Managed workflows**, choose a workflow ID and a corresponding role that Transfer Family should assume when executing the workflow\. To learn more about processing your files by using managed workflows, see [AWS Transfer Family managed workflows](transfer-workflows.md)\.  
+   1.  \(Optional\) For **Managed workflows**, choose workflow IDs \(and a corresponding role\) that Transfer Family should assume when executing the workflow\. You can choose one workflow to execute upon a complete upload, and another to execute upon a partial upload\. To learn more about processing your files by using managed workflows, see [AWS Transfer Family managed workflows](transfer-workflows.md)\.  
 ![\[The Managed workflows console section.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/workflows-addtoserver.png)
 
    1. \(Optional\) You can configure AWS Transfer Family servers to display customized messages such as organizational policies or terms and conditions to your end users\. You can also display customized Message of The Day \(MOTD\) to users who have successfully authenticated\.

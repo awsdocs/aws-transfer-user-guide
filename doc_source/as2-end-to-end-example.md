@@ -303,7 +303,7 @@ Create the agreement by running the following command\.
 
 ```
 aws transfer create-agreement --description "ExampleAgreementName" --server-id your-server-id \
---local-profile-id your-profile-id --partner-profile-id your-partner-profile-id --base-directory /DOC-EXAMPLE-BUCKET/AS2-inbox \
+--local-profile-id your-profile-id --partner-profile-id your-partner-profile-id --base-directory /DESTINATION-EXAMPLE-BUCKET/AS2-inbox \
 --access-role arn:aws:iam::111111111111:role/TransferAS2AccessRole
 ```
 
@@ -344,7 +344,7 @@ Then run the following command to create the connector\.
 aws transfer create-connector --url "http://partner-as2-server-url" \
 --access-role your-IAM-role-for-bucket-access \
 --logging-role arn:aws:iam::your-account-id:role/service-role/AWSTransferLoggingAccess \
---as2-config file:///path/to/testAs2Config.json
+--as2-config file:///path/to/testAS2Config.json
 ```
 
 ## Step 7: Test exchanging files over AS2 by using Transfer Family<a name="as2-test-config"></a>
@@ -354,7 +354,7 @@ aws transfer create-connector --url "http://partner-as2-server-url" \
 If you associated a public Elastic IP address with your VPC endpoint, Transfer Family automatically created a DNS name that contains your public IP address\. The subdomain is your AWS Transfer Family server ID \(of the format `s-1234567890abcdef0`\)\. Provide your server URL to your trading partner in the following format\.
 
 ```
-http://s-1234567890abcdef0.transfer.us-east-1.amazonaws.com:5080
+http://s-1234567890abcdef0.server.transfer.us-east-1.amazonaws.com:5080
 ```
 
 If you didn't associate a public Elastic IP address with your VPC endpoint, look up the hostname of the VPC endpoint that can accept AS2 messages over HTTP POST from your trading partners on port 5080\. To retrieve the VPC endpoint details, use the following command\.
@@ -389,10 +389,10 @@ You can use Transfer Family to send files by referencing the connector ID and th
 
 ```
 aws transfer start-file-transfer --connector-id c-1234567890abcdef0 \
---send-file-paths "DOC-EXAMPLE-BUCKET/myfile1" "DOC-EXAMPLE-BUCKET/myfile2"
+--send-file-paths "/SOURCE-EXAMPLE-BUCKET/myfile1.txt" "/SOURCE-EXAMPLE-BUCKET/myfile2.txt"
 ```
 
 **Note**  
 To find details for your connectors, run the command `aws transfer list-connectors`\. This command returns the connector ID, URL, and ARN for your connectors\. Then, you can run the command `aws transfer describe-connector --connector-id your-connector-id`, with the ID that you want to use\. This command returns all of the details for `your-connector-id`\.
 
-Successful transfers are stored at the location specified in the `SendFilePaths` parameter of the `StartFileTransferRequest` API operation\. For example, if you ran the previous command, files are transferred to `DOC-EXAMPLE-BUCKET/myfile1` and `DOC-EXAMPLE-BUCKET/myfile2`\. If you configured a logging role when you created the connector, you can also check your CloudWatch logs for the status of the AS2 message\.
+Successful transfers are stored at the location specified in the `base-directory` parameter that you specified in [Step 5: Create an agreement between you and your partner](#as2-create-agreement-example)\. If the transfer is completed successfully, the file is stored as /*path\-defined\-in\-the\-agreement*/processed/*original\_filename\.messageId\.original\_extension*\. In this example, DESTINATION\-EXAMPLE\-BUCKET/AS2\-inbox/processed/myfile1\.*messageId*\.txt and DESTINATION\-EXAMPLE\-BUCKET/AS2\-inbox/processed/myfile2\.*messageId*\.txt\. If you configured a logging role when you created the connector, you can also check your CloudWatch logs for the status of the AS2 message\.

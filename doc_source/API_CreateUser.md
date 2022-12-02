@@ -95,7 +95,11 @@ Required: Yes
 
  ** [SshPublicKeyBody](#API_CreateUser_RequestSyntax) **   <a name="TransferFamily-CreateUser-request-SshPublicKeyBody"></a>
 The public portion of the Secure Shell \(SSH\) key used to authenticate the user to the server\.  
+The three standard SSH public key format elements are `<key type>`, `<body base64>`, and an optional `<comment>`, with spaces between each element\.  
  AWS Transfer Family accepts RSA, ECDSA, and ED25519 keys\.  
++ For RSA keys, the key type is `ssh-rsa`\.
++ For ED25519 keys, the key type is `ssh-ed25519`\.
++ For ECDSA keys, the key type is either `ecdsa-sha2-nistp256`, `ecdsa-sha2-nistp384`, or `ecdsa-sha2-nistp521`, depending on the size of the key you generated\.
 Type: String  
 Length Constraints: Maximum length of 2048\.  
 Required: No
@@ -168,59 +172,33 @@ HTTP Status Code: 500
 
 ### Example<a name="API_CreateUser_Example_1"></a>
 
-The following example associates a user with a server\.
+To create a user, you can first save the parameters into a JSON file, for example `createUserParameters`, then run the create\-user API command\.
+
+#### <a name="w197ab1c52c12c23c15b3b5"></a>
+
+```
+{
+    "HomeDirectory": "/DOC-EXAMPLE-BUCKET",
+    "HomeDirectoryType": "PATH",
+    "Role": "arn:aws:iam::111122223333:role/bob-role",
+    "ServerId": "s-1111aaaa2222bbbb3",
+    "SshPublicKeyBody": "ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA... bobusa@mycomputer.us-east-1.amazon.com",
+    "UserName": "bobusa-API"
+}
+```
 
 #### Sample Request<a name="API_CreateUser_Example_1_Request"></a>
 
 ```
-{
-  "HomeDirectory": "/bucket_name/home/mydirectory",
-  "HomeDirectoryMappings": [ 
-      { 
-         "Entry": "/directory1",
-         "Target": "/bucket_name/home/mydirectory"
-      }
-   ],
-  "HomeDirectoryType": "PATH",
-  "Policy": {
-    "Version": "2012-10-17",
-    "Statement": [
-      {
-        "Sid": "AllowFullAccessToBucket",
-        "Action": [
-          "s3:*"
-        ],
-        "Effect": "Allow",
-        "Resource": [
-          "arn:aws:s3:::bucket_name",
-          "arn:aws:s3:::bucket_name/*"
-        ]
-      }
-    ]
-  },
-  "SshPublicKeyBody": "AAAAB3NzaC1yc2EAAAADAQABAAABAQCOtfCAis3aHfM6yc8KWAlMQxVDBHyccCde9MdLf4DQNXn8HjAHf+Bc1vGGCAREFUL1NO2PEEKING3ALLOWEDfIf+JBecywfO35Cm6IKIV0JF2YOPXvOuQRs80hQaBUvQL9xw6VEb4xzbit2QB6",
-  "Role": "arn:aws:iam::176354371281:role/my_role",
-  "ServerId": "s-01234567890abcdef",
-  "Tags": [
-    {
-      "Key": "Group",
-      "Value": "UserGroup1"
-    }
-  ],
-  "UserName": "my_user"
-}
+aws transfer create-user --cli-input-json file://createUserParameters
 ```
 
-### Example<a name="API_CreateUser_Example_2"></a>
-
-This is a sample response for this API call\.
-
-#### Sample Response<a name="API_CreateUser_Example_2_Response"></a>
+#### Sample Response<a name="API_CreateUser_Example_1_Response"></a>
 
 ```
 {
-   "ServerId": "s-01234567890abcdef",
-   "UserName": "my_user"
+    "ServerId": ""s-1111aaaa2222bbbb3",
+    "UserName": "bobusa-API"
 }
 ```
 

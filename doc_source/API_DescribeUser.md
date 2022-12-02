@@ -113,39 +113,34 @@ HTTP Status Code: 500
 
 ### Example<a name="API_DescribeUser_Example_1"></a>
 
-The following example returns the properties assigned to a server\.
+The following example shows the details for an existing user\.
 
 #### Sample Request<a name="API_DescribeUser_Example_1_Request"></a>
 
 ```
-{
-   "ServerId": "s-01234567890abcdef",
-   "UserName": "my_user"
-}
+aws transfer describe-user --server-id s-1111aaaa2222bbbb3 --user-name bob-test
 ```
 
-### Example<a name="API_DescribeUser_Example_2"></a>
-
-This example illustrates one usage of DescribeUser\.
-
-#### Sample Response<a name="API_DescribeUser_Example_2_Response"></a>
+#### Sample Response<a name="API_DescribeUser_Example_1_Response"></a>
 
 ```
 {
-   "User": { 
-      "Arn": "arn:aws:transfer:us-east-1:176354371281:server/s-01234567890abcdef",
-      "HomeDirectory": "/home/mydirectory",
-      "HomeDirectoryType:" "PATH",
-      "Role": "arn:aws:iam::176354371281:role/my_role",
-      "SshPublicKeys": "AAAAB3NzaC1yc2EAAAADAQABAAABAQCOtfCAis3aHfM6yc8KWAlMQxVDBHyccCde9MdLf4DQNXn8HjAHf+Bc1vGGCAREFUL1NO2PEEKING3ALLOWEDfIf+JBecywfO35Cm6IKIV0JF2YOPXvOuQRs80hQaBUvQL9xw6VEb4xzbit2QB6",
-      "Tags": [ 
-         { 
-            "Key": "Name",
-            "Value": "MyServer"
-         }
-      "UserName": "my_user",
-      ]
-   }
+    "ServerId": "s-1111aaaa2222bbbb3",
+    "User": {
+        "Arn": "arn:aws:transfer:us-east-1:111122223333:user/s-1111aaaa2222bbbb3/bob-test",
+        "HomeDirectory": "/DOC-EXAMPLE-BUCKET",
+        "HomeDirectoryType": "PATH",
+        "Role": "arn:aws:iam::111122223333:role/bob-role",
+        "SshPublicKeys": [
+            {
+                "DateImported": "2022-03-31T12:27:52.614000-04:00",
+                "SshPublicKeyBody": "ssh-rsa AAAAB3NzaC1yc..... bobusa@mycomputer.us-east-1.amaazon.com",
+                "SshPublicKeyId": "key-abcde12345fghik67"
+            }
+        ],
+        "Tags": [],
+        "UserName": "bob-test"
+    }
 }
 ```
 

@@ -6,7 +6,7 @@ On the AWS Transfer Family console, you can delete your server\.
 You are billed, for each of the protocols enabled to access your endpoint, until you delete the server\.
 
 **Warning**  
-Deleting a server will also result in all its users being deleted\. Data in the bucket that was accessed by using the server is deleted and remains accessible to AWS users that have privileges to those Amazon S3 buckets\.
+Deleting a server results in all its users being deleted\. Data in the bucket that was accessed by using the server is not deleted, and remains accessible to AWS users that have privileges to those Amazon S3 buckets\.
 
 **To delete a server**
 

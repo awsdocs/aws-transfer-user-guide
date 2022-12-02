@@ -37,7 +37,13 @@ After you create an AWS Transfer Family server, you can edit the server configur
    + To start or stop your server, see [Put your server online or offline](#edit-online-offline)\.
    + To delete a server, see [Delete a server](delete-server.md)\.
    + To edit a user's properties, see [Managing access controls](users-policies.md)\.  
-![\[The server details console page for a server.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/edit-server-details-top.png)![\[The server details console page for a server.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/edit-server-details-endpoints.png)![\[The server details console page for a server.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/edit-server-details-users.png)![\[The server details console page for a server.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/edit-server-details-agreements.png)![\[The server details console page for a server.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/edit-server-details-hostkeys.png)![\[The server details console page for a server.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/edit-server-details-additionaldetails.png)![\[The server details console page for a server.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/edit-server-details-monitoring.png)![\[The server details console page for a server.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/edit-server-details-tags.png)
+![\[The server details console page for a server.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/edit-server-details-top.png)![\[The server details console page for a server.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/edit-server-details-endpoints.png)![\[The server details console page for a server.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/edit-server-details-users.png)![\[The server details console page for a server.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/edit-server-details-agreements.png)![\[The server details console page for a server.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/edit-server-details-hostkeys.png)
+**Note**  
+The server host key **Description** and **Date imported** values are new as of September 2022\. These values were introduced to support the multiple host keys feature\. This feature required migration of any single host keys that were in use before the introduction of multiple host keys\.   
+The **Date imported** value for a migrated server host key is set to the last modified date for the server\. That is, the date that you see for your migrated host key corresponds to the date that you last modified the server in any way, before the server host key migration\.  
+The only key that was migrated is your oldest or only server host key\. Any additional keys have their actual date from when you imported them\. Additionally, the migrated key has a description that makes it easy to identify it as having been migrated\.  
+The migration occurred between September 2 and September 13\. The actual migration date within this range depends on the Region of your server\.  
+![\[Continuation of the server details console page for a server.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/edit-server-details-additionaldetails.png)![\[Continuation of the server details console page for a server.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/edit-server-details-monitoring.png)![\[Continuation of the server details console page for a server.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/edit-server-details-tags.png)
 
 ## Edit the file transfer protocols<a name="edit-protocols"></a>
 
@@ -164,6 +170,7 @@ Although the Transfer Family console allows you to specify and add server host k
 + [Add an additional server host key](#server-host-key-add)
 + [Delete a server host key](#server-host-key-delete)
 + [Rotate the server host keys](#server-host-key-rotate)
++ [Additional server host key information](#server-host-key-other)
 
 ### Add an additional server host key<a name="server-host-key-add"></a>
 
@@ -254,6 +261,16 @@ The oldest key for each algorithm is active\. If you remove the RSA key that you
 1. Delete one or more of the host keys of the same type that you had added previously\. This procedure is described in [Delete a server host key](#server-host-key-delete)\.
 
 1. Make sure that the earliest remaining key of the same type is the one that you want to make active\.
+
+### Additional server host key information<a name="server-host-key-other"></a>
+
+You can select a host key to display details for that key\.
+
+![\[The hostkey details console screen.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/server-host-keys-details.png)
+
+You can delete a host key, or edit its description from the **Actions** menu on the Server details screen\. Select the host key, then choose the appropriate action from the menu\.
+
+![\[The server hostkey Actions menu.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/server-host-keys-actions.png)
 
 ## Change the managed workflow for your server<a name="configuring-servers-change-workflow"></a>
 

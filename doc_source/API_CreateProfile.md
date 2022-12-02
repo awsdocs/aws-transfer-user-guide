@@ -92,6 +92,10 @@ HTTP Status Code: 400
 The request has failed because the AWSTransfer Family service is not available\.  
 HTTP Status Code: 500
 
+ ** ThrottlingException **   
+The request was denied due to request throttling\.  
+HTTP Status Code: 400
+
 ## Examples<a name="API_CreateProfile_Examples"></a>
 
 ### Example<a name="API_CreateProfile_Example_1"></a>
@@ -100,18 +104,18 @@ The following example creates a profile, and returns the profile ID\.
 
 The certificate IDs are created when you run `import-certificate`, one for the signing certificate, and one for the encryption certificate\.
 
-#### <a name="w385ab1c52c12c17c15b3b7"></a>
+#### <a name="w197ab1c52c12c17c15b3b7"></a>
 
 ```
-aws transfer create-profile --as2-id MYCORP --certificate-ids c-abcdefg123456hijk 
-                  c-987654aaaa321bbbb
+aws transfer create-profile --as2-id MYCORP --certificate-ids c-abcdefg123456hijk
+               c-987654aaaa321bbbb
 ```
 
 ### Sample Response<a name="API_CreateProfile_Example_2"></a>
 
 The API call returns the profile ID for the new profile\.
 
-#### <a name="w385ab1c52c12c17c15b5b5"></a>
+#### <a name="w197ab1c52c12c17c15b5b5"></a>
 
 ```
 {

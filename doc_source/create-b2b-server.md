@@ -136,6 +136,7 @@ For inbound file transfers, note the following:
   + **MDN** – `ExampleFileInS3Payload.c4d6b6c7-23ea-4b8c-9ada-0cb811dc8b35@44313c54b0a46a36.dat.mdn` 
 
 For outbound transfers, the naming is similar, with the difference that there is no incoming message file, and also, the transfer ID for the transferred message is added to the file name\. The transfer ID is returned by the `StartFileTransfer` API operation \(or when another process or script calls this operation\)\.
++ The `transfer-id` is an identifier that is associated with a file transfer\. All requests that are part of a `StartFileTransfer` call share a `transfer-id`\.
 + The base directory is the same as the path that you use for the source file\. That is, the base directory is the path that you specify in the `StartFileTransfer` API operation or `start-file-transfer` AWS CLI command\. For example: 
 
   ```
@@ -404,7 +405,8 @@ This procedure explains how to create AS2 connectors by using the Transfer Famil
 
 1. In the **AS2 configuration** section, choose the local and partner profiles, the encryption and signing algorithms, and whether to compress the transferred information\. 
 **Note**  
-The **Subject** is used as the `subject` HTTP header attribute in AS2 messages that are being sent with the connector\.
+The **Subject** is used as the `subject` HTTP header attribute in AS2 messages that are being sent with the connector\.  
+Additionally, if you choose to create a connector without an encryption algorithm, you must specify HTTPS as your protocol\.
 
 1. In the **MDN configuration** section, specify the following information:
    + **Request MDN** – You have the option to require your trading partner to send you an MDN after they have successfully received your message over AS2\.

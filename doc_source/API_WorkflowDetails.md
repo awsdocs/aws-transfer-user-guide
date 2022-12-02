@@ -4,13 +4,20 @@ Container for the `WorkflowDetail` data type\. It is used by actions that trigge
 
 ## Contents<a name="API_WorkflowDetails_Contents"></a>
 
+ ** OnPartialUpload **   <a name="TransferFamily-Type-WorkflowDetails-OnPartialUpload"></a>
+A trigger that starts a workflow if a file is only partially uploaded\. You can attach a workflow to a server that executes whenever there is a partial upload\.  
+A *partial upload* occurs when a file is open when the session disconnects\.  
+Type: Array of [WorkflowDetail](API_WorkflowDetail.md) objects  
+Array Members: Maximum number of 1 item\.  
+Required: No
+
  ** OnUpload **   <a name="TransferFamily-Type-WorkflowDetails-OnUpload"></a>
 A trigger that starts a workflow: the workflow begins to execute after a file is uploaded\.  
 To remove an associated workflow from a server, you can provide an empty `OnUpload` object, as in the following example\.  
  `aws transfer update-server --server-id s-01234567890abcdef --workflow-details '{"OnUpload":[]}'`   
 Type: Array of [WorkflowDetail](API_WorkflowDetail.md) objects  
 Array Members: Maximum number of 1 item\.  
-Required: Yes
+Required: No
 
 ## See Also<a name="API_WorkflowDetails_SeeAlso"></a>
 

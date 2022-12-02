@@ -170,7 +170,7 @@ This section is only for migrating users from an existing SFTP\-enabled server\.
 
    1. Choose **Next**\.
 
-   1.  \(Optional\) For **Managed workflows**, choose a workflow ID and a corresponding role that Transfer Family should assume when executing the workflow\. To learn more about processing your files by using managed workflows, see [AWS Transfer Family managed workflows](transfer-workflows.md)\.  
+   1.  \(Optional\) For **Managed workflows**, choose workflow IDs \(and a corresponding role\) that Transfer Family should assume when executing the workflow\. You can choose one workflow to execute upon a complete upload, and another to execute upon a partial upload\. To learn more about processing your files by using managed workflows, see [AWS Transfer Family managed workflows](transfer-workflows.md)\.  
 ![\[The Managed workflows console section.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/workflows-addtoserver.png)
 
 1. In **Review and create**, review your choices\. If you:

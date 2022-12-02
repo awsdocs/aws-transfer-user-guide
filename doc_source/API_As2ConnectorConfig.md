@@ -12,8 +12,9 @@ Required: No
 
  ** EncryptionAlgorithm **   <a name="TransferFamily-Type-As2ConnectorConfig-EncryptionAlgorithm"></a>
 The algorithm that is used to encrypt the file\.  
+You can only specify `NONE` if the URL for your connector uses HTTPS\. This ensures that no traffic is sent in clear text\.
 Type: String  
-Valid Values:` AES128_CBC | AES192_CBC | AES256_CBC`   
+Valid Values:` AES128_CBC | AES192_CBC | AES256_CBC | NONE`   
 Required: No
 
  ** LocalProfileId **   <a name="TransferFamily-Type-As2ConnectorConfig-LocalProfileId"></a>
@@ -33,7 +34,7 @@ Required: No
 
  ** MdnSigningAlgorithm **   <a name="TransferFamily-Type-As2ConnectorConfig-MdnSigningAlgorithm"></a>
 The signing algorithm for the MDN response\.  
-If set to DEFAULT \(or not set at all\), the value for `SigningAlogorithm` is used\.
+If set to DEFAULT \(or not set at all\), the value for `SigningAlgorithm` is used\.
 Type: String  
 Valid Values:` SHA256 | SHA384 | SHA512 | SHA1 | NONE | DEFAULT`   
 Required: No

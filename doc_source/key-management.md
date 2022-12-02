@@ -41,6 +41,9 @@ A server can only authenticate users using one method \(service managed or custo
 
 On the macOS, Linux, or UNIX operating systems, you use the `ssh-keygen` command to create an SSH public key and SSH private key also known as a key pair\.
 
+**Note**  
+For a tutorial on creating SSH keys using PuTTYgen on Windows, see the [SSH\.com website\.](https://www.ssh.com/ssh/putty/windows/puttygen)\.
+
 **To create SSH keys on a macOS, Linux, or UNIX operating system**
 
 1. On macOS, Linux, or UNIX operating systems, open a command terminal\.
@@ -87,13 +90,27 @@ On the macOS, Linux, or UNIX operating systems, you use the `ssh-keygen` command
    |    ..*o*+.      |
    +----[SHA256]-----+
    ```
+**Note**  
+When you run the `ssh-keygen` command as shown preceding, it creates the public and private keys as files in the current directory\.
 
 1. Navigate to the `key_name`\.pub file and open it\.
 
-1. Copy the text and paste it in **SSH public key**\.
+1. Copy the text and paste it in **SSH public key** for the service\-managed user\.
 
-**Note**  
-When you run the `ssh-keygen` command as shown preceding, it creates the public and private keys as files in the current directory\.
+   1. Open the AWS Transfer Family console at [https://console\.aws\.amazon\.com/transfer/](https://console.aws.amazon.com/transfer/), then select **Servers** from the navigation pane\.
+
+   1. On the **Servers** page, select the **Server ID** for server that contains the user that you want to update\.
+
+   1. Select the user for which you are adding a public key\.
+
+   1. In the **SSH public keys** pane, choose **Add SSH public key**\.  
+![\[Image showing the user details for a selected user\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/edit-user-add-key-01.png)
+
+   1. Paste the text of the public key you generated into the SSH public key text box, and then choose **Add key**\.  
+![\[Image showing Add key screen for adding a public key\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/edit-user-add-key-02.png)
+
+      The new key is listed in the SSH public key pane\.  
+![\[Image showing the newly-added public key\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/edit-user-add-key-03.png)
 
 ### Creating SSH Keys on Microsoft Windows<a name="windows-ssh"></a>
 

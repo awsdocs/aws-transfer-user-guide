@@ -33,6 +33,36 @@ When you use multiple custom steps one after the other, the **File location** op
 **Note**  
 If you have a pre\-defined step \(tag, copy, or delete\) after a custom step, and if the pre\-defined step is configured to use the `previous.file` setting, the pre\-defined step uses the same input file used by the custom step\. The processed file from the custom step is not passed to the pre\-defined step\. 
 
+## Accessing a file after custom processing<a name="process-uploaded-file"></a>
+
+If you are using Amazon S3 as your storage, and if your workflow includes a custom step that performs actions on the originally uploaded file, subsequent steps cannot access that file\. That is, any step after the custom step cannot reference the updated file from the custom step output\. For example, If you configure the `sourceFileLocation` for the step after custom step to be `${original.file}`, the step uses the original file location from when the server uploaded the file to storage\. And if you are using `${previous.file}` for that step, it will reuse the file location that custom step used as input\.
+
+**Procedure that causes an error**
+
+1. Step 1: upload file **example\-file**\.
+
+1. Step 2: invoke a Lambda that changes **example\-file** in some way\.
+
+1. Step 3: attempt to perform further processing on the updated version of **example\-file**\.
+
+Step 3 causes an error\. For example, if step 3 is an attempt to copy the updated **example\-file**, you receive the following error:
+
+```
+{
+    "type": "StepErrored",
+    "details": {
+        "errorType": "NOT_FOUND",
+        "errorMessage": "ETag constraint not met (Service: null; Status Code: 412; Error Code: null; Request ID: null; S3 Extended Request ID: null; Proxy: null)",
+        "stepType": "COPY",
+        "stepName": "CopyFile"
+    },
+```
+
+This error occurs because the custom step modifies the entity tag \(ETag\) for **example\-file**, so that it doesn't match the original file\.
+
+**Note**  
+This is not an issue if you are using Amazon EFS, as Amazon EFS doesn't use entity tags to identify files\.
+
 ## Example events sent to AWS Lambda upon file upload<a name="example-workflow-lambdas"></a>
 
 The following examples show the events that are sent to AWS Lambda when a file upload is complete\. One example uses a Transfer Family server where the domain is configured with Amazon S3 and one where the domain uses Amazon EFS\. 

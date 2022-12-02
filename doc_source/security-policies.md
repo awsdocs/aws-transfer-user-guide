@@ -72,7 +72,7 @@ The following is a list of supported cryptographic algorithms for each security 
 
 ## TransferSecurityPolicy\-2022\-03<a name="security-policy-transfer-2022-03"></a>
 
-The following shows the TransferSecurityPolicy\-2022\-03 security policy\. This security policy contains all supported, but non\-deprecated cryptographic algorithms\.
+The following shows the TransferSecurityPolicy\-2022\-03 security policy\.
 
 ```
 {
@@ -114,7 +114,7 @@ The following shows the TransferSecurityPolicy\-2022\-03 security policy\. This 
 
 ## TransferSecurityPolicy\-2020\-06<a name="security-policy-transfer-2020-06"></a>
 
-The following shows the TransferSecurityPolicy\-2020\-06 security policy\. This security policy contains all supported, but non\-deprecated cryptographic algorithms\. This is the default security policy for non\-FIPS enabled server endpoints\.
+The following shows the TransferSecurityPolicy\-2020\-06 security policy\. This is the default security policy for non\-FIPS enabled server endpoints\.
 
 ```
 {

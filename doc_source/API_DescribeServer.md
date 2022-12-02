@@ -70,6 +70,12 @@ Required: Yes
       ],
       "UserCount": number,
       "WorkflowDetails": { 
+         "OnPartialUpload": [ 
+            { 
+               "ExecutionRole": "string",
+               "WorkflowId": "string"
+            }
+         ],
          "OnUpload": [ 
             { 
                "ExecutionRole": "string",

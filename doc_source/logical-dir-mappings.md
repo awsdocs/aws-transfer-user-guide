@@ -105,3 +105,27 @@ remote open("/file"): No such file or directory
 To upload to any `directory/sub-directory`, you must explicitly map the path to the `sub-directory`\.
 
 For more information about configuring logical directories and chroot for your users, including an AWS CloudFormation template that you can download and use, see [ Simplify your AWS SFTP Structure with chroot and logical directories](http://aws.amazon.com/blogs/storage/simplify-your-aws-sftp-structure-with-chroot-and-logical-directories/) in the AWS Storage Blog\.
+
+## Custom AWS Lambda response<a name="auth-lambda-response"></a>
+
+You can use logical directories with a Lambda function that connects to your custom identity provider\. To do so, in your Lambda function, you specify the `HomeDirectoryType` as **LOGICAL**, and add `Entry` and `Target` values for the `HomeDirectoryDetails` parameter\. For example:
+
+```
+HomDirectoryType: "LOGICAL"
+HomeDirectoryDetails: "[{\"Entry\": \"/\", \"Target\": \"/DOC-EXAMPLE-BUCKET/theRealFolder"}]"
+```
+
+The following code is an example of a successful response from a custom Lambda authentication call\. 
+
+```
+aws transfer test-identity-provider --server-id s-1234567890abcdef0 --user-name myuser
+{
+    "Url": "https://a1b2c3d4e5.execute-api.us-east-2.amazonaws.com/prod/servers/s-1234567890abcdef0/users/myuser/config", 
+    "Message": "", 
+    "Response": "{\"Role\": \"arn:aws:iam::123456789012:role/bob-usa-role\",\"HomeDirectoryType\": \"LOGICAL\",\"HomeDirectoryDetails\": \"[{\\\"Entry\\\":\\\"/myhome\\\",\\\"Target\\\":\\\"/DOC-EXAMPLE-BUCKET/theRealFolder\\\"}]\",\"PublicKeys\": \"[ssh-rsa myrsapubkey]\"}", 
+    "StatusCode": 200
+}
+```
+
+**Note**  
+The `"Url":` line is returned only if you are using an API Gateway method as your custom identity provider\.

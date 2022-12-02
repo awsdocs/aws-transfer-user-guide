@@ -1,13 +1,5 @@
 # Managing access controls<a name="users-policies"></a>
 
-**Note**  
-This section applies only to the service\-managed identity provider\. If you are using a custom identity provider, see [Working with custom identity providers](custom-identity-provider-users.md)\.
-
-**Topics**
-+ [Allowing read and write access to an Amazon S3 bucket](#users-policies-all-access)
-+ [Creating a session policy for an Amazon S3 bucket](#users-policies-session)
-+ [Preventing users from running `mkdir` in an S3 bucket](#prevent-mkdir)
-
 You can control a user's access to AWS Transfer Family resources by using an AWS Identity and Access Management \(IAM\) policy\. An IAM policy is a statement, typically in JSON format, that allows a certain level of access to a resource\. You use an IAM policy to define what file operations that you want to allow your users to perform and not perform\. You can also use an IAM policy to define what Amazon S3 bucket or buckets that you want to give your users access to\. To specify these policies for users, you create an IAM role for AWS Transfer Family that has the IAM policy and trust relationship associated with it\.
 
 Each user is assigned an IAM role\. When a user logs in to your server, AWS Transfer Family assumes the IAM role mapped to the user\. To learn about creating an IAM role that provides a user access to an Amazon S3 bucket, see following\. For information about how to create a role and delegate permissions, see [Creating a role to delegate permissions to an AWS service](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html) in the *IAM User Guide*\.
@@ -16,6 +8,12 @@ The type of IAM role that AWS Transfer Family uses is called a service role\.
 
 **Note**  
  If your Amazon S3 bucket is encrypted using AWS Key Management Service \(AWS KMS\), you must specify additional permissions in your policy\. For details, see [Data encryption](encryption-at-rest.md)\. Additionally, you can see more information about [session policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session.html) in the *IAM User Guide*\. 
+
+**Topics**
++ [Allowing read and write access to an Amazon S3 bucket](#users-policies-all-access)
++ [Creating a session policy for an Amazon S3 bucket](#users-policies-session)
++ [Preventing users from running `mkdir` in an S3 bucket](#prevent-mkdir)
++ [Granting ability to only write and list files](#write-only-access)
 
 ## Allowing read and write access to an Amazon S3 bucket<a name="users-policies-all-access"></a>
 
@@ -168,3 +166,49 @@ You can limit users ability to create a directory in an Amazon S3 bucket\. To do
    "Resource":"arn:aws:s3:::my-sftp-bucket/*/"
 }
 ```
+
+## Granting ability to only write and list files<a name="write-only-access"></a>
+
+ In some cases, customers want to only offer write access to their Amazon S3 objects\. They want to provide access to write/upload and list objects in a bucket, but not read/download\. This translates to the Amazon S3 permissions `ListObjects` and `PutOjbect` to perform `ls` and `mkdir` commands using file transfer clients\. However, when Transfer Family needs to make a `HeadObject` call to either write or list files, it fails with an error of **Access denied**, because this call requires the `GetObject` permission\.
+
+In this case, you can grant access by adding a policy condition that adds the `GetObject` permission for any objects that end in a **/**\. This prevents `GetObject` on files so they cannot be read, while allowing the user to list and traverse folders\. The following example policy offers only write and list access to their Amazon S3 buckets \(replace *DOC\-EXAMPLE\-BUCKET* with the actual name of your bucket\)\.
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowListing",
+            "Effect": "Allow",
+            "Action": "s3:ListBucket",
+            "Resource": "arn:aws:s3:::DOC-EXAMPLE-BUCKET"
+        },
+        {
+            "Sid": "AllowReadWrite",
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject",
+                "s3:GetObject",
+                "s3:GetobjectVersion"
+            ],
+            "Resource": [
+                "arn:aws:s3:::DOC-EXAMPLE-BUCKET/*"
+            ]
+         },
+      {
+            "Sid": "DenyIfNotFolder",
+            "Effect": "Deny",
+            "Action": [
+                "s3:GetObject",
+                "se:GetObjectVersion"
+            ],
+            "NotResource": [
+                "arn:aws:s3:::DOC-EXAMPLE-BUCKET/*/"
+            ]
+         }
+      ]
+}
+```
+
+**Note**  
+This policy does not allow for appending to a file\. That is, a user that is assigned to this policy cannot open files to add content to them, or to modify them\. Also, if your use case involves issuing a `HeadObject` call before uploading a file, this policy won't work for you\.

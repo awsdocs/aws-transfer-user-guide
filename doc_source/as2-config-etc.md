@@ -32,7 +32,10 @@ For MDN responses, certain types are supported, as follows:
 + **Simple Mail Transfer Protocol \(SMTP\) \(email MDN\)** – Not supported
 
 **Transports**
-+ **HTTP**: HTTP is the only currently supported transport, and you must specify it explicitly\.
++ **Inbound transfers** – HTTP is the only currently supported transport, and you must specify it explicitly\.
+**Note**  
+If you need to use HTTPS for inbound transfers, you can terminate TLS on an Application Load Balancer or a Network Load Balancer\. For more information, see [TlsSessionResumptionMode](https://docs.aws.amazon.com/transfer/latest/userguide/API_ProtocolDetails.html#TransferFamily-Type-ProtocolDetails-TlsSessionResumptionMode)\.
++ **Outbound transfers** – If you use HTTP, you must also specify an encryption algorithm\. If you specify HTTPS, you should specify **NONE** for your encryption algorithm\.
 
 ## AS2 limits and limitations<a name="as2-limits-issues"></a>
 
@@ -47,7 +50,8 @@ The following limits are in place for AS2 file transfers\.
 | --- | --- | --- | 
 | Inbound AS2 requests per second per server | 25 | Yes | 
 | Inbound AS2 requests in progress per server | 100 | Yes | 
-| Outbound AS2 requests per second per connector | 25 | Yes | 
+| Maximum number of file transfer requests per second per connector | 3 | Yes | 
+| Maximum number of files per file transfer request | 10 | No | 
 | Outbound AS2 requests in progress per connector | 100 | Yes | 
 | Maximum file size \(compressed or uncompressed\) | 50 MB | Yes | 
 | Inactivity timeout | 350 seconds | No | 
@@ -89,7 +93,7 @@ The following limits are in place for AS2 file transfers\.
 | INVALID\_REQUEST | There is a problem with a message header\. | Check the as2\-from and as2\-to fields\. Make sure that the original message ID is accurate for the MDN format\. Also make sure that the message ID format is not missing any AS2 headers\. | 
 | UNABLE\_TO\_RESOLVE\_HOSTNAME | Unable to resolve hostname hostname\.  | The Transfer Family server could not resolve the partner's hostname by using a public DNS server\. Check that the configured host is registered and that the DNS record has had time to publish\. | 
 | HTTP\_ERROR\_RESPONSE\_FROM\_PARTNER |  *partner\-URL* returned status 400 for message with ID=*message\-id*\.  | Communicating with the partner's AS2 server returned an unexpected HTTP response code\. The partner might be able to provide more diagnostics from their AS2 server logs\. | 
-| INVALID\_ENDPOINT\_PROTOCOL | HTTPS not supported\. | Currently, you must use HTTP as the protocol in your AS2 connector configuration\. | 
+| INVALID\_ENDPOINT\_PROTOCOL | Only HTTP and HTTPS are supported\. | You must specify HTTP or HTTPS as the protocol in your AS2 connector configuration\. | 
 | UNABLE\_RESOLVE\_HOST\_TO\_IP\_ADDRESS | Unable to resolve hostname to IP addresses\. | Transfer Family is unable to perform DNS to IP address resolution on the public DNS server that is configured in the AS2 connector\. Update the connector to point to a valid partner URL\. | 
 | UNABLE\_TO\_CONNECT\_TO\_REMOTE\_HOST\_OR\_IP | Connection to endpoint timed out\. | Transfer Family cannot establish a socket connection to the configured partner's AS2 server\. Check that the partner's AS2 server is available at the configured IP address\. | 
 | SEND\_FILE\_NOT\_FOUND | File path file\-path not found\. | Transfer Family can't locate the file in the send file operation\. Check that the configured home directory and path are valid and that Transfer Family has read permissions for the file\. | 

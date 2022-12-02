@@ -9,6 +9,9 @@ You can add either Amazon S3 or Amazon EFS service\-managed users to your server
 
 ## Adding Amazon S3 service\-managed users<a name="add-s3-user"></a>
 
+**Note**  
+ If you want to configure a cross account Amazon S3 bucket, follow the steps mentioned in this Knowledge Center article: [ How do I configure my AWS Transfer Family server to use an Amazon Simple Storage Service bucket that's in another AWS account?](https://aws.amazon.com/premiumsupport/knowledge-center/sftp-cross-account-s3-bucket/)\.
+
 **To add an Amazon S3 service\-managed user to your server**
 
 1. Open the AWS Transfer Family console at [https://console\.aws\.amazon\.com/transfer/](https://console.aws.amazon.com/transfer/), then select **Servers** from the navigation pane\.
@@ -21,7 +24,7 @@ You can add either Amazon S3 or Amazon EFS service\-managed users to your server
 
 1. For **Access**, choose the IAM role that you previously created that provides access to your Amazon S3 bucket\.
 
-   You created this IAM role using the procedure in [Create an IAM role and policy](requirements-roles.md)\. That IAM role includes an IAM policy that provides access to your Amazon S3 bucket\. It also includes a trust relationship with the AWS Transfer Family service, defined in another IAM policy\.
+   You created this IAM role using the procedure in [Create an IAM role and policy](requirements-roles.md)\. That IAM role includes an IAM policy that provides access to your Amazon S3 bucket\. It also includes a trust relationship with the AWS Transfer Family service, defined in another IAM policy\. If you need fine\-grained access control for your users, refer to the [ Enhance data access control with AWS Transfer Family and Amazon S3](http://aws.amazon.com/blogs/storage/enhance-data-access-control-with-aws-transfer-family-and-amazon-s3-access-points/) blog post\.
 
 1. \(Optional\) For **Policy**, choose one of the following:
    + **None**
@@ -161,7 +164,7 @@ For instructions on how to generate an SSH key pair, see [Generate SSH keys](key
    You can change the user's properties on this page by choosing **Edit**\.
 
 1. On the **Users details** page, choose **Edit** next to **User configuration**\.  
-
+![\[Image showing the screen for editing a user's configuration\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/edit-user-details-page-user-config.png)
 
 1. On the **Edit configuration** page, for **Access**, choose the IAM role that you previously created that provides access to your Amazon S3 bucket\.
 

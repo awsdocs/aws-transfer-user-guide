@@ -12,7 +12,7 @@ By orchestrating file\-processing tasks, managed workflows help you preprocess d
 + Scanning for malware or viruses
 + Tagging
 
-To quickly replicate and standardize common post\-upload file processing tasks spanning multiple business units in your organization, you can deploy workflows by using infrastructure as code \(IaC\)\. Managed workflows are initiated only on fully uploaded files, ensuring that data quality is maintained\. Built\-in exception handling helps you quickly react to file\-processing outcomes, while offering you control over how to handle failures\. In addition, each workflow step produces detailed logs, which you can audit to trace the data lineage\.
+To quickly replicate and standardize common post\-upload file processing tasks spanning multiple business units in your organization, you can deploy workflows by using infrastructure as code \(IaC\)\. You can specify a managed workflow to be initiated on files that are uploaded in full, as well as a different managed workflow to be initiated on files that are only partially uploaded due to premature session disconnect\. Built\-in exception handling helps you quickly react to file\-processing outcomes, while offering you control over how to handle failures\. In addition, each workflow step produces detailed logs, which you can audit to trace the data lineage\.
 
 To get started, perform the following tasks:
 

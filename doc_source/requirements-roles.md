@@ -4,7 +4,7 @@ When you create a user, you make a number of decisions about user access\. These
 
 To set access, you create an identity\-based AWS Identity and Access Management \(IAM\) policy and role that provide that access information\. As part of this process, you provide access for your user to the Amazon S3 bucket or Amazon EFS file system that is the target or source for file operations\. To do this, take the following high\-level steps, described in detail later:
 
-1. Create an IAM policy for AWS Transfer Family\.
+1. Create an IAM policy for AWS Transfer Family\. This is described in [To create an IAM role for AWS Transfer Family](#iam-role-procedure)\.
 
 1. Create an IAM role and attach the new IAM policy\. See the following example policies:
    + [Example read/write access policy](read-write-access.md)
@@ -12,7 +12,7 @@ To set access, you create an identity\-based AWS Identity and Access Management 
 
    For information about session policies, see [Session policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session) in the *IAM User Guide*\.
 
-1. Establish a trust relationship between AWS Transfer Family and the IAM role\.
+1. Establish a trust relationship between AWS Transfer Family and the IAM role\. This is described in [To establish a trust relationship](#establish-trust-transfer)\.
 
 The following procedures describe how to create an IAM policy and role\. 
 
@@ -32,7 +32,7 @@ The following procedures describe how to create an IAM policy and role\.
 
 1. Choose **Review policy** and provide a name and description for your policy, and then choose **Create policy**\.
 
-Next, you create an IAM role and attach the new IAM policy to it\.
+Next, you create an IAM role and attach the new IAM policy to it\.<a name="iam-role-procedure"></a>
 
 **To create an IAM role for AWS Transfer Family**
 

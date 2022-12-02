@@ -42,6 +42,12 @@ Instantiates an auto\-scaling virtual server based on the selected file transfer
       }
    ],
    "WorkflowDetails": { 
+      "OnPartialUpload": [ 
+         { 
+            "ExecutionRole": "string",
+            "WorkflowId": "string"
+         }
+      ],
       "OnUpload": [ 
          { 
             "ExecutionRole": "string",
@@ -165,9 +171,9 @@ Specifies the file transfer protocol or protocols over which your file transfer 
 +  `FTP` \(File Transfer Protocol\): Unencrypted file transfer
 +  `AS2` \(Applicability Statement 2\): used for transporting structured business\-to\-business data
 + If you select `FTPS`, you must choose a certificate stored in AWS Certificate Manager \(ACM\) which is used to identify your server when clients connect to it over FTPS\.
-+ If `Protocol` includes either `FTP` or `FTPS`, then the `EndpointType` must be `VPC` and the `IdentityProviderType` must be `AWS_DIRECTORY_SERVICE` or `API_GATEWAY`\.
++ If `Protocol` includes either `FTP` or `FTPS`, then the `EndpointType` must be `VPC` and the `IdentityProviderType` must be either `AWS_DIRECTORY_SERVICE`, `AWS_LAMBDA`, or `API_GATEWAY`\.
 + If `Protocol` includes `FTP`, then `AddressAllocationIds` cannot be associated\.
-+ If `Protocol` is set only to `SFTP`, the `EndpointType` can be set to `PUBLIC` and the `IdentityProviderType` can be set to `SERVICE_MANAGED`\.
++ If `Protocol` is set only to `SFTP`, the `EndpointType` can be set to `PUBLIC` and the `IdentityProviderType` can be set any of the supported identity types: `SERVICE_MANAGED`, `AWS_DIRECTORY_SERVICE`, `AWS_LAMBDA`, or `API_GATEWAY`\.
 + If `Protocol` includes `AS2`, then the `EndpointType` must be `VPC`, and domain must be Amazon S3\.
 Type: Array of strings  
 Array Members: Minimum number of 1 item\. Maximum number of 4 items\.  
@@ -189,6 +195,7 @@ Required: No
 
  ** [WorkflowDetails](#API_CreateServer_RequestSyntax) **   <a name="TransferFamily-CreateServer-request-WorkflowDetails"></a>
 Specifies the workflow ID for the workflow to assign and the execution role that's used for executing the workflow\.  
+In addition to a workflow to execute when a file is uploaded completely, `WorkflowDetails` can also contain a workflow ID \(and execution role\) for a workflow to execute on partial upload\. A partial upload occurs when a file is open when the session disconnects\.  
 Type: [WorkflowDetails](API_WorkflowDetails.md) object  
 Required: No
 

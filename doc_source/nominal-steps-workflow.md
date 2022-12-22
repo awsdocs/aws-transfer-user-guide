@@ -4,6 +4,7 @@ When you're creating a workflow, you can choose to add one of the following pred
 
 **Topics**
 + [Copy file](#copy-step-details)
++ [Decrypt file](#decrypt-step-details)
 + [Tag file](#tag-step-details)
 + [Delete file](#delete-step-details)
 + [Example tag and delete workflow](#sourcefile-workflow)
@@ -31,11 +32,39 @@ Amazon S3 supports buckets and objects, and there is no hierarchy\. However, you
 
 ### Use a named variable in a copy file step<a name="named-variable-copy"></a>
 
-In a copy file step, you can use a variable to dynamically copy your files into user\-specific folders\. Currently, you can use `${transfer:UserName}` as a variable to copy files to a destination location for the given user who's uploading files\.
+In a copy file step, you can use a variable to dynamically copy your files into user\-specific folders\. Currently, you can use `${transfer:UserName}` or `${transfer:UploadDate}` as a variable to copy files to a destination location for the given user who's uploading files, or based on the current date\.
 
 In the following example, if the user `richard-roe` uploads a file, it gets copied into the `file-test2/richard-roe/processed/` folder\. If the user `mary-major` uploads a file, it gets copied into the `file-test2/mary-major/processed/` folder\.
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/workflows-step-copy-dynamic.png)
+
+Similarly, you can use `${transfer:UploadDate}` as a variable to copy files to a destination location named for the current date\. In the following example, if you set the destination to `${transfer:UploadDate}/processed` on February 1, 2022, files uploaded are copied into the `file-test2/2022-02-01/processed/` folder\.
+
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/workflows-step-copy-dynamic-date.png)
+
+## Decrypt file<a name="decrypt-step-details"></a>
+
+A decryption step decrypts an encrypted file that was uploaded to Amazon S3 or Amazon EFS as part of your workflow\. For details about configuring decryption, see [Use PGP decryption in your workflow](create-workflow.md#configure-decryption)\.
+
+When you create your decryption step for a workflow, you must specify the destination for the decrypted files\. You must also select whether to overwrite existing files if a file already exists at the destination location\. You can monitor the decryption workflow results and get audit logs for each file in real time by using Amazon CloudWatch Logs\.
+
+After you choose the **Decrypt file** type for your step, the **Configure parameters** page appears\. Fill in the values for the **Configure PGP decryption parameters** section\.
+
+The available options are as follows:
++ **Step name** – Enter a descriptive name for the step\.
++ **File location** – By specifying the file location, you can decrypt either the file that was used in the previous step or the original file that was uploaded\. 
+**Note**  
+This parameter is not available if this step is the first step of the workflow\.
++ **Destination for decrypted files** – Choose an Amazon S3 bucket or an Amazon EFS file system as the destination for the decrypted file\.
+  + If you choose Amazon S3, you must provide a destination bucket name and a destination key prefix\. To parameterize the destination key prefix by user name, enter **$\{Transfer:UserName\}** for **Destination key prefix**\.
+  + If you choose Amazon EFS, you must provide a destination file system and path\.
+**Note**  
+The storage option that you choose here must match the storage system that's used by the Transfer Family server with which this workflow is associated\. Otherwise, you will receive an error when you attempt to run this workflow\.
++ **Overwrite existing** – To overwrite an existing file that has the same name as the file being saved, select this check box\. To create a new file if an existing file has the same name, clear this check box\.
+
+The following screenshot shows an example of the options that you might choose for your decrypt file step\. 
+
+![\[The AWS Transfer Family console, showing the Configure PGP decryption parameters section with sample values.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/workflows-step-decrypt-details.png)
 
 ## Tag file<a name="tag-step-details"></a>
 
@@ -120,7 +149,7 @@ The following example illustrates a workflow that tags incoming files that need 
 
 **Example tag and move workflow**
 
-1. Save the following code into a file; for example, `tagAndMoveWorkflow.json`\. Replace each *user input placeholder* with your own information\. 
+1. Save the following code into a file; for example, `tagAndMoveWorkflow.json`\. Replace each `user input placeholder` with your own information\. 
 
    ```
    [
@@ -162,7 +191,7 @@ The following example illustrates a workflow that tags incoming files that need 
 
    The first step copies the uploaded file to a new Amazon S3 location\. The second step adds a tag \(key\-value pair\) to the file \(`previous.file`\) that was copied to the new location\. And, finally, the third step deletes the original file \(`original.file`\)\.
 
-1. Create a workflow from the saved file\. Replace each *user input placeholder* with your own information\.
+1. Create a workflow from the saved file\. Replace each `user input placeholder` with your own information\.
 
    ```
    aws transfer create-workflow --description "short-description" --steps file://path-to-file --region region-ID
@@ -176,7 +205,7 @@ The following example illustrates a workflow that tags incoming files that need 
 
 1. Update an existing server\.
 **Note**  
-This step assumes you already have a Transfer Family server and you want to associate a workflow with it\. If not, see [Creating a server](create-server.md)\. Replace each *user input placeholder* with your own information\.
+This step assumes you already have a Transfer Family server and you want to associate a workflow with it\. If not, see [Creating a server](create-server.md)\. Replace each `user input placeholder` with your own information\.
 
    ```
    aws transfer update-server --server-id server-ID --region region-ID 

@@ -42,42 +42,42 @@ To do so, set your domain to the endpoint hostname for the server\. An endpoint 
 
 `serverid.server.transfer.region.amazonaws.com`
 
+**Note**  
+If your server has a VPC endpoint, then the format for the hostname is different from the one described above\. To find your VPC endpoint, select the VPC on the server's details page, then select the **VPC endpoint ID** on the VPC dashboard\. The endpoint is the first DNS name of those listed\.
+
 ## Custom hostnames for non\-console created servers<a name="tag-custom-hostname-cdk"></a>
 
-When you create a server using AWS Cloud Development Kit \(AWS CDK\) or through the CLI, you must add a tag if you want that server to have a custom hostname\. When you create a Transfer Family server by using the console, the tagging is done automatically\.
+When you create a server using AWS Cloud Development Kit \(AWS CDK\), AWS CloudFormation, or through the CLI, you must add a tag if you want that server to have a custom hostname\. When you create a Transfer Family server by using the console, the tagging is done automatically\.
 
 **Note**  
 You also need to create a DNS record to redirect traffic from your domain to your server endpoint\.
 
 Use the following keys for your custom hostname:
-
-**Important**  
-You cannot add the tags described in this section in an AWS CloudFormation template\. AWS CloudFormation does not allow keys for tags that begin with `aws:`\.
-+ Add `aws:transfer:customHostname` to display the custom hostname in the console\.
-+ If you are using Route 53 as your DNS provider, add `aws:transfer:route53HostedZoneId`\. This tag links the custom hostname to your Route 53 Hosted Zone ID\.
++ Add `transfer:customHostname` to display the custom hostname in the console\.
++ If you are using Route 53 as your DNS provider, add `transfer:route53HostedZoneId`\. This tag links the custom hostname to your Route 53 Hosted Zone ID\.
 
 To add the custom hostname, issue the following CLI command\.
 
 ```
-aws transfer tag-resource --arn server-ARN:server/server-ID --tags Key=aws:transfer:customHostname,Value="custom-host-name"
+aws transfer tag-resource --arn server-ARN:server/server-ID --tags Key=transfer:customHostname,Value="custom-host-name"
 ```
 
 For example:
 
 ```
-aws transfer tag-resource --arn arn:aws:transfer:us-east-1:111122223333:server/s-1234567890abcdef0 --tags Key=aws:transfer:customHostname,Value="abc.example.com"
+aws transfer tag-resource --arn arn:aws:transfer:us-east-1:111122223333:server/s-1234567890abcdef0 --tags Key=transfer:customHostname,Value="abc.example.com"
 ```
 
 If you are using Route 53, issue the following command to link your custom hostname to your Route 53 Hosted Zone ID\.
 
 ```
-aws transfer tag-resource --arn server-ARN:server/server-ID --tags Key=aws:transfer:route53HostedZoneId,Value=HOSTED-ZONE-ID
+aws transfer tag-resource --arn server-ARN:server/server-ID --tags Key=transfer:route53HostedZoneId,Value=HOSTED-ZONE-ID
 ```
 
 For example:
 
 ```
-aws transfer tag-resource --arn arn:aws:transfer:us-east-1:111122223333:server/s-1234567890abcdef0 --tags Key=aws:transfer:route53HostedZoneId,Value=ABCDE1111222233334444
+aws transfer tag-resource --arn arn:aws:transfer:us-east-1:111122223333:server/s-1234567890abcdef0 --tags Key=transfer:route53HostedZoneId,Value=ABCDE1111222233334444
 ```
 
 Assuming the sample values from the previous command, run the following command to view your tags:
@@ -89,11 +89,11 @@ aws transfer list-tags-for-resource --arn arn:aws:transfer:us-east-1:11112222333
 ```
 "Tags": [
    {
-      "Key": "aws:transfer:route53HostedZoneId",
+      "Key": "transfer:route53HostedZoneId",
       "Value": "/hostedzone/ABCDE1111222233334444"
    },
    {
-      "Key": "aws:transfer:customHostname",
+      "Key": "transfer:customHostname",
       "Value": "abc.example.com"
    }
  ]

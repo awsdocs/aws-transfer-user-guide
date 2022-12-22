@@ -249,7 +249,7 @@ Execution is throttled if a workflow is getting triggered at a rate that is fast
 
 *Service failure on starting workflow*
 
-If you remove a workflow from a server, and replace it with a new one, you need to wait approximately 10 minutes before executing the new workflow\. The Transfer Family server caches the workflow details, and it takes 10 minutes for the server to refresh its cache\.
+If you remove a workflow from a server and replace it with a new one, you must wait approximately 10 minutes before executing the new workflow\. The Transfer Family server caches the workflow details, and it takes 10 minutes for the server to refresh its cache\.
 
 ## Troubleshoot workflow copy errors<a name="source-bucket-region"></a>
 

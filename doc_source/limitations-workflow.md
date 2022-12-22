@@ -18,5 +18,8 @@ The following restrictions currently apply to post\-upload processing workflows 
 + The maximum timeout for custom steps is 30 minutes\.
 + The maximum number of steps in a workflow is 8\.
 + The maximum number of tags per workflow is 50\.
++ The maximum number of concurrent executions that contain a decrypt step is 250 per workflow\.
++ You can store a maximum of 3 keys, per Transfer Family server, per user\.
++ The maximum size for a decrypted file is 10 GB\.
 + The new executions refill rate per workflow is one per second\.
-+ If you remove a workflow from a server, and replace it with a new one, you need to wait approximately 10 minutes before executing the new workflow\. The Transfer Family server caches the workflow details, and it takes 10 minutes for the server to refresh its cache\.
++ If you remove a workflow from a server and replace it with a new one, you must wait approximately 10 minutes before executing the new workflow\. The Transfer Family server caches the workflow details, and it takes 10 minutes for the server to refresh its cache\.

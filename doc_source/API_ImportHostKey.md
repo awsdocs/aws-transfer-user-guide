@@ -32,7 +32,7 @@ Pattern: `^[\p{Print}]*$`
 Required: No
 
  ** [HostKeyBody](#API_ImportHostKey_RequestSyntax) **   <a name="TransferFamily-ImportHostKey-request-HostKeyBody"></a>
-The public key portion of an SSH key pair\.  
+The private key portion of an SSH key pair\.  
  AWS Transfer Family accepts RSA, ECDSA, and ED25519 keys\.  
 Type: String  
 Length Constraints: Maximum length of 4096\.  

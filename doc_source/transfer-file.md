@@ -44,6 +44,7 @@ For SFTP, the following operations are currently not supported for users that ar
  Before you can transfer a file, you must have a public\-private key pair available\. If you have not previously generated a key pair, see [Generate SSH keys](key-management.md#sshkeygen)\. 
 
 **Topics**
++ [Find your Amazon VPC endpoint](#find-vpc-endpoint)
 + [Avoid `setstat` errors](#avoid-set-stat)
 + [Use OpenSSH](#openssh)
 + [Use WinSCP](#winscp)
@@ -51,6 +52,22 @@ For SFTP, the following operations are currently not supported for users that ar
 + [Use FileZilla](#filezilla)
 + [Use a Perl client](#using-clients-with-perl-modules)
 + [Post upload processing](#post-processing-upload)
+
+## Find your Amazon VPC endpoint<a name="find-vpc-endpoint"></a>
+
+If the endpoint type for your Transfer Family server is VPC, identifying the endpoint to use for transferring files is not straightforward\. In this case, use the following procedure to find your Amazon VPC endpoint\. 
+
+**Find your Amazon VPC endpoint**
+
+1. Navigate to your server's details page\.
+
+1. In the **Endpoint details** pane, select the **VPC**\.  
+![\[\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/server-details-endpoint-vpc.png)
+
+1. In the Amazon VPC dashboard, select the **VPC endpoint ID**\.
+
+1. In the list of **DNS names**, your server endpoint is the first one listed\.  
+![\[\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/server-details-endpoint-vpc-2.png)
 
 ## Avoid `setstat` errors<a name="avoid-set-stat"></a>
 
@@ -114,7 +131,9 @@ Use the instructions that follow to transfer files from the command line using W
    + **No encryption** for FTP
    + **TLS/SSL Explicit encryption** for FTPS
 
-1. For **Host name**, enter your server endpoint\. The server endpoint is located on the **Server details** page, see [View server details](configuring-servers-view-info.md)\.
+1. For **Host name**, enter your server endpoint\. The server endpoint is located on the **Server details** page\. For more information, see [View server details](configuring-servers-view-info.md)\.
+**Note**  
+If your server uses a VPC endpoint, see [Find your Amazon VPC endpoint](#find-vpc-endpoint)\.
 
 1. For **Port number**, enter the following:
    + **22** for SFTP
@@ -170,6 +189,8 @@ Use the instructions that follow to transfer files from the command line using C
 1. In the **Open Connection** dialog box, choose a protocol: **SFTP \(SSH File Transfer Protocol\)**, **FTP\-SSL \(Explicit AUTH TLS\)**, or **FTP \(File Transfer Protocol\)**\.
 
 1. For **Server**, enter your server endpoint\. The server endpoint is located on the **Server details** page\. For more information, see [View server details](configuring-servers-view-info.md)\.
+**Note**  
+If your server uses a VPC endpoint, see [Find your Amazon VPC endpoint](#find-vpc-endpoint)\.
 
 1. For **Port number**, enter the following:
    + **22** for SFTP
@@ -206,6 +227,8 @@ Use the instructions that follow to transfer files using FileZilla\.
    + **Use explicit FTP over TLS if available** – for FTPS
 
 1. For **Host name**, enter the protocol that you are using, followed by your server endpoint\. The server endpoint is located on the **Server details** page\. For more information, see [View server details](configuring-servers-view-info.md)\.
+**Note**  
+If your server uses a VPC endpoint, see [Find your Amazon VPC endpoint](#find-vpc-endpoint)\.
    + If you are using SFTP, enter: `sftp://hostname`
    +  If you are using FTPS, enter: `ftps://hostname` 
 

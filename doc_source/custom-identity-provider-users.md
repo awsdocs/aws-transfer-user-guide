@@ -15,7 +15,7 @@ In either case, you can create a new server using the [AWS Transfer Family conso
 
 ## Using AWS Lambda to integrate your identity provider<a name="custom-lambda-idp"></a>
 
-Create an AWS Lambda function that connects to your custom identity provider\. You can use any custom identity provider, such as Okta, Secrets Manager, OneLogin, or a custom data store that includes authorization and authentication logic\. 
+Create an AWS Lambda function that connects to your custom identity provider\. You can use any custom identity provider, such as Okta, Secrets Manager, OneLogin, or a custom data store that includes authorization and authentication logic\.
 
 **Note**  
 Before you create a Transfer Family server that uses Lambda as the identity provider, you must create the function\. For an example Lambda function, see [Default Lambda function](#authentication-lambda-examples-default)\. Or, you can deploy a CloudFormation stack that uses a [Lambda function templates](#lambda-idp-templates)\. Also, make sure your Lambda function uses a resource\-based policy that trusts Transfer Family\. For an example policy, see [Lambda resource\-based policy](#lambda-resource-policy)\.
@@ -126,6 +126,7 @@ We recommend that you edit the default user and password credentials\.
      A basic template that uses AWS Lambda with an AWS Transfer Family server to integrate Secrets Manager as an identity provider\. It authenticates against an entry in AWS Secrets Manager of the format `SFTP/username`\. Additionally, the secret must hold the key\-value pairs for all user properties returned to Transfer Family\. After deployment, you can modify the Lambda function code to do something different\.
    + [Okta stack template](https://s3.amazonaws.com/aws-transfer-resources/custom-idp-templates/aws-transfer-custom-idp-okta-lambda.template.yml): A basic template that uses AWS Lambda with an AWS Transfer Family server to integrate Okta as a custom identity provider\.
    + [Okta\-mfa stack template](https://s3.amazonaws.com/aws-transfer-resources/custom-idp-templates/aws-transfer-custom-idp-okta-mfa-lambda.template.yml): A basic template that uses AWS Lambda with an AWS Transfer Family server to integrate Okta, with MultiFactor Authentication, as a custom identity provider\.
+   + [ Azure Active Directory template](https://s3.amazonaws.com/aws-transfer-resources/custom-idp-templates/aws-transfer-custom-idp-basic-lambda-azure-ad.template.yml): details for this stack are described in the blog post [ Authenticating to AWS Transfer Family with Azure Active Directory and AWS Lambda](http://aws.amazon.com/blogs/storage/authenticating-to-aws-transfer-family-with-azure-active-directory-and-aws-lambda/)\.
 
    After the stack has been deployed, you can view details about it on the **Outputs** tab in the CloudFormation console\.
 

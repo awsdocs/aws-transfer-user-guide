@@ -29,7 +29,8 @@ The certificate must be a valid SSL/TLS X\.509 version 3 certificate with FQDN o
 1. In **Choose an identity provider**, choose the identity provider that you want to use to manage user access\. You have the following options:
    + **AWS Directory Service for Microsoft Active Directory** – You provide an AWS Directory Service directory to access the endpoint\. By doing so, you can use credentials stored in your Active Directory to authenticate your users\. To learn more about working with AWS Managed Microsoft AD identity providers, see [Using the AWS Directory Service identity provider](directory-services-users.md)\.
 **Note**  
- Cross\-Account and Shared directories are not supported for AWS Managed Microsoft AD\.   
+ Cross\-Account and Shared directories are not supported for AWS Managed Microsoft AD\. 
+To set up a server with Directory Service as your identity provider, you need to add some AWS Directory Service permissions\. For details, see [Before you start using AWS Directory Service for Microsoft Active Directory](directory-services-users.md#managed-ad-prereq)\.  
 ![\[The Choose an identity provider console section with AWS Directory Service selected.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/create-server-choose-idp-directory-services.png)
    + **Custom identity provider** – Choose either of the following options:
      + **Use AWS Lambda to connect your identity provider** – You can use an existing identity provider, backed by a Lambda function\. You provide the name of the Lambda function\. For more information, see [Using AWS Lambda to integrate your identity provider](custom-identity-provider-users.md#custom-lambda-idp)\.

@@ -1,16 +1,16 @@
 # InputFileLocation<a name="API_InputFileLocation"></a>
 
-Specifies the location for the file being copied\. Only applicable for the Copy type of workflow steps\.
+Specifies the location for the file that's being processed\.
 
 ## Contents<a name="API_InputFileLocation_Contents"></a>
 
  ** EfsFileLocation **   <a name="TransferFamily-Type-InputFileLocation-EfsFileLocation"></a>
-Reserved for future use\.  
+Specifies the details for the Amazon Elastic File System \(Amazon EFS\) file that's being decrypted\.  
 Type: [EfsFileLocation](API_EfsFileLocation.md) object  
 Required: No
 
  ** S3FileLocation **   <a name="TransferFamily-Type-InputFileLocation-S3FileLocation"></a>
-Specifies the details for the S3 file being copied\.  
+Specifies the details for the Amazon S3 file that's being copied or decrypted\.  
 Type: [S3InputFileLocation](API_S3InputFileLocation.md) object  
 Required: No
 

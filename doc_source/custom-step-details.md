@@ -5,9 +5,9 @@ By using a custom file\-processing step, you can Bring Your Own file\-processing
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/workflows-step-custom.png)
 
 **Note**  
-For an example Lambda function, see [Example Lambda function for a custom workflow step](#example-workflow-lambda)
+For an example Lambda function, see [Example Lambda function for a custom workflow step](#example-workflow-lambda)\.
 
-With a custom workflow step, you must configure the Lambda function to call the [SendWorkflowStepState](https://docs.aws.amazon.com/transfer/latest/userguide/API_SendWorkflowStepState.html) API operation\. `SendWorkflowStepState` notifies the workflow execution that the step was completed with either a success or a failure status\. The status of the `SendWorkflowStepState` API operation is used to either invoke an exception handler step or a nominal step in the linear sequence based on the outcome of the Lambda function\. 
+With a custom workflow step, you must configure the Lambda function to call the [SendWorkflowStepState](https://docs.aws.amazon.com/transfer/latest/userguide/API_SendWorkflowStepState.html) API operation\. `SendWorkflowStepState` notifies the workflow execution that the step was completed with either a success or a failure status\. The status of the `SendWorkflowStepState` API operation invokes an exception handler step or a nominal step in the linear sequence, based on the outcome of the Lambda function\. 
 
 If the Lambda function fails or times out, the step fails, and you see `StepErrored` in your CloudWatch logs\. If the Lambda function is part of the nominal step and the function responds to `SendWorkflowStepState` with `Status="FAILURE"` or times out, the flow continues with the exception handler steps\. In this case, the workflow does not continue to execute the remaining \(if any\) nominal steps\. For more details, see [Exception handling for a workflow](exception-workflow.md)\.
 
@@ -28,24 +28,23 @@ To be able to call the `SendWorkflowStepState` API operation from your Lambda fu
 
 ## Using multiple Lambda functions consecutively<a name="multiple-lambdas"></a>
 
-When you use multiple custom steps one after the other, the **File location** option works slightly differently than if you only use a single custom step\. Transfer Family doesn't support passing the Lambda\-processed file back to use as the next step's input\. So, if you have multiple custom steps all configured to use the `previous.file` option, they all use the same file location \(the input file location for the first custom step\)\.
+When you use multiple custom steps one after the other, the **File location** option works differently than if you use only a single custom step\. Transfer Family doesn't support passing the Lambda\-processed file back to use as the next step's input\. So, if you have multiple custom steps all configured to use the `previous.file` option, they all use the same file location \(the input file location for the first custom step\)\.
 
 **Note**  
-If you have a pre\-defined step \(tag, copy, or delete\) after a custom step, and if the pre\-defined step is configured to use the `previous.file` setting, the pre\-defined step uses the same input file used by the custom step\. The processed file from the custom step is not passed to the pre\-defined step\. 
+The `previous.file` setting also works differently if you have a predefined step \(tag, copy, decrypt, or delete\) after a custom step\. If the predefined step is configured to use the `previous.file` setting, the predefined step uses the same input file that's used by the custom step\. The processed file from the custom step is not passed to the predefined step\. 
 
 ## Accessing a file after custom processing<a name="process-uploaded-file"></a>
 
-If you are using Amazon S3 as your storage, and if your workflow includes a custom step that performs actions on the originally uploaded file, subsequent steps cannot access that file\. That is, any step after the custom step cannot reference the updated file from the custom step output\. For example, If you configure the `sourceFileLocation` for the step after custom step to be `${original.file}`, the step uses the original file location from when the server uploaded the file to storage\. And if you are using `${previous.file}` for that step, it will reuse the file location that custom step used as input\.
+If you're using Amazon S3 as your storage, and if your workflow includes a custom step that performs actions on the originally uploaded file, subsequent steps cannot access that processed file\. That is, any step after the custom step cannot reference the updated file from the custom step output\. 
 
-**Procedure that causes an error**
+For example, suppose that you have the following three steps in your workflow\. 
++ **Step 1** – Upload a file named `example-file.txt`\.
++ **Step 2** – Invoke a Lambda function that changes `example-file.txt` in some way\.
++ **Step 3** – Attempt to perform further processing on the updated version of `example-file.txt`\.
 
-1. Step 1: upload file **example\-file**\.
+If you configure the `sourceFileLocation` for Step 3 to be `${original.file}`, Step 3 uses the original file location from when the server uploaded the file to storage in Step 1\. If you're using `${previous.file}` for Step 3, Step 3 reuses the file location that Step 2 used as input\.
 
-1. Step 2: invoke a Lambda that changes **example\-file** in some way\.
-
-1. Step 3: attempt to perform further processing on the updated version of **example\-file**\.
-
-Step 3 causes an error\. For example, if step 3 is an attempt to copy the updated **example\-file**, you receive the following error:
+Therefore, Step 3 causes an error\. For example, if step 3 attempts to copy the updated `example-file.txt`, you receive the following error:
 
 ```
 {
@@ -58,17 +57,17 @@ Step 3 causes an error\. For example, if step 3 is an attempt to copy the update
     },
 ```
 
-This error occurs because the custom step modifies the entity tag \(ETag\) for **example\-file**, so that it doesn't match the original file\.
+This error occurs because the custom step modifies the entity tag \(ETag\) for `example-file.txt` so that it doesn't match the original file\.
 
 **Note**  
-This is not an issue if you are using Amazon EFS, as Amazon EFS doesn't use entity tags to identify files\.
+This behavior doesn't occur if you're using Amazon EFS because Amazon EFS doesn't use entity tags to identify files\.
 
 ## Example events sent to AWS Lambda upon file upload<a name="example-workflow-lambdas"></a>
 
-The following examples show the events that are sent to AWS Lambda when a file upload is complete\. One example uses a Transfer Family server where the domain is configured with Amazon S3 and one where the domain uses Amazon EFS\. 
+The following examples show the events that are sent to AWS Lambda when a file upload is complete\. One example uses a Transfer Family server where the domain is configured with Amazon S3\. The other example uses a Transfer Family server where the domain uses Amazon EFS\. 
 
 ------
-#### [ Custom step Amazon S3 domain ]
+#### [ Custom step that uses an Amazon S3 domain ]
 
 ```
 {
@@ -95,7 +94,7 @@ The following examples show the events that are sent to AWS Lambda when a file u
 ```
 
 ------
-#### [ Custom step Amazon EFS domain ]
+#### [ Custom step that uses an Amazon EFS domain ]
 
 ```
 {
@@ -123,7 +122,7 @@ The following examples show the events that are sent to AWS Lambda when a file u
 
 ## Example Lambda function for a custom workflow step<a name="example-workflow-lambda"></a>
 
-The following Lambda function extracts the information regarding the execution status, and then calls the [SendWorkflowStepState](https://docs.aws.amazon.com/transfer/latest/userguide/API_SendWorkflowStepState.html) API operation to return the status to the workflow for the step—`SUCCESS` or `FAILURE`\. Before your function calls the `SendWorkflowStepState` API operation, you can configure Lambda to take an action based on your workflow logic\. 
+The following Lambda function extracts the information regarding the execution status, and then calls the [SendWorkflowStepState](https://docs.aws.amazon.com/transfer/latest/userguide/API_SendWorkflowStepState.html) API operation to return the status to the workflow for the step—either `SUCCESS` or `FAILURE`\. Before your function calls the `SendWorkflowStepState` API operation, you can configure Lambda to take an action based on your workflow logic\. 
 
 ```
 import json

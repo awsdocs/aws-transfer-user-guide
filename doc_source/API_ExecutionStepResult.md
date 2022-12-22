@@ -17,12 +17,13 @@ Required: No
 
  ** StepType **   <a name="TransferFamily-Type-ExecutionStepResult-StepType"></a>
 One of the available step types\.  
-+  *COPY*: Copy the file to another location\.
-+  *CUSTOM*: Perform a custom step with an AWS Lambda function target\.
-+  *DELETE*: Delete the file\.
-+  *TAG*: Add a tag to the file\.
++  ** `COPY` ** \- Copy the file to another location\.
++  ** `CUSTOM` ** \- Perform a custom step with an AWS Lambda function target\.
++  ** `DECRYPT` ** \- Decrypt a file that was encrypted before it was uploaded\.
++  ** `DELETE` ** \- Delete the file\.
++  ** `TAG` ** \- Add a tag to the file\.
 Type: String  
-Valid Values:` COPY | CUSTOM | TAG | DELETE`   
+Valid Values:` COPY | CUSTOM | TAG | DELETE | DECRYPT`   
 Required: No
 
 ## See Also<a name="API_ExecutionStepResult_SeeAlso"></a>

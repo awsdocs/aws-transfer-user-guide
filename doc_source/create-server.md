@@ -43,6 +43,7 @@ Notes:
 + IAM is used to control access for Amazon S3 backing storage, and POSIX is used for Amazon EFS\.
 + *Ad hoc* refers to the ability to send the user profile at runtime\. For example, you can land users in their home directories by passing the user name as a variable\.
 + For details about AWS WAF, see [Add a web application firewall](web-application-firewall.md)\.
++ There is a blog post that describes using a Lambda function integrated with Microsoft Azure AD as your Transfer Family identity provider\. For details, see [ Authenticating to AWS Transfer Family with Azure Active Directory and AWS Lambda](http://aws.amazon.com/blogs/storage/authenticating-to-aws-transfer-family-with-azure-active-directory-and-aws-lambda/)\.
 
 In the following procedures, you can create an SFTP\-enabled server, FTPS\-enabled server, FTP\-enabled server, or AS2\-enabled server\.
 

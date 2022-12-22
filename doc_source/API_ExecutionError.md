@@ -22,7 +22,7 @@ Specifies the error type\.
  You can set the `TimeoutSeconds` for a custom step, anywhere from 1 second to 1800 seconds \(30 minutes\)\. 
 +  `THROTTLED`: occurs if you exceed the new execution refill rate of one workflow per second\.
 Type: String  
-Valid Values:` PERMISSION_DENIED`   
+Valid Values:` PERMISSION_DENIED | CUSTOM_STEP_FAILED | THROTTLED | ALREADY_EXISTS | NOT_FOUND | BAD_REQUEST | TIMEOUT | INTERNAL_SERVER_ERROR`   
 Required: Yes
 
 ## See Also<a name="API_ExecutionError_SeeAlso"></a>

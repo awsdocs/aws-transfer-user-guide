@@ -244,7 +244,7 @@ This procedure explains how to create an AS2\-enabled server by using the Transf
 
 **To create an AS2\-enabled server**
 
-1. Open the AWS Transfer Family console at [https://console\.aws\.amazon\.com/transfer/](https://console.aws.amazon.com/transfer/)\. 
+1. Open the AWS Transfer Family console at [https://console\.aws\.amazon\.com/transfer/](https://console.aws.amazon.com/transfer/)\.
 
 1. In the left navigation pane, choose **Servers**, and then choose **Create server**\.
 

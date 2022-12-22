@@ -200,7 +200,7 @@ In this case, you can grant access by adding a policy condition that adds the `G
             "Effect": "Deny",
             "Action": [
                 "s3:GetObject",
-                "se:GetObjectVersion"
+                "s3:GetObjectVersion"
             ],
             "NotResource": [
                 "arn:aws:s3:::DOC-EXAMPLE-BUCKET/*/"

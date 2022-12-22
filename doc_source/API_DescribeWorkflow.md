@@ -53,6 +53,22 @@ Required: Yes
                "Target": "string",
                "TimeoutSeconds": number
             },
+            "DecryptStepDetails": { 
+               "DestinationFileLocation": { 
+                  "EfsFileLocation": { 
+                     "FileSystemId": "string",
+                     "Path": "string"
+                  },
+                  "S3FileLocation": { 
+                     "Bucket": "string",
+                     "Key": "string"
+                  }
+               },
+               "Name": "string",
+               "OverwriteExisting": "string",
+               "SourceFileLocation": "string",
+               "Type": "string"
+            },
             "DeleteStepDetails": { 
                "Name": "string",
                "SourceFileLocation": "string"
@@ -92,6 +108,22 @@ Required: Yes
                "SourceFileLocation": "string",
                "Target": "string",
                "TimeoutSeconds": number
+            },
+            "DecryptStepDetails": { 
+               "DestinationFileLocation": { 
+                  "EfsFileLocation": { 
+                     "FileSystemId": "string",
+                     "Path": "string"
+                  },
+                  "S3FileLocation": { 
+                     "Bucket": "string",
+                     "Key": "string"
+                  }
+               },
+               "Name": "string",
+               "OverwriteExisting": "string",
+               "SourceFileLocation": "string",
+               "Type": "string"
             },
             "DeleteStepDetails": { 
                "Name": "string",

@@ -16,24 +16,24 @@ CloudWatch provides consolidated auditing and logging for workflow progress and 
 
 1. Choose the log group that corresponds to your server\.
 
-   For example, if your server ID is `s-1234567890abcdef0`, your log group is **/aws/transfer/s\-1234567890abcdef0**\.
+   For example, if your server ID is `s-1234567890abcdef0`, your log group is `/aws/transfer/s-1234567890abcdef0`\.
 
 1. On the log group details page for your server, the most recent log streams are displayed\. There are two log streams for the user that you are exploring: 
    + One for each Secure Shell \(SSH\) File Transfer Protocol \(SFTP\) session\.
    + One for the workflow that is being executed for your server\. The format for the log stream for the workflow is `username.workflowID.uniqueStreamSuffix`\.
 
-   For example, if your user is `bob-usa`, you have the following log streams:
+   For example, if your user is `mary-major`, you have the following log streams:
 
    ```
-   bob-usa-east.1234567890abcdef0
-   bob.w-abcdef01234567890.021345abcdef6789
+   mary-major-east.1234567890abcdef0
+   mary.w-abcdef01234567890.021345abcdef6789
    ```
 **Note**  
- The 16\-digit alphanumeric identifiers listed in this example are fictitious; the values that you see in Amazon CloudWatch are different\. 
+ The 16\-digit alphanumeric identifiers listed in this example are fictitious\. The values that you see in Amazon CloudWatch are different\. 
 
-The **Log events** page for **bob\-usa\-east\.1234567890abcdef0** displays the details for each user session, and the **bob\.w\-abcdef01234567890\.021345abcdef6789** log stream contains the details for the workflow\. 
+The **Log events** page for `mary-major-usa-east.1234567890abcdef0` displays the details for each user session, and the `mary.w-abcdef01234567890.021345abcdef6789` log stream contains the details for the workflow\. 
 
- The following is a sample log stream for **bob\.w\-abcdef01234567890\.021345abcdef6789**, based on a workflow \(`w-abcdef01234567890`\) that contains a copy step\. 
+ The following is a sample log stream for `mary.w-abcdef01234567890.021345abcdef6789`, based on a workflow \(`w-abcdef01234567890`\) that contains a copy step\. 
 
 ```
 {"type":"ExecutionStarted",
@@ -41,7 +41,7 @@ The **Log events** page for **bob\-usa\-east\.1234567890abcdef0** displays the d
     "input": {
       "initialFileLocation": {
         "bucket":"DOC-EXAMPLE-BUCKET",
-        "key":"bob/workflowSteps2.json",
+        "key":"mary/workflowSteps2.json",
         "versionId":"version-id",
         "etag":"etag-id"
       }
@@ -51,7 +51,7 @@ The **Log events** page for **bob\-usa\-east\.1234567890abcdef0** displays the d
   "executionId":"execution-id",
   "transferDetails": {
     "serverId":"s-server-id",
-    "username":"bob",
+    "username":"mary",
     "sessionId":"session-id"
   }
 }
@@ -60,7 +60,7 @@ The **Log events** page for **bob\-usa\-east\.1234567890abcdef0** displays the d
     "fileLocation": {
       "backingStore":"S3",
       "bucket":"DOC-EXAMPLE-BUCKET",
-      "key":"bob/workflowSteps2.json",
+      "key":"mary/workflowSteps2.json",
       "versionId":"version-id",
       "etag":"etag-id"
     }
@@ -70,7 +70,7 @@ The **Log events** page for **bob\-usa\-east\.1234567890abcdef0** displays the d
   "executionId":"execution-id",
   "transferDetails": {
     "serverId":"s-server-id",
-    "username":"bob",
+    "username":"mary",
     "sessionId":"session-id"
   }
 }
@@ -84,7 +84,7 @@ The **Log events** page for **bob\-usa\-east\.1234567890abcdef0** displays the d
   "executionId":"execution-id",
   "transferDetails":{
     "serverId":"s-server-id",
-    "username":"bob",
+    "username":"mary",
     "sessionId":"session-id"
   }
 }
@@ -94,7 +94,7 @@ The **Log events** page for **bob\-usa\-east\.1234567890abcdef0** displays the d
   "executionId":"execution-id",
   "transferDetails":{
     "serverId":"s-server-id",
-    "username":"bob",
+    "username":"mary",
     "sessionId":"session-id
   }
 }

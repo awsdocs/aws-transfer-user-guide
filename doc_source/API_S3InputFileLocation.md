@@ -1,6 +1,6 @@
 # S3InputFileLocation<a name="API_S3InputFileLocation"></a>
 
-Specifies the customer input S3 file location\. If it is used inside `copyStepDetails.DestinationFileLocation`, it should be the S3 copy destination\.
+Specifies the customer input Amazon S3 file location\. If it is used inside `copyStepDetails.DestinationFileLocation`, it should be the S3 copy destination\.
 
  You need to provide the bucket and key\. The key can represent either a path or a file\. This is determined by whether or not you end the key value with the forward slash \(/\) character\. If the final character is "/", then your file is copied to the folder, and its name does not change\. If, rather, the final character is alphanumeric, your uploaded file is renamed to the path value\. In this case, if a file with that name already exists, it is overwritten\. 
 

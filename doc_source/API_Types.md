@@ -4,6 +4,7 @@ The following data types are supported:
 +  [As2ConnectorConfig](API_As2ConnectorConfig.md) 
 +  [CopyStepDetails](API_CopyStepDetails.md) 
 +  [CustomStepDetails](API_CustomStepDetails.md) 
++  [DecryptStepDetails](API_DecryptStepDetails.md) 
 +  [DeleteStepDetails](API_DeleteStepDetails.md) 
 +  [DescribedAccess](API_DescribedAccess.md) 
 +  [DescribedAgreement](API_DescribedAgreement.md) 

@@ -15,8 +15,8 @@ Required: No
 
  ** SourceFileLocation **   <a name="TransferFamily-Type-TagStepDetails-SourceFileLocation"></a>
 Specifies which file to use as input to the workflow step: either the output from the previous step, or the originally uploaded file for the workflow\.  
-+ Enter `${previous.file}` to use the previous file as the input\. In this case, this workflow step uses the output file from the previous workflow step as input\. This is the default value\.
-+ Enter `${original.file}` to use the originally\-uploaded file location as input for this step\.
++ To use the previous file as the input, enter `${previous.file}`\. In this case, this workflow step uses the output file from the previous workflow step as input\. This is the default value\.
++ To use the originally uploaded file location as input for this step, enter `${original.file}`\.
 Type: String  
 Length Constraints: Maximum length of 256\.  
 Pattern: `^\$\{(\w+.)+\w+\}$`   

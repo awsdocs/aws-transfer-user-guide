@@ -15,7 +15,9 @@ With AWS Managed Microsoft AD, you can securely provide AWS Directory Service us
 You can provide access to Active Directory groups in AWS Managed Microsoft AD in your on\-premises environment or in the AWS Cloud using Active Directory connectors\. You can give users that are already configured in your Microsoft Windows environment, either in the AWS Cloud or in their on\-premises network, access to an AWS Transfer Family server that uses AWS Managed Microsoft AD for identity\. 
 
 **Note**  
-AWS Transfer Family does not support Simple AD\. Also, Transfer Family does not support cross\-region Active Directory configurations: we only support Active Directory integrations that are in the same region as that of the Transfer Family server\.
+AWS Transfer Family does not support Simple AD\.
+Transfer Family does not support cross\-region Active Directory configurations: we only support Active Directory integrations that are in the same region as that of the Transfer Family server\.
+Transfer Family does not support using AD Connector to enable multi\-factor authentication \(MFA\) for your existing RADIUS\-based MFA infrastructure\.
 
 To use AWS Managed Microsoft AD, you must perform the following steps:
 
@@ -28,7 +30,7 @@ To use AWS Managed Microsoft AD, you must perform the following steps:
 1. Although not required, we recommend that you test and verify user access\.
 
 **Topics**
-+ [Before you start](#managed-ad-prereq)
++ [Before you start using AWS Directory Service for Microsoft Active Directory](#managed-ad-prereq)
 + [Choosing AWS Managed Microsoft AD as your identity provider](#managed-ad-identity-provider)
 + [Granting access to groups](#directory-services-grant-access)
 + [Testing users](#directory-services-test-user)
@@ -36,7 +38,9 @@ To use AWS Managed Microsoft AD, you must perform the following steps:
 + [Connecting to the server using SSH \(Secure Shell\)](#directory-services-ssh-procedure)
 + [Connecting AWS Transfer Family to a self\-managed Active Directory using forests and trusts](#directory-services-ad-trust)
 
-### Before you start<a name="managed-ad-prereq"></a>
+### Before you start using AWS Directory Service for Microsoft Active Directory<a name="managed-ad-prereq"></a>
+
+#### Provide a unique identifier for your AD groups<a name="add-identifier-adgroups"></a>
 
 Before you can use AWS Managed Microsoft AD, you must provide a unique identifier for each group in your Microsoft AD directory\. You can use the security identifier \(SID\) for each group to do this\. The users of the group that you associate have access to your Amazon S3 or Amazon EFS resources over the enabled protocols using AWS Transfer Family\. 
 
@@ -48,6 +52,15 @@ Get-ADGroup -Filter {samAccountName -like "YourGroupName*"} -Properties * | Sele
 
 **Note**  
 If you are using AWS Directory Service as your identity provider, and if `userPrincipalName` and `SamAccountName` have different values, AWS Transfer Family accepts the value in `SamAccountName`\. Transfer Family does not accept the value specified in `userPrincipalName`\.
+
+#### Add AWS Directory Service permissions to your role<a name="add-active-directory-permissions"></a>
+
+You also need AWS Directory Service API permissions to use AWS Directory Service as your identity provider\. The following permissions are required or suggested:
++ `ds:DescribeDirectories` is required for Transfer Family to look up the directory
++ `ds:AuthorizeApplication` is required to add authorization for Transfer Family
++ `ds:UnauthorizeApplication` is suggested to remove any resources that are provisionally created, in case something goes wrong during the server creation process
+
+Add these permissions to the role you are using for creating your Transfer Family servers\. For more details on these permissions, see [AWS Directory Service API permissions: Actions, resources, and conditions reference](https://docs.aws.amazon.com/directoryservice/latest/admin-guide/UsingWithDS_IAM_ResourcePermissions.html)\.
 
 ### Choosing AWS Managed Microsoft AD as your identity provider<a name="managed-ad-identity-provider"></a>
 
@@ -72,6 +85,7 @@ If you select **FTPS**, you must provide the AWS Certificate Manager certificate
 1. The **Directory** list contains all the managed directories that you have configured\. Choose a directory from the list, and choose **Next**\.
 **Note**  
  Cross\-Account and Shared directories are not supported for AWS Managed Microsoft AD\. 
+To set up a server with Directory Service as your identity provider, you need to add some AWS Directory Service permissions\. For details, see [Before you start using AWS Directory Service for Microsoft Active Directory](#managed-ad-prereq)\.
 
 1. To finish creating the server, use one of the following procedures:
    + [Create an SFTP\-enabled server](create-server-sftp.md)
@@ -102,7 +116,7 @@ If you grant access to groupA, Bob is granted access\.
 
 1.  Enter the SID for the AWS Managed Microsoft AD directory that you want to have access to this server\.
 **Note**  
-For information about how to find the SID for your group, see [Before you start](#managed-ad-prereq)\.
+For information about how to find the SID for your group, see [Before you start using AWS Directory Service for Microsoft Active Directory](#managed-ad-prereq)\.
 
 1. For **Access**, choose an AWS Identity and Access Management \(IAM\) role for the group\.
 
@@ -125,7 +139,7 @@ You can limit the portions of the bucket that users see by creating a session po
 
    1.  Enter the SID for the group\. 
 **Note**  
-For information about how to find the SID, see [Before you start](#managed-ad-prereq)\.
+For information about how to find the SID, see [Before you start using AWS Directory Service for Microsoft Active Directory](#managed-ad-prereq)\.
 
 1. Choose **Add access**\.
 
@@ -204,7 +218,7 @@ When connecting to the server using a trusted domain, the user needs to specify 
 This topic describes how to use an Active Directory Connector and [Azure Active Directory Domain Services \(Azure ADDS\)](https://azure.microsoft.com/en-us/services/active-directory-ds/) to authenticate SFTP Transfer users with [Azure Active Directory](https://azure.microsoft.com/en-us/services/active-directory/)\.
 
 **Topics**
-+ [Before you start](#azure-prereq)
++ [Before you start using AWS Directory Service for Azure Active Directory Domain Services](#azure-prereq)
 + [Step 1: Adding Azure Active Directory Domain Services](#azure-add-adds)
 + [Step 2: Creating a service account](#azure-create-service-acct)
 + [Step 3: Setting up AWS Directory using AD Connector](#azure-setup-directory)
@@ -212,7 +226,7 @@ This topic describes how to use an Active Directory Connector and [Azure Active 
 + [Step 5: Granting access to groups](#azure-grant-access)
 + [Step 6: Testing users](#azure-test)
 
-### Before you start<a name="azure-prereq"></a>
+### Before you start using AWS Directory Service for Azure Active Directory Domain Services<a name="azure-prereq"></a>
 
 For AWS, you need the following:
 + A virtual private cloud \(VPC\) in an AWS region where you are using your Transfer Family servers

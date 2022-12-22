@@ -109,7 +109,7 @@ HTTP Status Code: 400
 
 This command imports an ECDSA key stored in the `id_ecdsa.pub` file\.
 
-#### <a name="w197ab1c52c12c98c17b3b5"></a>
+#### <a name="w205ab1c52c12c98c17b3b5"></a>
 
 ```
 aws transfer import-ssh-public-key --server-id s-021345abcdef6789 --ssh-public-key-body file://id_ecdsa.pub --user-name jane-doe
@@ -119,7 +119,7 @@ aws transfer import-ssh-public-key --server-id s-021345abcdef6789 --ssh-public-k
 
 If you run the previous command, the system returns the following information\.
 
-#### <a name="w197ab1c52c12c98c17b5b5"></a>
+#### <a name="w205ab1c52c12c98c17b5b5"></a>
 
 ```
 {

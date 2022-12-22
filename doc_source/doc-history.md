@@ -2,11 +2,12 @@
 
 The following table describes the documentation for this release of AWS Transfer Family\.
 + **API version:** transfer\-2018\-11\-05
-+  **Latest documentation update:** February 17, 2022 
++  **Latest documentation update:** December 21, 2022 
 
 
 | Change | Description | Date | 
 | --- | --- | --- | 
+| Support for Pretty Good Privacy \(PGP\) decryption with files that Transfer Family processes with workflows | Transfer Family has built\-in support for Pretty Good Privacy \(PGP\) decryption\. You can use PGP decryption on files that are uploaded over SFTP, FTPS, or FTP to Amazon Simple Storage Service \(Amazon S3\) or Amazon Elastic File System \(Amazon EFS\)\. For more information, see [Generate and manage PGP keys](key-management.md#pgp-key-management) and [Use PGP decryption in your workflow](create-workflow.md#configure-decryption)\. | December 21, 2022 | 
 | Fully managed support for Applicability Statement 2 \(AS2\) file transfer protocol with Transfer Family servers\. | You can create servers that use the AS2 protocol for sending and receiving information to and from trading partners who are inside or outside the AWS environment\. For more information, see [Create an AS2\-enabled server configuration](create-b2b-server.md)\.  | July 25, 2022 | 
 | Support for display banners when creating a server | You can add customized messages when you create servers\. You can display a pre\-authentication message \(all protocols\), and a post\-authentication message \(for FTP and FTPS servers\)\. For more information see [Create an SFTP\-enabled server](create-server-sftp.md), [Create an FTPS\-enabled server](create-server-ftps.md), or [Create an FTP\-enabled server](create-server-ftp.md)\. | February 17, 2022 | 
 | Support for AWS Lambda as an identity provider | You can now connect to a custom identity provider using AWS Lambda with their Transfer Family servers\. Previously, you had to supply an Amazon API Gateway URL to integrate a custom identity provider\. For more information, see [Using AWS Lambda to integrate your identity provider](custom-identity-provider-users.md#custom-lambda-idp)\. | November 16, 2021 | 

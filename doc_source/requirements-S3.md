@@ -23,13 +23,13 @@ AWS Transfer Family does not currently support Amazon S3 Multi\-Region Access Po
 
 ## Amazon S3 HeadObject behavior<a name="head-object-behavior"></a>
 
-In Amazon S3, buckets and objects are the primary resources, and objects are stored in buckets\. Amazon S3 can mimic a hierarchical file system, but can sometimes behave differently than a typical file system\. For example, directories are not a first\-class concept in Amazon S3 but instead are based on object keys\. AWS Transfer Family infers a directory path by splitting an object's key by the forward slash character \(**/**\), treating the last element as the file name, then grouping file names which have the same prefix together under the same path\. Zero\-byte objects are created to represent a folder's path when you create an empty directory using `mkdir` or by using the Amazon S3 console\. The key for these objects ends in a training forward slash\. These zero\-byte objects are described in [Organizing objects in the Amazon S3 console using folders](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-folders.html) in the *Amazon S3 User Guide*\.
+In Amazon S3, buckets and objects are the primary resources, and objects are stored in buckets\. Amazon S3 can mimic a hierarchical file system, but can sometimes behave differently than a typical file system\. For example, directories are not a first\-class concept in Amazon S3 but instead are based on object keys\. AWS Transfer Family infers a directory path by splitting an object's key by the forward slash character \(**/**\), treating the last element as the file name, then grouping file names which have the same prefix together under the same path\. Zero\-byte objects are created to represent a folder's path when you create an empty directory using `mkdir` or by using the Amazon S3 console\. The key for these objects ends in a trailing forward slash\. These zero\-byte objects are described in [Organizing objects in the Amazon S3 console using folders](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-folders.html) in the *Amazon S3 User Guide*\.
 
 When you run an `ls` command, and some results are Amazon S3 zero\-byte objects \(these objects have keys that end in the forward slash character\), Transfer Family issues a `HeadObject` request for each of these objects \(see [HeadObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_HeadObject.html) in the *Amazon Simple Storage Service API Reference* for details\)\. This can result in the following problems when using Amazon S3 as your storage with Transfer Family\.
 
 ### Grant ability to only write and list files<a name="headobject-access-denied"></a>
 
- In some cases, customers want to only offer write access to their Amazon S3 objects\. They want to provide access to write/upload and list objects in a bucket, but not read/download\. This translates to the Amazon S3 permissions `ListObjects` and `PutOjbect` to perform `ls` and `mkdir` commands using file transfer clients\. However, when Transfer Family needs to make a `HeadObject` call to either write or list files, it fails with an error of **Access denied**, because this call requires the `GetObject` permission\.
+ In some cases, customers want to only offer write access to their Amazon S3 objects\. They want to provide access to write/upload and list objects in a bucket, but not read/download\. This translates to the Amazon S3 permissions `ListObjects` and `PutObject` to perform `ls` and `mkdir` commands using file transfer clients\. However, when Transfer Family needs to make a `HeadObject` call to either write or list files, it fails with an error of **Access denied**, because this call requires the `GetObject` permission\.
 
 In this case, you can grant access by adding a policy condition that adds the `GetObject` permission for any objects that end in a **/**\. This prevents `GetObject` on files so they cannot be read, while allowing the user to list and traverse folders\. The following example policy offers only write and list access to their Amazon S3 buckets \(replace *DOC\-EXAMPLE\-BUCKET* with the actual name of your bucket\)\.
 
@@ -49,7 +49,7 @@ In this case, you can grant access by adding a policy condition that adds the `G
             "Action": [
                 "s3:PutObject",
                 "s3:GetObject",
-                "s3:GetobjectVersion"
+                "s3:GetObjectVersion"
             ],
             "Resource": [
                 "arn:aws:s3:::DOC-EXAMPLE-BUCKET/*"

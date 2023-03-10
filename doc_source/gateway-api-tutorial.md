@@ -91,7 +91,7 @@ Make sure that the logging role for the server has a trust relationship with Tra
 
 1. On the **Servers** page, choose your new server, choose **Actions**, and then choose **Test**\.
 
-1. Enter the text for **Username** and **Password** that you set when you deployed the AWS CloudFormation stack\.
+1. Enter the text for your sign\-in credentials into the **Username** field, and into the **Password** field\. These are the values that you set when you deployed the AWS CloudFormation stack\.
 
 1. For **Server Protocol**, select **SFTP**, and for **Source IP**, enter **127\.0\.0\.1**\. 
 

@@ -1,6 +1,6 @@
 # What is AWS Transfer Family?<a name="what-is-aws-transfer-family"></a>
 
-AWS Transfer Family is a secure transfer service that enables you to transfer files into and out of AWS storage services\. 
+AWS Transfer Family is a secure transfer service that enables you to transfer files into and out of AWS storage services\. Transfer Family is part of the AWS Cloud platform: see [Getting Started with AWS](https://aws.amazon.com/getting-started/) to learn more and to start building cloud applications with Amazon Web Services\.
 
 AWS Transfer Family supports transferring data from or to the following AWS storage services\. 
 + Amazon Simple Storage Service \(Amazon S3\) storage\. For information about Amazon S3, see [Getting started with Amazon Simple Storage Service](https://docs.aws.amazon.com/AmazonS3/latest/gsg/GetStartedWithS3.html)\.

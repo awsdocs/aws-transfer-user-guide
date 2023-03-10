@@ -13,3 +13,7 @@ For data protection purposes, we recommend that you protect AWS account credenti
 We strongly recommend that you never put sensitive identifying information, such as your customers' account numbers, into free\-form fields such as a **Name** field\. This includes when you work with Transfer Family or other AWS services using the console, API, AWS CLI, or AWS SDKs\. Any configuration data that you enter into Transfer Family service configuration, or other services' configurations, might get picked up for inclusion in diagnostic logs\. When you provide a URL to an external server, don't include credentials information in the URL to validate your request to that server\.
 
 In contrast, data from upload and download operations into and out of Transfer Family servers is treated as completely private and never exists outside of encrypted channels—such as an SFTP or FTPS connection\. This data is only ever accessible to authorized persons\.
+
+**Topics**
++ [Data encryption](encryption-at-rest.md)
++ [Key management](key-management.md)

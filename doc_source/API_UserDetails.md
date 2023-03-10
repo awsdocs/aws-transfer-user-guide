@@ -19,7 +19,7 @@ Pattern: `^[\w-]*$`
 Required: No
 
  ** UserName **   <a name="TransferFamily-Type-UserDetails-UserName"></a>
-A unique string that identifies a user account associated with a server\.  
+A unique string that identifies a Transfer Family user associated with a server\.  
 Type: String  
 Length Constraints: Minimum length of 3\. Maximum length of 100\.  
 Pattern: `^[\w][\w@.-]{2,99}$`   

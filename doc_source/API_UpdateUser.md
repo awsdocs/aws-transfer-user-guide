@@ -82,7 +82,7 @@ Pattern: `arn:.*role/.*`
 Required: No
 
  ** [ServerId](#API_UpdateUser_RequestSyntax) **   <a name="TransferFamily-UpdateUser-request-ServerId"></a>
-A system\-assigned unique identifier for a server instance that the user account is assigned to\.  
+A system\-assigned unique identifier for a Transfer Family server instance that the user is assigned to\.  
 Type: String  
 Length Constraints: Fixed length of 19\.  
 Pattern: `^s-([0-9a-f]{17})$`   
@@ -111,7 +111,7 @@ If the action is successful, the service sends back an HTTP 200 response\.
 The following data is returned in JSON format by the service\.
 
  ** [ServerId](#API_UpdateUser_ResponseSyntax) **   <a name="TransferFamily-UpdateUser-response-ServerId"></a>
-A system\-assigned unique identifier for a server instance that the user account is assigned to\.  
+A system\-assigned unique identifier for a Transfer Family server instance that the account is assigned to\.  
 Type: String  
 Length Constraints: Fixed length of 19\.  
 Pattern: `^s-([0-9a-f]{17})$` 
@@ -150,7 +150,7 @@ HTTP Status Code: 400
 
 ### Example<a name="API_UpdateUser_Example_1"></a>
 
-The following example updates a user account\.
+The following example updates a Transfer Family user\.
 
 #### Sample Request<a name="API_UpdateUser_Example_1_Request"></a>
 

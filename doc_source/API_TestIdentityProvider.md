@@ -45,26 +45,27 @@ The available protocols are:
 + Secure Shell \(SSH\) File Transfer Protocol \(SFTP\)
 + File Transfer Protocol Secure \(FTPS\)
 + File Transfer Protocol \(FTP\)
++ Applicability Statement 2 \(AS2\)
 Type: String  
 Valid Values:` SFTP | FTP | FTPS | AS2`   
 Required: No
 
  ** [SourceIp](#API_TestIdentityProvider_RequestSyntax) **   <a name="TransferFamily-TestIdentityProvider-request-SourceIp"></a>
-The source IP address of the user account to be tested\.  
+The source IP address of the account to be tested\.  
 Type: String  
 Length Constraints: Maximum length of 32\.  
 Pattern: `^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$`   
 Required: No
 
  ** [UserName](#API_TestIdentityProvider_RequestSyntax) **   <a name="TransferFamily-TestIdentityProvider-request-UserName"></a>
-The name of the user account to be tested\.  
+The name of the account to be tested\.  
 Type: String  
 Length Constraints: Minimum length of 3\. Maximum length of 100\.  
 Pattern: `^[\w][\w@.-]{2,99}$`   
 Required: Yes
 
  ** [UserPassword](#API_TestIdentityProvider_RequestSyntax) **   <a name="TransferFamily-TestIdentityProvider-request-UserPassword"></a>
-The password of the user account to be tested\.  
+The password of the account to be tested\.  
 Type: String  
 Length Constraints: Maximum length of 1024\.  
 Required: No
@@ -160,7 +161,7 @@ The following response shows a sample response for a successful test\.
 
 The following response indicates that the specified user belongs to more than one group that has access\.
 
-#### <a name="w205ab1c52c12d152c21b7b5"></a>
+#### <a name="w225ab1c52c14d152c21b7b5"></a>
 
 ```
           "Response":"",
@@ -183,7 +184,7 @@ The following response indicates that the specified user belongs to more than on
 + Public key is *public\-key* 
 + Invocation URL is *invocation\-URL* 
 
-#### <a name="w205ab1c52c12d152c21b9c13"></a>
+#### <a name="w225ab1c52c14d152c21b9c13"></a>
 
 ```
 {

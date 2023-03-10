@@ -1,6 +1,9 @@
 # ListExecutions<a name="API_ListExecutions"></a>
 
-Lists all executions for the specified workflow\.
+Lists all in\-progress executions for the specified workflow\.
+
+**Note**  
+If the specified workflow ID cannot be found, `ListExecutions` returns a `ResourceNotFound` exception\.
 
 ## Request Syntax<a name="API_ListExecutions_RequestSyntax"></a>
 
@@ -83,11 +86,7 @@ If the action is successful, the service sends back an HTTP 200 response\.
 The following data is returned in JSON format by the service\.
 
  ** [Executions](#API_ListExecutions_ResponseSyntax) **   <a name="TransferFamily-ListExecutions-response-Executions"></a>
-Returns the details for each execution\.  
-+  **NextToken**: returned from a call to several APIs, you can use pass it to a subsequent command to continue listing additional executions\.
-+  **StartTime**: timestamp indicating when the execution began\.
-+  **Executions**: details of the execution, including the execution ID, initial file location, and Service metadata\.
-+  **Status**: one of the following values: `IN_PROGRESS`, `COMPLETED`, `EXCEPTION`, `HANDLING_EXEPTION`\. 
+Returns the details for each execution, in a `ListedExecution` array\.  
 Type: Array of [ListedExecution](API_ListedExecution.md) objects
 
  ** [NextToken](#API_ListExecutions_ResponseSyntax) **   <a name="TransferFamily-ListExecutions-response-NextToken"></a>

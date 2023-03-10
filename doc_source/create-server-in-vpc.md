@@ -5,7 +5,7 @@ You can host your server's endpoint inside a virtual private cloud \(VPC\) to us
 **Note**  
  After May 19, 2021, you won't be able to create a server using `EndpointType=VPC_ENDPOINT` in your AWS account if your account hasn't already done so before May 19, 2021\. If you have already created servers with `EndpointType=VPC_ENDPOINT` in your AWS account on or before February 21, 2021, you will not be affected\. After this date, use `EndpointType`=**VPC**\. For more information, see [Discontinuing the use of VPC\_ENDPOINT](#deprecate-vpc-endpoint)\.
 
-If you use Amazon Virtual Private Cloud \(Amazon VPC\) to host your AWS resources, you can establish a private connection between your VPC and a server\. You can then use this server to transfer data over your client to and from your Amazon S3 bucket without going over the public internet\.
+If you use Amazon Virtual Private Cloud \(Amazon VPC\) to host your AWS resources, you can establish a private connection between your VPC and a server\. You can then use this server to transfer data over your client to and from your Amazon S3 bucket without using public IP addressing or requiring an internet gateway\.
 
 Using Amazon VPC, you can launch AWS resources in a custom virtual network\. You can use a VPC to control your network settings, such as the IP address range, subnets, route tables, and network gateways\. For more information about VPCs, see [What Is Amazon VPC?](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html) in the *Amazon VPC User Guide*\.
 
@@ -73,7 +73,7 @@ FIPS\-enabled endpoints are only available in North American AWS Regions\. For a
         For more information about CloudWatch logging, see [Log activity with CloudWatch](monitoring.md#monitoring-enabling)\.
 **Note**  
 You can't view end\-user activity in CloudWatch if you don't specify a logging role\.
-If you don't want to set up a CloudWatch logging role, choose **Choose an existing role**, but don't select a logging role\.
+If you don't want to set up a CloudWatch logging role, select **Choose an existing role**, but don't select a logging role\.
 
    1. For **Cryptographic algorithm options**, choose a security policy that contains the cryptographic algorithms enabled for use by your server\.
 **Note**  
@@ -154,7 +154,7 @@ FIPS\-enabled endpoints are only available in North American AWS Regions\. For a
         For more information about CloudWatch logging, see [Log activity with CloudWatch](monitoring.md#monitoring-enabling)\.
 **Note**  
 You can't view end\-user activity in CloudWatch if you don't specify a logging role\.
-If you don't want to set up a CloudWatch logging role, choose **Choose an existing role**, but don't select a logging role\.
+If you don't want to set up a CloudWatch logging role, select **Choose an existing role**, but don't select a logging role\.
 
    1. For **Cryptographic algorithm options**, choose a security policy that contains the cryptographic algorithms enabled for use by your server\.
 **Note**  

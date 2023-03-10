@@ -1,6 +1,6 @@
 # ListWorkflows<a name="API_ListWorkflows"></a>
 
-Lists all of your workflows\.
+Lists all workflows associated with your AWS account for your current region\.
 
 ## Request Syntax<a name="API_ListWorkflows_RequestSyntax"></a>
 

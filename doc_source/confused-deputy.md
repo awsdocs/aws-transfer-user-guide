@@ -7,11 +7,11 @@ We recommend using the [https://docs.aws.amazon.com/IAM/latest/UserGuide/referen
 The most effective way to protect against the confused deputy problem is to use the exact Amazon Resource Name \(ARN\) of the resource you want to allow\. If you are specifying multiple resources, use the `aws:SourceArn` global context condition key with wildcard characters \(`*`\) for the unknown portions of the ARN\. For example, `arn:aws:transfer::region::account-id:server/*`\.
 
 AWS Transfer Family uses the following types of roles:
-+ *access role*: provides access to the proper Amazon S3 files being transferred\. For inbound AS2 transfers, it uses the Amazon Resource Name \(ARN\) for the agreement\. For outbound AS2 transfers, it uses the ARN for the connector\.
 + *user role*: allows service\-managed users to access the necessary Transfer Family resources\. Transfer assumes this in the context of a Transfer user ARN\.
++ *access role*: provides access to the proper Amazon S3 files being transferred\. For inbound AS2 transfers, it uses the Amazon Resource Name \(ARN\) for the agreement\. For outbound AS2 transfers, it uses the ARN for the connector\.
 + *invocation role*: for use with Amazon API Gateway as the server’s Custom Identity Provider\. Transfer assumes this in the context of a Transfer server ARN\.
 + *logging role*: used to log entries into Amazon CloudWatch\. Transfer uses this role to log success and failure details along with information about file transfers\. Transfer assumes this in the context of a Transfer server ARN\. For outbound AS2 transfers, it uses the connector ARN\.
-+ *workflow role*: allows a Transfer Family user to call and execute workflows\. Transfer assumes this in the context of a Transfer workflow ARN\.
++ *workflow role*: allows a Transfer Family user to call and launch workflows\. Transfer assumes this in the context of a Transfer workflow ARN\.
 
 For more information, see [Policies and permissions in IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html) in the *IAM User Guide*\.
 

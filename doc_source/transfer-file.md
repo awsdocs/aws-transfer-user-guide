@@ -93,7 +93,7 @@ This client works only with an SFTP\-enabled server\.
 
    `sftp -i transfer-key sftp_user@service_endpoint`
 
-   In the preceding command, `sftp_user` is the user name and `transfer-key` is the SSH private key\. Here, `service_endpoint` is the server's endpoint as shown in the AWS Transfer Family console for the selected server\.
+   In the preceding command, `sftp_user` is the username and `transfer-key` is the SSH private key\. Here, `service_endpoint` is the server's endpoint as shown in the AWS Transfer Family console for the selected server\.
 
    An `sftp` prompt should appear\.
 
@@ -141,7 +141,7 @@ If your server uses a VPC endpoint, see [Find your Amazon VPC endpoint](#find-vp
 
 1. For **User name**, enter the name for the user that you created for your specific identity provider\.
 **Note**  
-The user name should be one of the users you created or configured for your identity provider\. AWS Transfer Family provides the following identity providers:  
+The username should be one of the users you created or configured for your identity provider\. AWS Transfer Family provides the following identity providers:  
 [Working with service\-managed users](service-managed-users.md)
 [Using the AWS Directory Service identity provider](directory-services-users.md)
 [Working with custom identity providers](custom-identity-provider-users.md)

@@ -12,6 +12,7 @@
 + [Troubleshoot missing POSIX profile](#missing-posix-profile)
 + [Troubleshoot testing your identity provider](#blank-test-identity-provider)
 + [Troubleshoot file upload issues](#file-upload-issues)
++ [Troubleshoot `ResourceNotFound` exception](#resource-not-found)
 + [Troubleshoot AS2 issues](#as2-troubleshooting-issues)
 
 ## Troubleshoot service\-managed users<a name="transfer-service-managed-issues"></a>
@@ -150,7 +151,7 @@ ERROR Message="Access denied"
 
 **Cause**
 
-Your IAM user's policy does not have permission to access the encrypted bucket\. 
+The policy for your IAM user does not have permission to access the encrypted bucket\. 
 
  **Solution** 
 
@@ -249,7 +250,7 @@ Execution is throttled if a workflow is getting triggered at a rate that is fast
 
 *Service failure on starting workflow*
 
-If you remove a workflow from a server and replace it with a new one, you must wait approximately 10 minutes before executing the new workflow\. The Transfer Family server caches the workflow details, and it takes 10 minutes for the server to refresh its cache\.
+Anytime you remove a workflow from a server and replace it with a new one, or update server configuration \(which impacts a workflow's execution role\), you must wait approximately 10 minutes before executing the new workflow\. The Transfer Family server caches the workflow details, and it takes 10 minutes for the server to refresh its cache\.
 
 ## Troubleshoot workflow copy errors<a name="source-bucket-region"></a>
 
@@ -333,7 +334,7 @@ The most likely cause is that the authentication failed because of an incorrect 
 
 **Solution**
 
-Make sure that you are using the correct credentials for your user, and make updates to the user name or password, if necessary\.
+Make sure that you are using the correct credentials for your user, and make updates to the username or password, if necessary\.
 
 ## Troubleshoot file upload issues<a name="file-upload-issues"></a>
 
@@ -370,6 +371,30 @@ Although the FTP and SFTP protocols can allow for character encoding of files na
 **Solution**
 
 To solve this problem, review your client application for file name character encoding and make sure it is set to UTF\-8\.
+
+## Troubleshoot `ResourceNotFound` exception<a name="resource-not-found"></a>
+
+**Description**
+
+You receive an error where the resource cannot be found\. For example, if you run `UpdateServer`, you might get the following error:
+
+```
+An error occurred (ResourceNotFoundException) when calling the UpdateServer operation: Unknown server
+```
+
+**Cause**
+
+There are several reasons for receiving a ResourceNotFoundException message\. In most cases, the resource that you specified in your API command does not exist\. If you did specify an existing resource, then the most probable cause is that your default region is different than the region for your resource\. For example, if your default region is **us\-east\-1**, and your Transfer Family server is in **us\-east\-2**, you will receive an Unknown resource exception\.
+
+For details about setting a default region, see [Quick configuration with `aws configure`](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html#cli-configure-quickstart-config)\.
+
+**Solution**
+
+Add a region parameter to your API command to explicitly specify where to find a particular resource\.
+
+```
+aws transfer -describe-server --server-id server-id --region us-east-2
+```
 
 ## Troubleshoot AS2 issues<a name="as2-troubleshooting-issues"></a>
 

@@ -12,6 +12,7 @@ This section also covers how to generate and manage Pretty Good Privacy \(PGP\) 
 + [Generate SSH keys](#sshkeygen)
 + [Rotate SSH keys](#keyrotation)
 + [Generate and manage PGP keys](#pgp-key-management)
++ [Supported PGP clients](#pgp-key-clients)
 
 ## Supported algorithms for user and server keys<a name="key-algorithms"></a>
 
@@ -30,7 +31,7 @@ We support `ssh-rsa` with SHA1 for our older security policies \(all policies ex
 
 ## Generate SSH keys<a name="sshkeygen"></a>
 
-You can set up your server to authenticate users using the service managed authentication method, where user names and SSH keys are stored within the service\. The user's public SSH key is uploaded to the server as a user's property\. This key is used by the server as part of a standard key\-based authentication process\. Each user can have multiple public SSH keys on file with an individual server\. For limits on number of keys that can be stored per user, see the [AWS service quotas](https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html) in the *AWS General Reference*\.
+You can set up your server to authenticate users using the service managed authentication method, where usernames and SSH keys are stored within the service\. The user's public SSH key is uploaded to the server as a user's property\. This key is used by the server as part of a standard key\-based authentication process\. Each user can have multiple public SSH keys on file with an individual server\. For limits on number of keys that can be stored per user, see the [AWS service quotas](https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html) in the *AWS General Reference*\.
 
 As an alternative to the service managed authentication method, you can authenticate users using a custom identity provider\. This allows you to plug in an existing identity provider using an Amazon API Gateway endpoint\. For more information, see [Authenticating using an API Gateway method](custom-identity-provider-users.md#authentication-custom-ip)\.
 
@@ -52,20 +53,23 @@ For a tutorial on creating SSH keys using PuTTYgen on Windows, see the [SSH\.com
 1. On macOS, Linux, or Unix operating systems, open a command terminal\.
 
 1. AWS Transfer Family accepts RSA\-, ECDSA\-, and ED25519\-formatted keys\. Choose the appropriate command based on the type of key\-pair you are generating\.
+**Note**  
+In the following examples, we do not specify a passphrase: in this case, the tool asks you to enter your passphrase and then repeat it to verify\. Creating a passphrase offers better protection for your private key, and might also improve overall system security\. You cannot recover your passphrase: if you forget it, you must create a new key\.  
+However, if you are generating a server host key, you *must* specify an empty passphrase, by specifying the `-N ""` option in the command \(or by pressing **Enter** twice when prompted\), because Transfer Family servers cannot request a password at start\-up\.
    + To generate an RSA 4096\-bit key pair:
 
      ```
-     ssh-keygen -t rsa -b 4096 -N "" -f key_name
+     ssh-keygen -t rsa -b 4096 -f key_name
      ```
    + To generate an ECDSA 521\-bit key\-pair \(ECDSA has bit sizes of 256, 384, and 521\):
 
      ```
-     ssh-keygen -t ecdsa -b 521 -N "" -f key_name
+     ssh-keygen -t ecdsa -b 521 -f key_name
      ```
    + To generate an ED25519 key pair:
 
      ```
-     ssh-keygen -t ed25519 -N "" -f key_name
+     ssh-keygen -t ed25519 -f key_name
      ```
 **Note**  
  `key_name` is the SSH key pair file name\.
@@ -73,9 +77,11 @@ For a tutorial on creating SSH keys using PuTTYgen on Windows, see the [SSH\.com
    The following shows an example of the `ssh-keygen` output\.
 
    ```
-   ssh-keygen -t rsa -b 4096 -N "" -f key_name
+   ssh-keygen -t rsa -b 4096 -f key_name
    Generating public/private rsa key pair.
    
+   Enter passphrase (empty for no passphrase): 
+   Enter same passphrase again:
    Your identification has been saved in key_name.
    Your public key has been saved in key_name.pub.
    The key fingerprint is:
@@ -147,7 +153,7 @@ There are two methods used to perform SSH key rotation:
 
    or
 
-   Choose the user name to see the **User details** page, and then choose **Add SSH public key** to see the **Add key** page\.
+   Choose the username to see the **User details** page, and then choose **Add SSH public key** to see the **Add key** page\.
 
 1. Enter the new SSH public key and choose **Add key**\.
 **Important**  
@@ -169,7 +175,7 @@ For ECDSA keys, the key begins with `ecdsa-sha2-nistp256`, `ecdsa-sha2-nistp384`
 
 1. On macOS, Linux, or Unix operating systems, open a command terminal\.
 
-1.  Retrieve the SSH key that you want to delete by entering the following command\. To use this command, replace `serverID` with the server ID for your Transfer Family server, and replace `username` with your user name\.
+1.  Retrieve the SSH key that you want to delete by entering the following command\. To use this command, replace `serverID` with the server ID for your Transfer Family server, and replace `username` with your username\.
 
    ```
    aws transfer describe-user --server-id='serverID' --user-name='username'
@@ -182,7 +188,7 @@ For ECDSA keys, the key begins with `ecdsa-sha2-nistp256`, `ecdsa-sha2-nistp384`
       "DateImported": 1621969331.072 } ],
    ```
 
-1.  Next, import a new SSH key for your user\. At the prompt, enter the following command\. To use this command, replace `serverID` with the server ID for your Transfer Family server, replace `username` with your user name, and replace `public-key` with the fingerprint of your new public key\. 
+1.  Next, import a new SSH key for your user\. At the prompt, enter the following command\. To use this command, replace `serverID` with the server ID for your Transfer Family server, replace `username` with your username, and replace `public-key` with the fingerprint of your new public key\. 
 
    ```
    aws transfer import-ssh-public-key --server-id='serverID' --user-name='username'
@@ -191,7 +197,7 @@ For ECDSA keys, the key begins with `ecdsa-sha2-nistp256`, `ecdsa-sha2-nistp384`
 
    ``If the command is successful, no output is returned\.
 
-1.  Finally, delete the old key by running the following command\. To use this command, replace `serverID` with the server ID for your Transfer Family server, replace `username` with your user name, and replace `keyID-from-step-2` with the key ID value that you copied in step 2 of this procedure 
+1.  Finally, delete the old key by running the following command\. To use this command, replace `serverID` with the server ID for your Transfer Family server, replace `username` with your username, and replace `keyID-from-step-2` with the key ID value that you copied in step 2 of this procedure 
 
    ```
    aws transfer delete-ssh-public-key --server-id='serverID' --user-name='username'
@@ -222,7 +228,10 @@ sudo apt-get install gnupg
 
 For Windows or macOS, you can download what you need from [https://gnupg\.org/download/](https://gnupg.org/download/)\.
 
-After you install your PGP key generator software, you run the `gpg --gen-key` command to generate a key pair\. Transfer Family supports key formats and symmetric encryption algorithms that align with [the OpenPGP RFC](https://www.rfc-editor.org/rfc/rfc4880)\.
+After you install your PGP key generator software, you run the `gpg ‐‐gen-key` command to generate a key pair\.  
+
+**Note**  
+Make sure to choose RSA as the key type\.
 
 The following are some useful subcommands for `gpg`:
 + `gpg --help` – This command lists the available options and might include some examples\.
@@ -234,12 +243,15 @@ The following are some useful subcommands for `gpg`:
 
 To manage your PGP keys, you must use AWS Secrets Manager\.
 
+**Note**  
+Your secret name includes your Transfer Family server ID\. This means you should have already identified or created a server *before* you can store your PGP key information in AWS Secrets Manager\.
+
 If you want to use one key and passphrase for all of your users, you can store the PGP key block information under the secret name `aws/transfer/server-id/@pgp-default`, where `server-id` is the ID for your Transfer Family server\. This default key is used if there is no key where the `user-name` matches the user that is executing the workflow\. 
 
 Alternatively, you can create a key for a specific user\. In this case, the format for the secret name is `aws/transfer/server-id/user-name`, where `user-name` matches the user that is running the workflow for a Transfer Family server\.
 
 **Note**  
-You can store a maximum of 3 keys, per Transfer Family server, per user\.
+You can store a maximum of 3 PGP private keys, per Transfer Family server, per user\.
 
 **To configure PGP keys for use with decryption**
 
@@ -257,7 +269,7 @@ During the key\-generation process, you must provide a passphrase and an email a
    gpg --output private.pgp --armor --export-secret-key marymajor@example.com
    ```
 
-1. Use AWS Secrets Manager to store your PGP key\. 
+1. <a name="store-pgp-key-details"></a>Use AWS Secrets Manager to store your PGP key\.
 
    1. Sign in to the AWS Management Console and open the AWS Secrets Manager console at [https://console\.aws\.amazon\.com/secretsmanager/](https://console.aws.amazon.com/secretsmanager/)\.
 
@@ -265,16 +277,20 @@ During the key\-generation process, you must provide a passphrase and an email a
 
    1. On the **Secrets** page, choose **Store a new secret**\.
 
-   1. On the **Choose secret type** page, for **Secret type**, choose **Other type of secret**\.
+   1. On the **Choose secret type** page, for **Secret type**, select **Other type of secret**\.
 
    1. In the **Key/value pairs** section, choose the **Key/value** tab\.
       + **Key** – Enter **PGPPrivateKey**\.
+**Note**  
+You must enter the **PGPPrivateKey** string exactly: do not add any spaces before or between characters\.
       + **value** – Paste the text of your private key into the value field\. You can find the text of your private key in the file \(for example, `private.pgp`\) that you specified when you exported your key earlier in this procedure\. The key begins with `-----BEGIN PGP PRIVATE KEY BLOCK-----` and ends with `-----END PGP PRIVATE KEY BLOCK-----`\.
 **Note**  
 Make sure that the text block contains only the private key and does not contain the public key as well\.
 
    1. Select **Add row** and in the **Key/value pairs** section, choose the **Key/value** tab\.
       + **Key** – Enter **PGPPassphrase**\.
+**Note**  
+You must enter the **PGPPassphrase** string exactly: do not add any spaces before or between characters\.
       + **value** – Enter the passphrase you used when you generated your PGP key pair\.  
 ![\[\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/pgp-secrets-01.png)
 **Note**  
@@ -293,3 +309,13 @@ You can add up to 3 sets of keys and passphrases\. To add a second set, add two 
 The following screenshot shows the details for the user **marymajor** for a specific Transfer Family server\. This example shows three keys and their corresponding passphrases\.
 
 ![\[\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/pgp-secrets-02.png)
+
+## Supported PGP clients<a name="pgp-key-clients"></a>
+
+The following clients have been tested with Transfer Family and can be used to generate PGP keys, and to encrypt files that you intend to decrypt with a workflow\.
++ **Gpg4win \+ Kleopatra**\. Gpg4win 4\.0\.4 contains GnuPG 2\.3\.8\. 
+**Important**  
+If you are using **Gpg4win \+ Kleopatra**, you must use the **GnuPG** command\-line tool to pass the `--openpgp` flag\.
++ Major **GnuPG** versions: 2\.3, 2\.2, and 2\.0
+
+Note that other PGP clients might work as well, but only the clients mentioned here have been tested with Transfer Family\.

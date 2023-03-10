@@ -139,7 +139,7 @@ Length Constraints: Fixed length of 19\.
 Pattern: `^s-([0-9a-f]{17})$` 
 
  ** [UserName](#API_CreateUser_ResponseSyntax) **   <a name="TransferFamily-CreateUser-response-UserName"></a>
-A unique string that identifies a user account associated with a server\.  
+A unique string that identifies a Transfer Family user\.  
 Type: String  
 Length Constraints: Minimum length of 3\. Maximum length of 100\.  
 Pattern: `^[\w][\w@.-]{2,99}$` 
@@ -174,7 +174,7 @@ HTTP Status Code: 500
 
 To create a user, you can first save the parameters into a JSON file, for example `createUserParameters`, then run the create\-user API command\.
 
-#### <a name="w205ab1c52c12c23c15b3b5"></a>
+#### <a name="w225ab1c52c14c23c15b3b5"></a>
 
 ```
 {

@@ -41,7 +41,7 @@ The following are the headers that must include with your POST requests to Trans
 | Host |  Use the host header to specify the Transfer Family endpoint where you send your request\. For example, `transfer.us-east-1.amazonaws.com` is the endpoint for the US East \(Ohio\) region\. For more information about the endpoints available for Transfer Family, see [AWS Transfer Family Endpoints and Quotas](https://docs.aws.amazon.com/general/latest/gr/transfer-service.html) in the *AWS General Reference*\. <pre>Host: transfer.region.amazonaws.com</pre>  | 
 | x\-amz\-date |  You must provide the time stamp in either the HTTP `Date` header or the AWS `x-amz-date` header\. \(Some HTTP client libraries don't let you set the `Date` header\.\) When an `x-amz-date` header is present, the Transfer Family ignores any `Date` header during the request authentication\. The `x-amz-date` format must be ISO8601, in the YYYYMMDD'T'HHMMSS'Z' format\.  <pre>x-amz-date: YYYYMMDD'T'HHMMSS'Z'</pre>  | 
 | x\-amz\-target |  This header specifies the version of the API and the operation that you are requesting\. The target header values are formed by concatenating the API version with the API name and are in the following format\.  <pre>x-amz-target: TransferService.operationName</pre> The *operationName* value \(for example `ListServers`\) can be found from the API list, [ListServers](https://docs.aws.amazon.com/transfer/latest/userguide/API_ListServers.html)\.  | 
-| x\-amz\-security\-token | This header is required when credentials used to sign the request are temporary or session credentials \( for details, see [Using temporary credentials with AWS resources](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html) in the IAM User Guide\. See [Add the signature to the HTTP request](https://docs.aws.amazon.com/genera/latest/gr/sigv4-add-signature-to-request.html) in the Amazon Web Services General Reference for more information\. | 
+| x\-amz\-security\-token | This header is required when credentials used to sign the request are temporary or session credentials \( for details, see [Using temporary credentials with AWS resources](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html) in the IAM User Guide\. See [Add the signature to the HTTP request](https://docs.aws.amazon.com/general/latest/gr/sigv4-add-signature-to-request.html) in the Amazon Web Services General Reference for more information\. | 
 
 ## Transfer Family Request Inputs and Signing<a name="tf-request-structure"></a>
 
@@ -79,7 +79,7 @@ Some exceptions use `message`, and others use `Message`\. You can check the code
 *Type*: String
 
 **Resource**  
-The resource for which the error is invoked\. For example, if you try to create a user that already exists, the `Resource` is the user name for the existing user\.  
+The resource for which the error is invoked\. For example, if you try to create a user that already exists, the `Resource` is the username for the existing user\.  
 *Type*: String
 
 **ResourceType**  

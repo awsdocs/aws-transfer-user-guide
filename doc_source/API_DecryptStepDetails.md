@@ -5,7 +5,11 @@ Each step type has its own `StepDetails` structure\.
 ## Contents<a name="API_DecryptStepDetails_Contents"></a>
 
  ** DestinationFileLocation **   <a name="TransferFamily-Type-DecryptStepDetails-DestinationFileLocation"></a>
-Specifies the location for the file that's being processed\.  
+Specifies the location for the file being decrypted\. Use `${Transfer:UserName}` or `${Transfer:UploadDate}` in this field to parametrize the destination prefix by username or uploaded date\.  
++ Set the value of `DestinationFileLocation` to `${Transfer:UserName}` to decrypt uploaded files to an Amazon S3 bucket that is prefixed with the name of the Transfer Family user that uploaded the file\.
++ Set the value of `DestinationFileLocation` to `${Transfer:UploadDate}` to decrypt uploaded files to an Amazon S3 bucket that is prefixed with the date of the upload\.
+**Note**  
+The system resolves `UploadDate` to a date format of *YYYY\-MM\-DD*, based on the date the file is uploaded in UTC\.
 Type: [InputFileLocation](API_InputFileLocation.md) object  
 Required: Yes
 
@@ -18,6 +22,9 @@ Required: No
 
  ** OverwriteExisting **   <a name="TransferFamily-Type-DecryptStepDetails-OverwriteExisting"></a>
 A flag that indicates whether to overwrite an existing file of the same name\. The default is `FALSE`\.  
+If the workflow is processing a file that has the same name as an existing file, the behavior is as follows:  
++ If `OverwriteExisting` is `TRUE`, the existing file is replaced with the file being processed\.
++ If `OverwriteExisting` is `FALSE`, nothing happens, and the workflow processing stops\.
 Type: String  
 Valid Values:` TRUE | FALSE`   
 Required: No

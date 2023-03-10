@@ -40,39 +40,7 @@ So that you are informed of failures in real time, we recommend that you set up 
 **Important**  
 After you've created a workflow, you can't edit it, so make sure to review the configuration carefully\.
 
-## Use PGP decryption in your workflow<a name="configure-decryption"></a>
-
-Transfer Family has built\-in support for Pretty Good Privacy \(PGP\) decryption\. You can use PGP decryption on files that are uploaded over SFTP, FTPS, or FTP to Amazon Simple Storage Service \(Amazon S3\) or Amazon Elastic File System \(Amazon EFS\)\. 
-
-To use PGP decryption, you must create and store the PGP key pairs that will be used for decryption of your files\. Your users can then encrypt files by using these PGP keys before uploading the files to your Transfer Family server\. After you receive the encrypted files, you can decrypt those files in your workflow\.
-
-**To use PGP decryption in your workflow**
-
-1. Install a PGP key\-generation application\. For more information, see [Generate PGP keys](key-management.md#generate-pgp-keys)\.
-
-1. Generate a PGP key pair, and provide a passphrase to protect your private key\.
-**Important**  
-When you create a secret to store your PGP key, you must provide the passphrase and private key for the PGP key pair\. Transfer Family uses this passphrase and private key to decrypt the file\. For details about managing your PGP keys, see [Manage PGP keys](key-management.md#manage-pgp-keys)\.
-
-1. Export your private key and save it to a file\.
-
-1. Store your PGP key in AWS Secrets Manager\. For details about storing your PGP keys in Secrets Manager, see [Manage PGP keys](key-management.md#manage-pgp-keys)\.
-
-1. Encrypt a file by using your PGP key pair\. If you are using the command line, run the following command\. To use this command, replace `username@example.com` with the email address that you used to create the PGP key pair\. Replace `testfile.txt` with the name of the file that you want to encrypt\. 
-
-   ```
-   gpg -e -r username@example.com --openpgp testfile.txt
-   ```
-
-   
-**Important**  
-You must use the `--openpgp` flag in this command\. By default, `gpg` produces encrypted files that do not conform to the [OpenPGP RFC4880](https://www.rfc-editor.org/rfc/rfc4880) standard\. If you don't use this flag, Transfer Family will be unable to decrypt your files\.
-
-1. Upload the encrypted file to your Transfer Family server\.
-
-1. Configure a decryption step in your workflow\. For more information, see [Decrypt file](nominal-steps-workflow.md#decrypt-step-details)\.
-
-## Configure and execute a workflow<a name="configure-workflow"></a>
+## Configure and run a workflow<a name="configure-workflow"></a>
 
 **To configure Transfer Family to run a workflow on uploaded files**
 
@@ -100,7 +68,7 @@ If you do not already have a workflow, choose **Create a new Workflow** to creat
 To execute a workflow, you upload a file to a Transfer Family server that you configured with an associated workflow\.
 
 **Note**  
-If you remove a workflow from a server and replace it with a new one, you must wait approximately 10 minutes before executing the new workflow\. The Transfer Family server caches the workflow details, and it takes 10 minutes for the server to refresh its cache\.
+Anytime you remove a workflow from a server and replace it with a new one, or update server configuration \(which impacts a workflow's execution role\), you must wait approximately 10 minutes before executing the new workflow\. The Transfer Family server caches the workflow details, and it takes 10 minutes for the server to refresh its cache\.
 
 **Example**  
 
@@ -169,3 +137,7 @@ To view the workflow details, use the `describe-workflow` CLI command, as shown 
 ```
 
 ------
+
+If your workflow was created as part of an AWS CloudFormation stack, you can manage the workflow using the AWS CloudFormation console \([https://console\.aws\.amazon\.com/cloudformation](https://console.aws.amazon.com/cloudformation/)\)\.
+
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/workflows-cloudformation-link.png)

@@ -36,67 +36,74 @@ The **Log events** page for `mary-major-usa-east.1234567890abcdef0` displays the
  The following is a sample log stream for `mary.w-abcdef01234567890.021345abcdef6789`, based on a workflow \(`w-abcdef01234567890`\) that contains a copy step\. 
 
 ```
-{"type":"ExecutionStarted",
-  "details": {
-    "input": {
-      "initialFileLocation": {
-        "bucket":"DOC-EXAMPLE-BUCKET",
-        "key":"mary/workflowSteps2.json",
-        "versionId":"version-id",
-        "etag":"etag-id"
-      }
+{
+    "type": "ExecutionStarted",
+    "details": {
+        "input": {
+            "initialFileLocation": {
+                "bucket": "DOC-EXAMPLE-BUCKET",
+                "key": "mary/workflowSteps2.json",
+                "versionId": "version-id",
+                "etag": "etag-id"
+            }
+        }
+    },
+    "workflowId":"w-abcdef01234567890",
+    "executionId":"execution-id",
+    "transferDetails": {
+        "serverId":"s-server-id",
+        "username":"mary",
+        "sessionId":"session-id"
     }
-  },
-  "workflowId":"w-abcdef01234567890",
-  "executionId":"execution-id",
-  "transferDetails": {
-    "serverId":"s-server-id",
-    "username":"mary",
-    "sessionId":"session-id"
-  }
-}
-{"type":"StepStarted","details": {
-  "input": {
-    "fileLocation": {
-      "backingStore":"S3",
-      "bucket":"DOC-EXAMPLE-BUCKET",
-      "key":"mary/workflowSteps2.json",
-      "versionId":"version-id",
-      "etag":"etag-id"
+},
+{
+    "type":"StepStarted",
+    "details": {
+        "input": {
+            "fileLocation": {
+                "backingStore":"S3",
+                "bucket":"DOC-EXAMPLE-BUCKET",
+                "key":"mary/workflowSteps2.json",
+                "versionId":"version-id",
+                "etag":"etag-id"
+            }
+        },
+        "stepType":"COPY",
+        "stepName":"copyToShared"
+    },
+    "workflowId":"w-abcdef01234567890",
+    "executionId":"execution-id",
+    "transferDetails": {
+        "serverId":"s-server-id",
+        "username":"mary",
+        "sessionId":"session-id"
     }
-  },
-  "stepType":"COPY","stepName":"copyToShared"},
-  "workflowId":"w-abcdef01234567890",
-  "executionId":"execution-id",
-  "transferDetails": {
-    "serverId":"s-server-id",
-    "username":"mary",
-    "sessionId":"session-id"
-  }
-}
-{ "type":"StepCompleted",
-  "details":{
-    "output":{},
-    "stepType":"COPY",
-    "stepName":"copyToShared"
-  },
-  "workflowId":"w-abcdef01234567890",
-  "executionId":"execution-id",
-  "transferDetails":{
-    "serverId":"s-server-id",
-    "username":"mary",
-    "sessionId":"session-id"
-  }
-}
-{"type":"ExecutionCompleted",
-  "details": {},
-  "workflowId":"w-abcdef01234567890",
-  "executionId":"execution-id",
-  "transferDetails":{
-    "serverId":"s-server-id",
-    "username":"mary",
-    "sessionId":"session-id
-  }
+},
+{
+    "type":"StepCompleted",
+    "details":{
+        "output":{},
+        "stepType":"COPY",
+        "stepName":"copyToShared"
+    },
+    "workflowId":"w-abcdef01234567890",
+    "executionId":"execution-id",
+    "transferDetails":{
+        "serverId":"server-id",
+        "username":"mary",
+        "sessionId":"session-id"
+    }
+},
+{
+    "type":"ExecutionCompleted",
+    "details": {},
+    "workflowId":"w-abcdef01234567890",
+    "executionId":"execution-id",
+    "transferDetails":{
+        "serverId":"s-server-id",
+        "username":"mary",
+        "sessionId":"session-id"
+    }
 }
 ```
 

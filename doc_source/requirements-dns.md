@@ -59,7 +59,7 @@ Use the following keys for your custom hostname:
 To add the custom hostname, issue the following CLI command\.
 
 ```
-aws transfer tag-resource --arn server-ARN:server/server-ID --tags Key=transfer:customHostname,Value="custom-host-name"
+aws transfer tag-resource --arn arn:aws:transfer:region:AWS accountserver/server-ID --tags Key=transfer:customHostname,Value="custom-host-name"
 ```
 
 For example:

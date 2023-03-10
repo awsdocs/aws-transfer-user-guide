@@ -1,6 +1,6 @@
 # ImportSshPublicKey<a name="API_ImportSshPublicKey"></a>
 
-Adds a Secure Shell \(SSH\) public key to a user account identified by a `UserName` value assigned to the specific file transfer protocol\-enabled server, identified by `ServerId`\.
+Adds a Secure Shell \(SSH\) public key to a Transfer Family user identified by a `UserName` value assigned to the specific file transfer protocol\-enabled server, identified by `ServerId`\.
 
 The response returns the `UserName` value, the `ServerId` value, and the name of the `SshPublicKeyId`\.
 
@@ -35,7 +35,7 @@ Length Constraints: Maximum length of 2048\.
 Required: Yes
 
  ** [UserName](#API_ImportSshPublicKey_RequestSyntax) **   <a name="TransferFamily-ImportSshPublicKey-request-UserName"></a>
-The name of the user account that is assigned to one or more servers\.  
+The name of the Transfer Family user that is assigned to one or more servers\.  
 Type: String  
 Length Constraints: Minimum length of 3\. Maximum length of 100\.  
 Pattern: `^[\w][\w@.-]{2,99}$`   
@@ -109,7 +109,7 @@ HTTP Status Code: 400
 
 This command imports an ECDSA key stored in the `id_ecdsa.pub` file\.
 
-#### <a name="w205ab1c52c12c98c17b3b5"></a>
+#### <a name="w225ab1c52c14c98c17b3b5"></a>
 
 ```
 aws transfer import-ssh-public-key --server-id s-021345abcdef6789 --ssh-public-key-body file://id_ecdsa.pub --user-name jane-doe
@@ -119,7 +119,7 @@ aws transfer import-ssh-public-key --server-id s-021345abcdef6789 --ssh-public-k
 
 If you run the previous command, the system returns the following information\.
 
-#### <a name="w205ab1c52c12c98c17b5b5"></a>
+#### <a name="w225ab1c52c14c98c17b5b5"></a>
 
 ```
 {

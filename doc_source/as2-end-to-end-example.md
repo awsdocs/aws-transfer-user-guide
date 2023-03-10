@@ -1,6 +1,86 @@
 # Enable your server endpoint for AS2<a name="as2-end-to-end-example"></a>
 
-This topic walks through how to set up an Applicability Statement 2 \(AS2\) configuration with AWS Transfer Family\. After you complete the steps described here, you will have an AS2\-enabled server that's ready for accepting AS2 messages from a sample trading partner, and a connector that can be used to send AS2 messages to the sample trading partner\.
+This topic provides two paths for creating and configuring an AWS Transfer Family AS2 server:
++ You can quickly create an AWS CloudFormation stack for demonstration purposes\. This is described in [Use a template to create a demo Transfer Family AS2 stack](#as2-cfn-demo-template)\.
++ You can follow the detailed, step\-by\-step example\. This is described in [AS2 step\-by\-step example setup](#as2-example-walkthrough)\.
+
+## Use a template to create a demo Transfer Family AS2 stack<a name="as2-cfn-demo-template"></a>
+
+We supply a self\-contained, AWS CloudFormation template to quickly create an AS2\-enabled Transfer Family server\. The template configures the server with a public Amazon VPC endpoint, certificates, local and partner profiles, an agreement, and a connector\.
+
+ Before using this template, note the following:
++ If you create a stack from this template, you will be billed for the AWS resources that are used\.
++ The template creates multiple certificates and places them in AWS Secrets Manager to store them securely\. You can delete these certificates from Secrets Manager if you want, because you're charged for using this service\. Deleting these certificates in Secrets Manager doesn't delete them from the Transfer Family server\. Therefore, the functionality of the demo stack isn't affected\. However, for certificates that you're going to use with a production AS2 server, you might want to use Secrets Manager to manage and periodically rotate your stored certificates\.
++ We recommend that you use the template as a base only, and mainly for demonstration purposes\. If you want to use this demo stack in production, we recommend that you modify the template's YAML code to create a more robust stack\. For example, create production\-level certificates, and create an AWS Lambda function that you can use in production\.
+
+**To create an AS2\-enabled Transfer Family server from a CloudFormation template**
+
+1. Open the AWS CloudFormation console at [https://console\.aws\.amazon\.com/cloudformation](https://console.aws.amazon.com/cloudformation/)\.
+
+1. In the left navigation pane, choose **Stacks**\.
+
+1. Choose **Create stack**, and then choose **With new resources \(standard\)**\. 
+
+1. In the **Prerequisite \- Prepare template** section, choose **Template is ready**\. 
+
+1. Copy this link, [AS2 demo template](https://s3.amazonaws.com/aws-transfer-resources/as2-templates/aws-transfer-as2-basic.template.yml), and paste it into the **Amazon S3 URL** field\. 
+
+1. Choose **Next**\. 
+
+1. On the **Specify stack details** page, name your stack, and then specify the following parameters: 
+   + Under **AS2**, enter values for **Local AS2 ID** and **Partner AS2 ID**, or accept the defaults, `local` and `partner`, respectively\. 
+   + Under **Network**, enter a value for **Security group ingress CIDR IP**, or accept the default, `0.0.0.0/0`\. 
+**Note**  
+This value, in CIDR format, specifies which IP addresses are allowed for incoming traffic to the AS2 server\. The default value, `0.0.0.0/0`, allows all IP addresses\.
+   + Under **General**, enter a value for **Prefix**, or accept the default, `transfer-as2`\. This prefix is placed before any resource names that are created by the stack\. For example, if you use the default prefix, your Amazon S3 bucket is named `transfer-as2-TransferS3BucketName`\. 
+
+1. Choose **Next**\. On the **Configure stack options** page, choose **Next** again\. 
+
+1. Review the details for the stack that you're creating, and then choose **Create stack**\. 
+**Note**  
+At the bottom of the page, under **Capabilities**, you must acknowledge that AWS CloudFormation might create AWS Identity and Access Management \(IAM\) resources\. 
+
+After the stack is created, you can send a test AS2 message from the partner server to your local Transfer Family server by using the AWS Command Line Interface \(AWS CLI\)\. A sample AWS CLI command for sending a test message is created along with all of the other resources in the stack\. 
+
+To use this sample command, go to the **Outputs** tab of your stack, and copy the **TransferExampleAs2Command**\. You can then run the command by using the AWS CLI\. If you haven't already installed the AWS CLI, see [Installing or updating the latest version of the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) in the *AWS Command Line Interface User Guide*\. 
+
+The sample command has the following format:
+
+```
+aws s3api put-object --bucket TransferS3BucketName --key test.txt && aws transfer start-file-transfer --region aws-region --connector-id TransferConnectorId --send-file-paths /TransferS3BucketName/test.txt
+```
+
+**Note**  
+Your version of this command contains the actual values for the `TransferS3BucketName` and `TransferConnectorId` resources in your stack\.
+
+This sample command consists of two separate commands that are chained together by using the `&&` string\. 
+
+The first command creates a new, empty text file in your bucket:
+
+```
+aws s3api put-object --bucket TransferS3BucketName --key test.txt
+```
+
+Then, the second command uses the connector to send the file from the partner profile to the local profile\. The Transfer Family server has an agreement set up that allows the local profile to accept messages from the partner profile\.
+
+```
+aws transfer start-file-transfer --region aws-region --connector-id TransferConnectorId --send-file-paths /TransferS3BucketName/test.txt
+```
+
+After you run the command, you can go to your Amazon S3 bucket \(`TransferS3BucketName`\) and view the contents\. If the command is successful, you should see the following objects in your bucket:
++ `processed/` – This folder contains a JSON file that describes the transferred file and the MDN response\.
++ `processing/` – This folder temporarily contains files as they are being processed, but after a transfer is completed, this folder should be empty\.
++ `server-id/` – This folder is named based on your Transfer Family server ID\. It contains `from-partner` \(this folder is dynamically named, based on the partner's AS2 ID\), which itself contains `failed/`, `processed/`, and `processing/` folders\. The `server-id/from-partner/processed/` folder contains a copy of the transferred text file, and the corresponding JSON and MDN files\.
++ `test.txt` – This object is the \(empty\) file that was transferred\.
+
+## AS2 step\-by\-step example setup<a name="as2-example-walkthrough"></a>
+
+This topic walks through how to set up an Applicability Statement 2 \(AS2\) configuration with AWS Transfer Family\. After you complete the steps described here, you will have an AS2\-enabled server that's ready for accepting AS2 messages from a sample trading partner\. You will also have a connector that can be used to send AS2 messages to the sample trading partner\.
+
+**Note**  
+Some portions of the example setup use the AWS Command Line Interface \(AWS CLI\)\. If you haven't already installed the AWS CLI, see [Installing or updating the latest version of the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) in the *AWS Command Line Interface User Guide*\. 
+
+
 
 1. Create certificates for yourself and your trading partner\. You can skip this section if you have existing certificates that you can use\.
 
@@ -36,7 +116,7 @@ After you complete these steps, you can do the following:
 
 
 
-## Step 1: Create certificates for AS2<a name="as2-create-certs"></a>
+### Step 1: Create certificates for AS2<a name="as2-create-certs"></a>
 
 Both parties in an AS2 exchange need X\.509 certificates\. You can create these certificates in any way that you like\. This topic describes how to use [OpenSSL](https://www.openssl.org/) from the command line to create a root certificate, and then sign subordinate certificates\. Both parties must generate their own certificates\. 
 
@@ -125,9 +205,14 @@ Some AS2\-enabled servers, such as OpenAS2, require that you use the same certif
    -CA root-ca.pem -CAkey root-ca-key.pem -extfile encryption-cert.conf
    ```
 
-## Step 2: Create a Transfer Family server that uses the AS2 protocol<a name="as2-example-server"></a>
+### Step 2: Create a Transfer Family server that uses the AS2 protocol<a name="as2-example-server"></a>
 
-This procedure explains how to create an AS2\-enabled server by using the Transfer Family AWS CLI\. If you want to use the console instead, see [Create an AS2\-enabled server](create-b2b-server.md#create-server-as2)\.
+This procedure explains how to create an AS2\-enabled server by using the Transfer Family AWS CLI\.
+
+**Note**  
+ Many of the example steps use commands that load parameters from a file\. For more details about using files to load parameters, see [ How to load parameters from a file](https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-parameters-file.html)\.
+
+If you want to use the console instead, see [Create an AS2\-enabled server](create-b2b-server.md#create-server-as2)\.
 
 Similar to how you create an SFTP or FTPS AWS Transfer Family server, you create an AS2\-enabled server by using the `--protocols AS2` parameter of the `create-server` AWS CLI command\. Currently, Transfer Family supports only VPC endpoint types and Amazon S3 storage with the AS2 protocol\. 
 
@@ -142,7 +227,7 @@ To use these instructions, you need the following:
 + \(Optional\) The Elastic IP addresses that you want to associate with your VPC endpoint\. 
 + If your trading partner is not connected to your VPC through a VPN, you need an internet gateway\. For more information, see [Connect to the internet using an internet gateway](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html) in the *Amazon VPC User Guide*\.
 
-**Create an AS2\-enabled server**
+**To create an AS2\-enabled server**
 
 1. Run the following command\. Replace each `user input placeholder` with your own information\.
 
@@ -218,7 +303,7 @@ To use these instructions, you need the following:
 **Note**  
 Even though the logging role is optional, we highly recommend setting it up so that you can see the status of your messages and troubleshoot configuration issues\.
 
-## Step 3: Import certificates as Transfer Family certificate resources<a name="as2-import-certs-example"></a>
+### Step 3: Import certificates as Transfer Family certificate resources<a name="as2-import-certs-example"></a>
 
 This procedure explains how to import certificates by using the AWS CLI\. If you want to use the Transfer Family console instead, see [Import AS2 certificates](create-b2b-server.md#configure-as2-certificate)\.
 
@@ -254,7 +339,7 @@ aws transfer import-certificate --usage SIGNING --certificate file://partner-sig
 
 This command returns your partner's signing `CertificateId`\. In the next section, this certificate ID is referred to as `partner-signing-cert-id`\.
 
-## Step 4: Create profiles for you and your trading partner<a name="as2-create-profiles-example"></a>
+### Step 4: Create profiles for you and your trading partner<a name="as2-create-profiles-example"></a>
 
 This procedure explains how to create AS2 profiles by using AWS CLI\. If you want to use the Transfer Family console instead, see [Create AS2 profiles](create-b2b-server.md#configure-as2-profile)\.
 
@@ -279,7 +364,7 @@ This command returns your partner's profile ID\. In the next section, this ID is
 **Note**  
 In the previous commands, replace *MYCORP* with the name of your organization, and *PARTNER\-COMPANY* with the name of your trading partner's organization\.
 
-## Step 5: Create an agreement between you and your partner<a name="as2-create-agreement-example"></a>
+### Step 5: Create an agreement between you and your partner<a name="as2-create-agreement-example"></a>
 
 This procedure explains how to create AS2 agreements by using the AWS CLI\. If you want to use the Transfer Family console instead, see [Create AS2 agreements](create-b2b-server.md#as2-agreements)\.
 
@@ -313,7 +398,7 @@ If successful, this command returns the ID for the agreement\. You can then view
 aws transfer describe-agreement --agreement-id agreement-id --server-id your-server-id
 ```
 
-## Step 6: Create a connector between you and your partner<a name="as2-create-connector-example"></a>
+### Step 6: Create a connector between you and your partner<a name="as2-create-connector-example"></a>
 
 This procedure explains how to create AS2 connectors by using the AWS CLI\. If you want to use the Transfer Family console instead, see [Create AS2 connectors](create-b2b-server.md#configure-as2-connector)\.
 
@@ -347,9 +432,9 @@ aws transfer create-connector --url "http://partner-as2-server-url" \
 --as2-config file:///path/to/testAS2Config.json
 ```
 
-## Step 7: Test exchanging files over AS2 by using Transfer Family<a name="as2-test-config"></a>
+### Step 7: Test exchanging files over AS2 by using Transfer Family<a name="as2-test-config"></a>
 
-### Receive a file from your trading partner<a name="as2-receive-file"></a>
+#### Receive a file from your trading partner<a name="as2-receive-file"></a>
 
 If you associated a public Elastic IP address with your VPC endpoint, Transfer Family automatically created a DNS name that contains your public IP address\. The subdomain is your AWS Transfer Family server ID \(of the format `s-1234567890abcdef0`\)\. Provide your server URL to your trading partner in the following format\.
 
@@ -383,7 +468,7 @@ For example, the following URL shows sample values for the placeholders in the p
 http://vpce-0123456789abcdefg-fghij123.vpce-svc-11111aaaa2222bbbb.us-east-1.vpce.amazonaws.com:5080 
 ```
 
-### Send a file to your trading partner<a name="as2-send-file"></a>
+#### Send a file to your trading partner<a name="as2-send-file"></a>
 
 You can use Transfer Family to send files by referencing the connector ID and the paths to the files in the following command\.
 
@@ -395,4 +480,8 @@ aws transfer start-file-transfer --connector-id c-1234567890abcdef0 \
 **Note**  
 To find details for your connectors, run the command `aws transfer list-connectors`\. This command returns the connector ID, URL, and ARN for your connectors\. Then, you can run the command `aws transfer describe-connector --connector-id your-connector-id`, with the ID that you want to use\. This command returns all of the details for `your-connector-id`\.
 
-Successful transfers are stored at the location specified in the `base-directory` parameter that you specified in [Step 5: Create an agreement between you and your partner](#as2-create-agreement-example)\. If the transfer is completed successfully, the file is stored as /*path\-defined\-in\-the\-agreement*/processed/*original\_filename\.messageId\.original\_extension*\. In this example, DESTINATION\-EXAMPLE\-BUCKET/AS2\-inbox/processed/myfile1\.*messageId*\.txt and DESTINATION\-EXAMPLE\-BUCKET/AS2\-inbox/processed/myfile2\.*messageId*\.txt\. If you configured a logging role when you created the connector, you can also check your CloudWatch logs for the status of the AS2 message\.
+Successful transfers are stored at the location that's specified in the `base-directory` parameter that you specified in [Step 5: Create an agreement between you and your partner](#as2-create-agreement-example)\. If the transfer is completed successfully, the file is stored as `/path-defined-in-the-agreement/processed/original_filename.messageId.original_extension`\.
+
+ In this example, the files are stored as `DESTINATION-EXAMPLE-BUCKET/AS2-inbox/processed/myfile1.messageId.txt` and `DESTINATION-EXAMPLE-BUCKET/AS2-inbox/processed/myfile2.messageId.txt`\. 
+
+If you configured a logging role when you created the connector, you can also check your CloudWatch logs for the status of the AS2 message\.

@@ -24,7 +24,7 @@ When you call the `SendWorkflowStepState` API operation, you must send the follo
 
 You can extract the `ExecutionId`, `Token`, and `WorkflowId` from the input event that is passed when the Lambda function executes \(examples are shown in the following sections\)\. The `Status` value can be either `SUCCESS` or `FAILURE`\. 
 
-To be able to call the `SendWorkflowStepState` API operation from your Lambda function, you must use the latest version of the AWS SDK\.
+To be able to call the `SendWorkflowStepState` API operation from your Lambda function, you must use a version of the AWS SDK that was published after [Managed Workflows were introduced](doc-history.md#workflows-introduced)\.
 
 ## Using multiple Lambda functions consecutively<a name="multiple-lambdas"></a>
 
@@ -147,4 +147,21 @@ def lambda_handler(event, context):
       'statusCode': 200,
       'body': json.dumps(response)
     }
+```
+
+## IAM permissions for a custom step<a name="custom-step-iam"></a>
+
+To allow a step that calls a Lambda to succeed, make sure the execution role for your workflow contains the following permissions\.
+
+```
+{
+            "Sid": "Custom",
+            "Effect": "Allow",
+            "Action": [
+                "lambda:InvokeFunction"
+            ],
+            "Resource": [
+                "arn:aws:lambda:region:account-id:function:function-name"
+            ]
+        }
 ```

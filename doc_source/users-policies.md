@@ -75,7 +75,7 @@ To create a session policy, use the following policy variables in your IAM polic
 + `${transfer:UserName}`
 
 **Important**  
-You can't use the variables listed preceding in Managed Policies\. Nor can you use them as policy variables in an IAM role definition\. You create these variables in an IAM policy and supply them directly when setting up your user\. Also, you can't use the `${aws:Username}` variable in this session policy\. This variable refers to an IAM user name and not the user name required by AWS Transfer Family\.
+You can't use the variables listed preceding in Managed Policies\. Nor can you use them as policy variables in an IAM role definition\. You create these variables in an IAM policy and supply them directly when setting up your user\. Also, you can't use the `${aws:Username}` variable in this session policy\. This variable refers to an IAM user name and not the username required by AWS Transfer Family\.
 
 An example of a session policy is shown in the code example following\.
 
@@ -120,7 +120,7 @@ An example of a session policy is shown in the code example following\.
 ```
 
 **Note**  
-In the policy above, it is assumed that users have their home directories set to include a trailing slash, to signify that it is a directory\. If, on the other hand, you set a user's `HomeDirectory` without the trailing slash, then you should include it as part of your policy\.
+In the preceding policy, it is assumed that users have their home directories set to include a trailing slash, to signify that it is a directory\. If, on the other hand, you set a user's `HomeDirectory` without the trailing slash, then you should include it as part of your policy\.
 
 In the previous example policy, note the use of the `transfer:HomeFolder`, `transfer:HomeBucket`, and `transfer:HomeDirectory` policy parameters\. These parameters are set for the `HomeDirectory` that is configured for the user, as described in [HomeDirectory](https://docs.aws.amazon.com/transfer/latest/userguide/API_CreateUser.html#TransferFamily-CreateUser-request-HomeDirectory) and [Implementing your API Gateway method](custom-identity-provider-users.md#authentication-api-method)\. These parameters have the following definitions:
 + The `transfer:HomeBucket` parameter is replaced with the first component of `HomeDirectory`\.
@@ -169,7 +169,7 @@ You can limit users ability to create a directory in an Amazon S3 bucket\. To do
 
 ## Granting ability to only write and list files<a name="write-only-access"></a>
 
- In some cases, customers want to only offer write access to their Amazon S3 objects\. They want to provide access to write/upload and list objects in a bucket, but not read/download\. This translates to the Amazon S3 permissions `ListObjects` and `PutOjbect` to perform `ls` and `mkdir` commands using file transfer clients\. However, when Transfer Family needs to make a `HeadObject` call to either write or list files, it fails with an error of **Access denied**, because this call requires the `GetObject` permission\.
+ In some cases, customers want to only offer write access to their Amazon S3 objects\. They want to provide access to write/upload and list objects in a bucket, but not read/download\. This translates to the Amazon S3 permissions `ListObjects` and `PutObject` to perform `ls` and `mkdir` commands using file transfer clients\. However, when Transfer Family needs to make a `HeadObject` call to either write or list files, it fails with an error of **Access denied**, because this call requires the `GetObject` permission\.
 
 In this case, you can grant access by adding a policy condition that adds the `GetObject` permission for any objects that end in a **/**\. This prevents `GetObject` on files so they cannot be read, while allowing the user to list and traverse folders\. The following example policy offers only write and list access to their Amazon S3 buckets \(replace *DOC\-EXAMPLE\-BUCKET* with the actual name of your bucket\)\.
 
@@ -189,7 +189,7 @@ In this case, you can grant access by adding a policy condition that adds the `G
             "Action": [
                 "s3:PutObject",
                 "s3:GetObject",
-                "s3:GetobjectVersion"
+                "s3:GetObjectVersion"
             ],
             "Resource": [
                 "arn:aws:s3:::DOC-EXAMPLE-BUCKET/*"

@@ -20,16 +20,17 @@ You can add either Amazon S3 or Amazon EFS service\-managed users to your server
 
 1. Choose **Add user**\.
 
-1. In the **User configuration** section, for **Username**, enter the user name\. This user name must be a minimum of 3 and a maximum of 100 characters\. You can use the following characters in the user name: a–z, A\-Z, 0–9, underscore '\_', hyphen '\-', period '\.', and at sign "@"\. The user name can't start with a hyphen '\-', period '\.', or at sign "@"\.
+1. In the **User configuration** section, for **Username**, enter the username\. This username must be a minimum of 3 and a maximum of 100 characters\. You can use the following characters in the username: a–z, A\-Z, 0–9, underscore '\_', hyphen '\-', period '\.', and at sign "@"\. The username can't start with a hyphen '\-', period '\.', or at sign "@"\.
 
 1. For **Access**, choose the IAM role that you previously created that provides access to your Amazon S3 bucket\.
 
    You created this IAM role using the procedure in [Create an IAM role and policy](requirements-roles.md)\. That IAM role includes an IAM policy that provides access to your Amazon S3 bucket\. It also includes a trust relationship with the AWS Transfer Family service, defined in another IAM policy\. If you need fine\-grained access control for your users, refer to the [ Enhance data access control with AWS Transfer Family and Amazon S3](http://aws.amazon.com/blogs/storage/enhance-data-access-control-with-aws-transfer-family-and-amazon-s3-access-points/) blog post\.
 
-1. \(Optional\) For **Policy**, choose one of the following:
+1. \(Optional\) For **Policy**, select one of the following:
    + **None**
    + **Existing policy**
-   + **Select a policy from IAM** to choose an existing policy\. Choose **View** to see a JSON object containing the details of the policy\.
+   + **Select a policy from IAM**: allows you to choose an existing session policy\. Choose **View** to see a JSON object containing the details of the policy\.
+   + **Auto\-generate policy based on home folder**: generates a session policy for you\. Choose **View** to see a JSON object containing the details of the policy\.
 
    To learn more about session policies, see [Create an IAM role and policy](requirements-roles.md)\. To learn more about creating a session policy, see [Creating a session policy for an Amazon S3 bucket](users-policies.md#users-policies-session)\.
 
@@ -73,7 +74,7 @@ Amazon EFS uses the Portable Operating System Interface \(POSIX\) file permissio
 
 1. In the **User configuration** section, use the following settings\.
 
-   1. For **Username**, enter the user name\. This user name must be a minimum of 3 and a maximum of 100 characters\. You can use the following characters in the user name: a–z, A\-Z, 0–9, underscore '\_', hyphen '\-', period '\.', and at sign "@"\. The user name can't start with a hyphen '\-', period '\.', or at sign "@"\.
+   1. The **Username**, must be a minimum of 3 and a maximum of 100 characters\. You can use the following characters in the username: a–z, A\-Z, 0–9, underscore '\_', hyphen '\-', period '\.', and at sign "@"\. The username can't start with a hyphen '\-', period '\.', or at sign "@"\.
 
    1.  For **User ID** and **Group ID**, note the following: 
       + For the first user that you create, we recommend that you enter a value of **0** for both **Group ID** and **User ID**\. This grants the user administrator privileges for Amazon EFS\. 
@@ -90,7 +91,7 @@ Amazon EFS uses the Portable Operating System Interface \(POSIX\) file permissio
       +  AmazonElasticFileSystemClientFullAccess 
       +  AWSTransferConsoleFullAccess 
 
-      For more information, see the blog post [ New – AWS Transfer Family support for Amazon Elastic File System](http://aws.amazon.com/blogs/aws/new-aws-transfer-family-support-for-amazon-elastic-file-system/)\. 
+      For more information, see the blog post [AWS Transfer Family support for Amazon Elastic File System](http://aws.amazon.com/blogs/aws/new-aws-transfer-family-support-for-amazon-elastic-file-system/)\.
 
    1. For **Home directory**, do the following:
       + Choose the Amazon EFS file system that you want to use for storing the data to transfer using AWS Transfer Family\.
@@ -159,7 +160,7 @@ For instructions on how to generate an SSH key pair, see [Generate SSH keys](key
 
 1. Choose the identifier in the **Server ID** column to see the **Server details** page\.
 
-1. Under **Users**, choose a user name to see the **User details** page\.
+1. Under **Users**, choose a username to see the **User details** page\.
 
    You can change the user's properties on this page by choosing **Edit**\.
 
@@ -197,9 +198,9 @@ When assigning the user a home directory and restricting the user to that home d
 
 1. Choose the identifier in the **Server ID** column to see the **Server details** page\.
 
-1. Under **Users**, choose a user name to see the **User details** page\. 
+1. Under **Users**, choose a username to see the **User details** page\. 
 
-1. On the **Users details** page, choose **Delete** to the right of the user name\.
+1. On the **Users details** page, choose **Delete** to the right of the username\.
 
 1. In the confirmation dialog box that appears, enter the word **delete**, and then choose **Delete** to confirm that you want to delete the user\.
 
@@ -213,7 +214,7 @@ When assigning the user a home directory and restricting the user to that home d
 
 1. Choose the identifier in the **Server ID** column to see the **Server details** page\.
 
-1. Under **Users**, choose a user name to see the **User details** page\.
+1. Under **Users**, choose a username to see the **User details** page\.
 
 1. Under **SSH public keys**, you can add or delete an SSH \(Secure Shell\) public key\.
    + To add a public key

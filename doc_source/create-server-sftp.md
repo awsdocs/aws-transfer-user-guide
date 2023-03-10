@@ -3,7 +3,7 @@
 Secure Shell \(SSH\) File Transfer Protocol \(SFTP\) is a network protocol used for secure transfer of data over the internet\. The protocol supports the full security and authentication functionality of SSH\. It's widely used to exchange data, including sensitive information between business partners in a variety of industries such as financial services, healthcare, retail, and advertising\.
 
 **Note**  
- SFTP servers for Transfer Family operate over port 22\. 
+SFTP servers for Transfer Family operate over port 22\.
 
 **To create an SFTP\-enabled server**
 
@@ -59,7 +59,7 @@ FIPS\-enabled endpoints are only available in North American AWS Regions\. For a
         For more information about CloudWatch logging, see [Log activity with CloudWatch](monitoring.md#monitoring-enabling)\.
 **Note**  
 You can't view end user activity in CloudWatch if you don't specify a logging role\.
-If you don't want to set up a CloudWatch logging role, choose **Choose an existing role**, but don't select a logging role\.  
+If you don't want to set up a CloudWatch logging role, select **Choose an existing role**, but don't select a logging role\.  
 ![\[The CloudWatch logging console section with Create a new role selected.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/create-server-configure-additional-details-cloudwatch-logging.png)
 
    1. For **Cryptographic algorithm options**, choose a security policy that contains the cryptographic algorithms enabled for use by your server\.
@@ -88,6 +88,12 @@ The **Server Host Key** section is used only for migrating users from an existin
 
    1. \(Optional\) You can configure AWS Transfer Family servers to display customized messages such as organizational policies or terms and conditions to your end users\. For **Display banner**, in the **Pre\-authentication display banner** text box, enter the text message that you want to display to your users before they authenticate\.  
 ![\[The Display banner console section.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/display-banner-sftp-only.png)
+
+   1. \(Optional\) You can configure the following additional options\.
+      + **SetStat option**: enable this option to ignore the error that is generated when a client attempts to use `SETSTAT` on a file you are uploading to an Amazon S3 bucket\. For additional details, see the `SetStatOption` documentation in the [ProtocolDetails](https://docs.aws.amazon.com/transfer/latest/userguide/API_ProtocolDetails.html)\.
+      + **TLS session resumption**: this option is only available if you have enabled FTPS as one of the protocols for this server\.
+      + **Passive IP**: this option is only available if you have enabled FTPS or FTP as one of the protocols for this server\.  
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/create-server-configure-additional-items-sftp.png)
 
 1. In **Review and create**, review your choices\.
    + If you want to edit any of them, choose **Edit** next to the step\.

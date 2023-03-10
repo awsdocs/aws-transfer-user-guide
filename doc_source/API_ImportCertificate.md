@@ -34,7 +34,8 @@ Type: Timestamp
 Required: No
 
  ** [Certificate](#API_ImportCertificate_RequestSyntax) **   <a name="TransferFamily-ImportCertificate-request-Certificate"></a>
-The file that contains the certificate to import\.  
++ For the CLI, provide a file path for a certificate in URI format\. For example, `--certificate file://encryption-cert.pem`\. Alternatively, you can provide the raw content\.
++ For the SDK, specify the raw content of a certificate file\. For example, `--certificate "`cat encryption-cert.pem`"`\.
 Type: String  
 Length Constraints: Minimum length of 1\. Maximum length of 16384\.  
 Pattern: `^[\u0009\u000A\u000D\u0020-\u00FF]*`   
@@ -60,7 +61,8 @@ Type: Timestamp
 Required: No
 
  ** [PrivateKey](#API_ImportCertificate_RequestSyntax) **   <a name="TransferFamily-ImportCertificate-request-PrivateKey"></a>
-The file that contains the private key for the certificate that's being imported\.  
++ For the CLI, provide a file path for a private key in URI format\.For example, `--private-key file://encryption-key.pem`\. Alternatively, you can provide the raw content of the private key file\.
++ For the SDK, specify the raw content of a private key file\. For example, `--private-key "`cat encryption-key.pem`"` 
 Type: String  
 Length Constraints: Minimum length of 1\. Maximum length of 16384\.  
 Pattern: `^[\u0009\u000A\u000D\u0020-\u00FF]*`   
@@ -117,6 +119,30 @@ HTTP Status Code: 400
  ** ServiceUnavailableException **   
 The request has failed because the AWSTransfer Family service is not available\.  
 HTTP Status Code: 500
+
+## Examples<a name="API_ImportCertificate_Examples"></a>
+
+### Example<a name="API_ImportCertificate_Example_1"></a>
+
+The following example imports a certificate to use for encryption\. In the first command, we provide the contents of the certificate and certificate chain files\. Use this format for SDK commands\.
+
+#### <a name="w225ab1c52c14c92c15b3b5"></a>
+
+```
+aws transfer import-certificate --usage ENCRYPTION --certificate "`cat encryption-cert.pem`" \
+    --private-key "`cat encryption-key.pem`" --certificate-chain "`cat root-ca.pem`"
+```
+
+### Example<a name="API_ImportCertificate_Example_2"></a>
+
+The following example is identical to the preceding command, except that we provide the file locations for the private key, certificate, and certificate chain files\. This version of the command doesn't work if you are using an SDK\.
+
+#### <a name="w225ab1c52c14c92c15b5b5"></a>
+
+```
+aws transfer import-certificate --usage ENCRYPTION --certificate file://encryption-cert.pem \
+    --private-key file://encryption-key.pem --certificate-chain file://root-ca.pem
+```
 
 ## See Also<a name="API_ImportCertificate_SeeAlso"></a>
 

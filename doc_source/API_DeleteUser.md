@@ -64,7 +64,7 @@ HTTP Status Code: 500
 
 ### Example<a name="API_DeleteUser_Example_1"></a>
 
-The following example deletes a user account assigned to a server\.
+The following example deletes a Transfer Family user\.
 
 #### Sample Request<a name="API_DeleteUser_Example_1_Request"></a>
 

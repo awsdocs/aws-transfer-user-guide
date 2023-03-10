@@ -4,8 +4,6 @@ Cloud security at AWS is the highest priority\. As an AWS customer, you benefit 
 
 Security is a shared responsibility between AWS and you\. The [shared responsibility model](http://aws.amazon.com/compliance/shared-responsibility-model/) describes this as security *of* the cloud and security *in* the cloud:
 
-Third\-party auditors assess the security and compliance of AWS services as part of multiple AWS compliance programs, such as SOC, PCI, FedRAMP, and HIPAA\.
-
 To learn whether an AWS service is within the scope of specific compliance programs, see [AWS services in Scope by Compliance Program](http://aws.amazon.com/compliance/services-in-scope/) and choose the compliance program that you are interested in\. For general information, see [AWS Compliance Programs](http://aws.amazon.com/compliance/programs/)\.
 
 You can download third\-party audit reports using AWS Artifact\. For more information, see [Downloading Reports in AWS Artifact](https://docs.aws.amazon.com/artifact/latest/ug/downloading-documents.html)\.

@@ -4,12 +4,12 @@ You can create a file transfer server by using the AWS Transfer Family service\.
 + Secure Shell \(SSH\) File Transfer Protocol \(SFTP\) – File transfer over SSH\. For details, see [Create an SFTP\-enabled server](create-server-sftp.md)\.
 + File Transfer Protocol Secure \(FTPS\) – File transfer with TLS encryption\. For details, see [Create an FTPS\-enabled server](create-server-ftps.md)\.
 + File Transfer Protocol \(FTP\) – Unencrypted file transfer\. For details, see [Create an FTP\-enabled server](create-server-ftp.md)\.
-+ Applicability Statement 2 \(AS2\) – File transfer for transporting structured business\-to\-business data\. For details, see [Create an AS2\-enabled server configuration](create-b2b-server.md)\.
++ Applicability Statement 2 \(AS2\) – File transfer for transporting structured business\-to\-business data\. For details, see [Create an AS2\-enabled server configuration](create-b2b-server.md)\. For AS2, you can quickly create an AWS CloudFormation stack for demonstration purposes\. This is described in [Use a template to create a demo Transfer Family AS2 stack](as2-end-to-end-example.md#as2-cfn-demo-template)\.
 
 You can create a server with multiple protocols\.
 
 **Note**  
-If you have multiple protocols enabled for the same server endpoint and you want to provide access by using the same user name over multiple protocols, you can do so as long as the credentials specific to the protocol have been set up in your identity provider\. For FTP, we recommend maintaining separate credentials from SFTP and FTPS\. This is because, unlike SFTP and FTPS, FTP transmits credentials in clear text\. By isolating FTP credentials from SFTP or FTPS, if FTP credentials are shared or exposed, your workloads using SFTP or FTPS remain secure\.
+If you have multiple protocols enabled for the same server endpoint and you want to provide access by using the same username over multiple protocols, you can do so as long as the credentials specific to the protocol have been set up in your identity provider\. For FTP, we recommend maintaining separate credentials from SFTP and FTPS\. This is because, unlike SFTP and FTPS, FTP transmits credentials in clear text\. By isolating FTP credentials from SFTP or FTPS, if FTP credentials are shared or exposed, your workloads using SFTP or FTPS remain secure\.
 
 When you create a server, you choose a specific AWS Region to perform the file operation requests of users who are assigned to that server\. Along with assigning the server one or more protocols, you also assign one of the following identity provider types:
 + **Service managed by using SSH keys**\. For details, see [Working with service\-managed users](service-managed-users.md)\.
@@ -41,7 +41,7 @@ AWS Transfer Family provides several methods for authenticating and managing use
 
 Notes:
 + IAM is used to control access for Amazon S3 backing storage, and POSIX is used for Amazon EFS\.
-+ *Ad hoc* refers to the ability to send the user profile at runtime\. For example, you can land users in their home directories by passing the user name as a variable\.
++ *Ad hoc* refers to the ability to send the user profile at runtime\. For example, you can land users in their home directories by passing the username as a variable\.
 + For details about AWS WAF, see [Add a web application firewall](web-application-firewall.md)\.
 + There is a blog post that describes using a Lambda function integrated with Microsoft Azure AD as your Transfer Family identity provider\. For details, see [ Authenticating to AWS Transfer Family with Azure Active Directory and AWS Lambda](http://aws.amazon.com/blogs/storage/authenticating-to-aws-transfer-family-with-azure-active-directory-and-aws-lambda/)\.
 
@@ -76,3 +76,4 @@ Consider the following options to increase the security posture of your AWS Tran
 + To allow clients to access the endpoint over the internet and protect your server, use a VPC endpoint with internet\-facing access\. Then, modify the VPC's security groups to allow traffic only from certain IP addresses that host your users' clients\.
 + Use a Network Load Balancer in front of a VPC endpoint with internal access\. Change the listener port on the load balancer from port 22 to a different port\. This can reduce, but not eliminate, the risk of port scanners and bots probing your server, because port 22 is most commonly used for scanning\. However, if you use a Network Load Balancer, you can't use security groups to allow access from source IP addresses\.
 + If you require password\-based authentication and you use a custom identity provider with your server, it's a best practice that your password policy prevents users from creating weak passwords and limits the number of failed login attempts\.
++ AWS Transfer Family is a managed service, and so it doesn't provide shell access\. You cannot directly access the underlying SFTP server to run OS native commands on Transfer Family servers\.

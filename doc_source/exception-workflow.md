@@ -1,10 +1,10 @@
 # Exception handling for a workflow<a name="exception-workflow"></a>
 
-If any errors occur during a workflow's execution, the exception\-handling steps that you specified are executed\. You specify the error\-handling steps for a workflow in the same manner as you specify the workflow steps themselves\. For example, suppose that you've configured custom processing in nominal steps to validate incoming files\. If the file validation fails, an exception\-handling step can send an email to the administrator\.
+If any errors occur during a workflow's execution, the exception\-handling steps that you specified are executed\. You specify the error\-handling steps for a workflow in the same manner as you specify the nominal steps for the workflow\. For example, suppose that you've configured custom processing in nominal steps to validate incoming files\. If the file validation fails, an exception\-handling step can send an email to the administrator\.
 
 The following example workflow contains two steps: 
 + One nominal step that checks whether the uploaded file is in CSV format
-+ An exception\-handling step that sends an email in case the uploaded file is not in CSV format
++ An exception\-handling step that sends an email in case the uploaded file is not in CSV format, and the nominal step fails
 
 To initiate the exception\-handling step, the AWS Lambda function in the nominal step must respond with `Status="FAILURE"`\. For more information about error handling in workflows, see [Use custom file\-processing steps](custom-step-details.md)\.
 

@@ -20,6 +20,8 @@ To set up a server with Directory Service as your identity provider, you need to
      + **Use Amazon API Gateway to connect your identity provider** – You can create an API Gateway method backed by a Lambda function for use as an identity provider\. You provide an Amazon API Gateway URL and an invocation role\. For more information, see [Using Amazon API Gateway to integrate your identity provider](custom-identity-provider-users.md#authentication-api-gateway)\.  
 ![\[The Choose an identity provider console section with Custom identity provider selected.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/custom-lambda-console.png)
 
+1. Choose **Next**\.
+
 1. In **Choose an endpoint**, do the following:
 **Note**  
 FTP servers for Transfer Family operate over Port 21 \(Control Channel\) and Port Range 8192–8200 \(Data Channel\)\. 
@@ -50,7 +52,7 @@ FIPS\-enabled endpoints are not supported for FTP servers\.
         For more information about CloudWatch logging, see [Log activity with CloudWatch](monitoring.md#monitoring-enabling)\.
 **Note**  
 You can't view end user activity in CloudWatch if you don't specify a logging role\.
-If you don't want to set up a CloudWatch logging role, choose **Choose an existing role**, but don't select a logging role\.  
+If you don't want to set up a CloudWatch logging role, select **Choose an existing role**, but don't select a logging role\.  
 
 
    1. For **Cryptographic algorithm options**, choose a security policy that contains the cryptographic algorithms enabled for use by your server\.
@@ -77,6 +79,12 @@ The **Server Host Key** section is used only for migrating users from an existin
 
       For **Display banner**, in the **Pre\-authentication display banner** text box, enter the text message that you want to display to your users before they authenticate, and in the **Post\-authentication display banner** text box, enter the text that you want to display to your users after they successfully authenticate\.  
 ![\[The Display banner console section.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/display-banner-non-sftp.png)
+
+   1. \(Optional\) You can configure the following additional options\.
+      + **SetStat option**: enable this option to ignore the error that is generated when a client attempts to use `SETSTAT` on a file you are uploading to an Amazon S3 bucket\. For additional details, see the `SetStatOption` documentation in the [ProtocolDetails](https://docs.aws.amazon.com/transfer/latest/userguide/API_ProtocolDetails.html) topic\.
+      + **TLS session resumption**: provides a mechanism to resume or share a negotiated secret key between the control and data connection for an FTPS session\. For additional details, see the `TlsSessionResumptionMode` documentation in the [ProtocolDetails](https://docs.aws.amazon.com/transfer/latest/userguide/API_ProtocolDetails.html) topic\.
+      + **Passive IP**: indicates passive mode, for FTP and FTPS protocols\. Enter a single IPv4 address, such as the public IP address of a firewall, router, or load balancer\. For additional details, see the `PassiveIp` documentation in the [ProtocolDetails](https://docs.aws.amazon.com/transfer/latest/userguide/API_ProtocolDetails.html) topic\.  
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/create-server-configure-additional-items-all.png)
 
 1. In **Review and create**, review your choices\.
    + If you want to edit any of them, choose **Edit** next to the step\.

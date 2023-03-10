@@ -1,13 +1,20 @@
 # AS2 configurations, limits, and error messages<a name="as2-config-etc"></a>
 
-This section describes the supported configurations for transfers that use the Applicability Statement 2 \(AS2\) protocol, including the accepted ciphers and digests\. This section also describes the limits and known issues for AS2 transfers\. The various error codes that you might receive from AS2 file transfers are also provided\. 
+This topic describes the supported configurations, features, and capabilities for transfers that use the Applicability Statement 2 \(AS2\) protocol, including the accepted ciphers and digests\. This section also describes the limits and known issues for AS2 transfers\. The various error codes that you might receive from AS2 file transfers are also provided\. 
+
+**Topics**
++ [AS2 supported configurations](#as2-supported-configurations)
++ [AS2 features and capabilities](#as2-capabilities)
++ [Sending and receiving AS2 messages over HTTPS](#as2-https-process)
++ [AS2 limits and limitations](#as2-limits-issues)
++ [AS2 error codes](#as2-error-codes)
 
 ## AS2 supported configurations<a name="as2-supported-configurations"></a>
 
 **Signing, encryption, compression, MDN**
 
 For both inbound and outbound transfers, the following items are either required or optional:
-+ **Encryption** – Required \(for HTTP transport, which is the only transport method currently supported\)
++ **Encryption** – Required \(for HTTP transport, which is the only transport method currently supported\)\. Unencrypted messages are only accepted if forwarded by a TLS\-terminating proxy such as an Application Load Balancer \(ALB\) and the `X-Forwarded-Proto: https` header is present\.
 + **Signing** – Optional
 + **Compression** – Optional \(the only currently supported compression algorithm is ZLIB\)
 + **Message Disposition Notice \(MDN\)** – Optional
@@ -34,10 +41,68 @@ For MDN responses, certain types are supported, as follows:
 **Transports**
 + **Inbound transfers** – HTTP is the only currently supported transport, and you must specify it explicitly\.
 **Note**  
-If you need to use HTTPS for inbound transfers, you can terminate TLS on an Application Load Balancer or a Network Load Balancer\. For more information, see [TlsSessionResumptionMode](https://docs.aws.amazon.com/transfer/latest/userguide/API_ProtocolDetails.html#TransferFamily-Type-ProtocolDetails-TlsSessionResumptionMode)\.
-+ **Outbound transfers** – If you use HTTP, you must also specify an encryption algorithm\. If you specify HTTPS, you should specify **NONE** for your encryption algorithm\.
+If you need to use HTTPS for inbound transfers, you can terminate TLS on an Application Load Balancer or a Network Load Balancer\. This is described in [Receive AS2 messages over HTTPS](#receive-https)\.
++ **Outbound transfers** – If you provide an HTTP URL, you must also specify an encryption algorithm\. If you provide an HTTPS URL, you have the option of specifying **NONE** for your encryption algorithm\.
 
-## Set the AS2 endpoint to port 443 \(HTTPS\)<a name="as2-https-inbound"></a>
+## AS2 features and capabilities<a name="as2-capabilities"></a>
+
+The following tables list the features and capabilities available for Transfer Family resources that use AS2\.
+
+### AS2 features<a name="as2-features"></a>
+
+Transfer Family offers the following features for AS2\.
+
+
+| Feature | Supported by AWS Transfer Family | 
+| --- |--- |
+|  [Drummond Pre\-Certification](https://aws.amazon.com/about-aws/whats-new/2022/11/aws-transfer-family-drummond-group-as2-pre-certification/) | Yes | 
+| [AWS CloudFormation Support](https://docs.aws.amazon.com/transfer/latest/userguide/as2-end-to-end-example.html#as2-cfn-demo-template)  | Yes | 
+| [Amazon CloudWatch Metrics](https://docs.aws.amazon.com/transfer/latest/userguide/as2-monitoring.html) | Yes | 
+| [SHA\-2 Cryptographic Algorithms](https://docs.aws.amazon.com/transfer/latest/userguide/security-policies.html#cryptographic-algorithms) | Yes | 
+| Support for Amazon S3 | Yes | 
+| Support for Amazon EFS | No | 
+| Scheduled Messages | Yes 1 | 
+| AWS Transfer Family Managed Workflows | No | 
+| Certificate Exchange Messaging \(CEM\) | No | 
+| Mutual TLS \(mTLS\) | No | 
+
+1\. Outbound Scheduled Messages available by [scheduling AWS Lambda functions using Amazon EventBridge](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-run-lambda-schedule.html)
+
+### AS2 send and receive capabilities<a name="as2-capabilities"></a>
+
+The following table provides a list of AWS Transfer Family AS2 send and receive capabilities\.
+
+
+| Capability | Inbound: Receiving with Server | Outbound: Sending with Connector | 
+| --- |--- |--- |
+| [TLS Encrypted Transport \(HTTPS\)](#as2-https-process) | Yes 1 | Yes | 
+| Non\-TLS Transport \(HTTP\) | Yes |  Yes 2  | 
+| Synchronous MDN | Yes | Yes | 
+| Message Compression | Yes | Yes | 
+| Asynchronous MDN | No | Yes | 
+| Static IP Address | Yes | No | 
+| Bring Your Own IP Address | Yes | No | 
+| Multiple File Attachments | Yes | No | 
+| Basic Authentication | No | No | 
+| AS2 Restart | N/A | No | 
+| Custom Subject per Message | N/A | No | 
+
+1\. Inbound TLS Encrypted Transport available with Network Load Balancer \(NLB\)
+
+2\. Outbound non\-TLS Transport available only when encryption is enabled
+
+## Sending and receiving AS2 messages over HTTPS<a name="as2-https-process"></a>
+
+This section describes how to configure a Transfer Family server that uses the AS2 protocol to send and receive messages over HTTPS\.
+
+### Send AS2 messages over HTTPS<a name="send-https"></a>
+
+To send AS2 messages using HTTPS, create a connector with the following information:
++ For the URL, specify an HTTPS URL
++ For the encryption algorithm, specify `NONE`
++ Provide the remaining values for the connector as described in [Create AS2 connectors](create-b2b-server.md#configure-as2-connector)
+
+### Receive AS2 messages over HTTPS<a name="receive-https"></a>
 
  AWS Transfer Family AS2 servers currently only provide HTTP transport over port 5080\. However, you can terminate TLS on a load balancer in front of your Transfer Family server VPC endpoint using a port and certificate of your choosing\. This allows you to have incoming AS2 messages use HTTPS\.
 
@@ -87,9 +152,7 @@ Set up an internet\-facing network load balancer \(NLB\) in your VPC\. <a name="
 
    We recommend this step because the TLS connection is terminated at the NLB, so the source IP address reflected in your Transfer Family AS2 CloudWatch log groups is the NLB's private IP address, rather than your trading partner's external IP address\.
 
-After you set up the load balancer, clients communicate to the load balancer over the custom port listener\. Then, the load balancer communicates to the server over port 5080\.
-
-**Create a target group**<a name="create-target-group"></a>
+After you set up the load balancer, clients communicate to the load balancer over the custom port listener\. Then, the load balancer communicates to the server over port 5080\.<a name="create-target-group"></a>
 
 **Create a target group**
 

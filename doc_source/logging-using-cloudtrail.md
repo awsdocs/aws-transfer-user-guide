@@ -21,7 +21,7 @@ CloudTrail is enabled on your AWS account when you create the account\. When act
 All AWS Transfer Family actions are logged by CloudTrail and are documented in the [Actions](https://docs.aws.amazon.com/transfer/latest/userguide/API_Operations.html) [API Reference](https://docs.aws.amazon.com/transfer/latest/userguide/api_reference.html)\. For example, calls to the `CreateServer`, `ListUsers` and `StopServer` actions generate entries in the CloudTrail log files\.
 
 Every event or log entry contains information about who generated the request\. The identity information helps you determine the following:
-+ Whether the request was made with root or AWS Identity and Access Management \(IAM\) user credentials\.
++ Whether the request was made with root or AWS Identity and Access Management user credentials\.
 + Whether the request was made with temporary security credentials for a role or federated user\.
 + Whether the request was made by another AWS service\.
 

@@ -23,9 +23,13 @@ If the copy file step is not the first step of your workflow, you can specify th
 
 You must provide the bucket name and a key for the destination of the copy file step\. The key can be either a path name or a file name\. Whether the key is treated as a path name or a file name is determined by whether you end the key with the forward slash \(`/`\) character\.
 
-If the final character is `/`, your file is copied to the folder, and its name does not change\. If the final character is alphanumeric, your uploaded file is renamed to the key value\. In this case, if a file with that name already exists, the existing file is overwritten with the new one\. 
+If the final character is `/`, your file is copied to the folder, and its name does not change\. If the final character is alphanumeric, your uploaded file is renamed to the key value\. In this case, if a file with that name already exists, the behavior depends on the setting for the **Overwrite existing** field\.
++ If **Overwrite existing** is selected, the existing file is replaced with the file being processed\.
++ If **Overwrite existing** is not selected, nothing happens, and the workflow processing stops\.
+**Tip**  
+If concurrent writes are executed on the same file path, it may result in unexpected behavior when overwriting files\.
 
-For example, if your key value is `test/`, your uploaded files are copied to the `test` folder\. If your key value is `test/today`, every file you upload is copied to a file named `today` in the `test` folder, and each succeeding file overwrites the previous one\.
+For example, if your key value is `test/`, your uploaded files are copied to the `test` folder\. If your key value is `test/today`, \(and **Overwrite existing** is selected\) every file you upload is copied to a file named `today` in the `test` folder, and each succeeding file overwrites the previous one\.
 
 **Note**  
 Amazon S3 supports buckets and objects, and there is no hierarchy\. However, you can use prefixes and delimiters in object key names to imply a hierarchy and organize your data in a way similar to folders\.
@@ -42,9 +46,71 @@ Similarly, you can use `${transfer:UploadDate}` as a variable to copy files to a
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/workflows-step-copy-dynamic-date.png)
 
+You can also use both of these variables together, combining their functionality\. For example:
++ You could set the **Destination key prefix** to **folder/$\{transfer:UserName\}/$\{transfer:UploadDate\}/**, which would created nested folders, for example `folder/marymajor/2023-01-05/`\.
++ You could set the **Destination key prefix** to **folder/$\{transfer:UserName\}\-$\{transfer:UploadDate\}/**, to concatenate the two variables, for example `folder/marymajor-2023-01-05/`\.
+
+### IAM permissions for copy step<a name="copy-step-iam"></a>
+
+To allow a copy step to succeed, make sure the execution role for your workflow contains the following permissions\.
+
+```
+{
+            "Sid": "ListBucket",
+            "Effect": "Allow",
+            "Action": "s3:ListBucket",
+            "Resource": [
+                "arn:aws:s3:::destination-bucket-name"
+            ]
+        },
+        {
+            "Sid": "HomeDirObjectAccess",
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject",
+                "s3:GetObject",
+                "s3:DeleteObjectVersion",
+                "s3:DeleteObject",
+                "s3:GetObjectVersion"
+            ],
+            "Resource": "arn:aws:s3:::destination-bucket-name/*"
+        }
+```
+
+**Note**  
+The `s3:ListBucket` permission is only necessary if you do not select **Overwrite existing**\. This permission checks your bucket to see if a file with the same name already exists\. If you have selected **Overwrite existing**, the workflow doesn't need to check for the file, and can just write it\.
+
 ## Decrypt file<a name="decrypt-step-details"></a>
 
-A decryption step decrypts an encrypted file that was uploaded to Amazon S3 or Amazon EFS as part of your workflow\. For details about configuring decryption, see [Use PGP decryption in your workflow](create-workflow.md#configure-decryption)\.
+### Use PGP decryption in your workflow<a name="configure-decryption"></a>
+
+Transfer Family has built\-in support for Pretty Good Privacy \(PGP\) decryption\. You can use PGP decryption on files that are uploaded over SFTP, FTPS, or FTP to Amazon Simple Storage Service \(Amazon S3\) or Amazon Elastic File System \(Amazon EFS\)\. 
+
+To use PGP decryption, you must create and store the PGP private keys that will be used for decryption of your files\. Your users can then encrypt files by using corresponding PGP encryption keys before uploading the files to your Transfer Family server\. After you receive the encrypted files, you can decrypt those files in your workflow\.  
+
+**To use PGP decryption in your workflow**
+
+1. Identify a Transfer Family server to host your workflow, or create a new one\. You need to have the server ID before you can store your PGP keys in AWS Secrets Manager with the correct secret name\.
+
+1. Store your PGP key in AWS Secrets Manager under the required secret name\. For details, see [Manage PGP keys](key-management.md#manage-pgp-keys)\. Workflows can automatically locate the correct PGP key to be used for decryption based on the secret name in Secrets Manager\.
+
+1. Encrypt a file by using your PGP key pair\. \(For a list of supported clients, see [Supported PGP clients](key-management.md#pgp-key-clients)\.\) If you are using the command line, run the following command\. To use this command, replace `username@example.com` with the email address that you used to create the PGP key pair\. Replace `testfile.txt` with the name of the file that you want to encrypt\. 
+
+   ```
+   gpg -e -r username@example.com --openpgp testfile.txt
+   ```
+
+   
+**Important**  
+You must use the `--openpgp` flag in this command\. By default, `gpg` produces encrypted files that do not conform to the [OpenPGP RFC4880](https://www.rfc-editor.org/rfc/rfc4880) standard\. If you don't use this flag, Transfer Family will be unable to decrypt your files\.
+
+1. Upload the encrypted file to your Transfer Family server\.
+
+1. Configure a decryption step in your workflow\. For more information, see [Add a decryption step](#decrypt-step-procedure)\.
+
+### Add a decryption step<a name="decrypt-step-procedure"></a>
+
+A decryption step decrypts an encrypted file that was uploaded to Amazon S3 or Amazon EFS as part of your workflow\. For details about configuring decryption, see [Use PGP decryption in your workflow](#configure-decryption)\.
 
 When you create your decryption step for a workflow, you must specify the destination for the decrypted files\. You must also select whether to overwrite existing files if a file already exists at the destination location\. You can monitor the decryption workflow results and get audit logs for each file in real time by using Amazon CloudWatch Logs\.
 
@@ -56,15 +122,57 @@ The available options are as follows:
 **Note**  
 This parameter is not available if this step is the first step of the workflow\.
 + **Destination for decrypted files** – Choose an Amazon S3 bucket or an Amazon EFS file system as the destination for the decrypted file\.
-  + If you choose Amazon S3, you must provide a destination bucket name and a destination key prefix\. To parameterize the destination key prefix by user name, enter **$\{Transfer:UserName\}** for **Destination key prefix**\.
+  + If you choose Amazon S3, you must provide a destination bucket name and a destination key prefix\. To parameterize the destination key prefix by username, enter **$\{transfer:UserName\}** for **Destination key prefix**\. Similarly, to parameterize the destination key prefix by upload date, enter **$\{Transfer:UploadDate\}** for **Destination key prefix**\.
   + If you choose Amazon EFS, you must provide a destination file system and path\.
 **Note**  
 The storage option that you choose here must match the storage system that's used by the Transfer Family server with which this workflow is associated\. Otherwise, you will receive an error when you attempt to run this workflow\.
-+ **Overwrite existing** – To overwrite an existing file that has the same name as the file being saved, select this check box\. To create a new file if an existing file has the same name, clear this check box\.
++ **Overwrite existing** – If you upload a file, and a file with the same filename already exists at the destination, the behavior depends on the setting for this parameter:
+  + If **Overwrite existing** is selected, the existing file is replaced with the file being processed\.
+  + If **Overwrite existing** is not selected, nothing happens, and the workflow processing stops\.
+**Tip**  
+If concurrent writes are executed on the same file path, it may result in unexpected behavior when overwriting files\.
 
 The following screenshot shows an example of the options that you might choose for your decrypt file step\. 
 
 ![\[The AWS Transfer Family console, showing the Configure PGP decryption parameters section with sample values.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/workflows-step-decrypt-details.png)
+
+### IAM permissions for decrypt step<a name="decrypt-step-iam"></a>
+
+To allow a decrypt step to succeed, make sure the execution role for your workflow contains the following permissions\.
+
+```
+{
+            "Sid": "ListBucket",
+            "Effect": "Allow",
+            "Action": "s3:ListBucket",
+            "Resource": [
+                "arn:aws:s3:::destination-bucket-name"
+            ]
+        },
+        {
+            "Sid": "HomeDirObjectAccess",
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject",
+                "s3:GetObject",
+                "s3:DeleteObjectVersion",
+                "s3:DeleteObject",
+                "s3:GetObjectVersion"
+            ],
+            "Resource": "arn:aws:s3:::destination-bucket-name/*"
+        },
+        {
+            "Sid": "Decrypt",
+            "Effect": "Allow",
+            "Action": [
+                "secretsmanager:GetSecretValue",
+            ],
+            "Resource": "arn:aws:secretsmanager:region:account-ID:secret:aws/transfer/*"
+        }
+```
+
+**Note**  
+The `s3:ListBucket` permission is only necessary if you do not select **Overwrite existing**\. This permission checks your bucket to see if a file with the same name already exists\. If you have selected **Overwrite existing**, the workflow doesn't need to check for the file, and can just write it\.
 
 ## Tag file<a name="tag-step-details"></a>
 
@@ -74,11 +182,40 @@ The following example tag step assigns `scan_outcome` and `clean` as the tag key
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/workflows-step-tag.png)
 
+To allow a tag step to succeed, make sure the execution role for your workflow contains the following permissions\.
+
+```
+{
+            "Sid": "Tag",
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObjectTagging",
+                "s3:PutObjectVersionTagging"
+            ],
+            "Resource": [
+                "arn:aws:s3:::DOC-EXAMPLE-BUCKET/*"
+            ]
+}
+```
+
 ## Delete file<a name="delete-step-details"></a>
 
 To delete a processed file from a previous workflow step or to delete the originally uploaded file, use a delete file step\.
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/workflows-step-delete.png)
+
+To allow a delete step to succeed, make sure the execution role for your workflow contains the following permissions\.
+
+```
+{
+            "Sid": "Delete",
+            "Effect": "Allow",
+            "Action": [
+                "s3:DeleteObjectVersion",
+                "s3:DeleteObject"
+            ]
+        }
+```
 
 ## Example tag and delete workflow<a name="sourcefile-workflow"></a>
 
@@ -202,6 +339,8 @@ The following example illustrates a workflow that tags incoming files that need 
    ```
    aws transfer create-workflow --description "copy-tag-delete workflow" --steps file://tagAndMoveWorkflow.json --region us-east-1
    ```
+**Note**  
+For more details about using files to load parameters, see [ How to load parameters from a file](https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-parameters-file.html)\.
 
 1. Update an existing server\.
 **Note**  

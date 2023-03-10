@@ -40,6 +40,8 @@ For an end\-to\-end example AS2 configuration, see [Enable your server endpoint 
 + [Create AS2 agreements](#as2-agreements)
 + [Enable your server endpoint for AS2](as2-end-to-end-example.md)
 + [AS2 configurations, limits, and error messages](as2-config-etc.md)
++ [View connector details](connectors-view-info.md)
++ [Monitoring AS2 usage](as2-monitoring.md)
 
 ## AS2 use cases<a name="as2-use-cases"></a>
 
@@ -414,7 +416,7 @@ Additionally, if you choose to create a connector without an encryption algorith
 
 1. After you have confirmed all of your settings, choose **Create connector** to create the connector\.
 
-The **Connectors** page appears, with the ID of your new connector added to the list\.
+The **Connectors** page appears, with the ID of your new connector added to the list\. To view the details for your connectors, see [View connector details](connectors-view-info.md)\.
 
 ## Create AS2 agreements<a name="as2-agreements"></a>
 

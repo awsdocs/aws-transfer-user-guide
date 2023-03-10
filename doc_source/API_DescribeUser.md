@@ -86,7 +86,7 @@ Length Constraints: Fixed length of 19\.
 Pattern: `^s-([0-9a-f]{17})$` 
 
  ** [User](#API_DescribeUser_ResponseSyntax) **   <a name="TransferFamily-DescribeUser-response-User"></a>
-An array containing the properties of the user account for the `ServerID` value that you specified\.  
+An array containing the properties of the Transfer Family user for the `ServerID` value that you specified\.  
 Type: [DescribedUser](API_DescribedUser.md) object
 
 ## Errors<a name="API_DescribeUser_Errors"></a>

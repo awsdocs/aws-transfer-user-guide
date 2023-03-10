@@ -2,7 +2,7 @@
 
 In the following sections, you can find information about how to add users using AWS Transfer Family, AWS Directory Service for Microsoft Active Directory or a custom identity provider\.
 
-If you use a service\-managed identity type, you add users to your file transfer protocol enabled server\. When you do so, each user name must be unique on your server\.
+If you use a service\-managed identity type, you add users to your file transfer protocol enabled server\. When you do so, each username must be unique on your server\.
 
 As part of each user's properties, you also store that user's Secure Shell \(SSH\) public key\. Doing so is required for key based authentication, which this procedure uses\. The private key is stored locally on your user's computer\. When your user sends an authentication request to your server by using a client, your server first confirms that the user has access to the associated SSH private key\. The server then successfully authenticates the user\.
 

@@ -74,7 +74,7 @@ Length Constraints: Fixed length of 19\.
 Pattern: `^s-([0-9a-f]{17})$` 
 
  ** [Users](#API_ListUsers_ResponseSyntax) **   <a name="TransferFamily-ListUsers-response-Users"></a>
-Returns the user accounts and their properties for the `ServerId` value that you specify\.  
+Returns the Transfer Family users and their properties for the `ServerId` value that you specify\.  
 Type: Array of [ListedUser](API_ListedUser.md) objects
 
 ## Errors<a name="API_ListUsers_Errors"></a>

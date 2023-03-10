@@ -29,7 +29,7 @@ The **AmazonS3FullAccess** and **IAMFullAccess** polices are, themselves, not ne
 
 1. Sign in to the AWS Management Console and open the AWS Transfer Family console at [https://console\.aws\.amazon\.com/transfer/](https://console.aws.amazon.com/transfer/)\.
 
-1. For **Account ID or alias**, enter your account ID or alias\.
+1. For **Account ID or alias**, enter the ID for your AWS account\.
 
 1. For **IAM user name**, enter the name of the user role that you created for Transfer Family\.
 
@@ -79,7 +79,7 @@ It can take a couple of minutes before the status for your new server changes to
 
 1. Choose **Add user**\.
 
-1. In the **User configuration** section, for **Username**, enter the user name\. This user name must be a minimum of 3 and a maximum of 100 characters\. You can use the following characters in the user name: a–z, A\-Z, 0–9, underscore '\_', hyphen '\-', period '\.', and at sign "@"\. The user name can't start with a hyphen, period, or at sign\.
+1. In the **User configuration** section, for **Username**, enter the username\. This username must be a minimum of 3 and a maximum of 100 characters\. You can use the following characters in the username: a–z, A\-Z, 0–9, underscore '\_', hyphen '\-', period '\.', and at sign "@"\. The username can't start with a hyphen, period, or at sign\.
 
 1. For **Access**, choose the IAM role that you previously created that provides access to your Amazon S3 bucket\.
 
@@ -93,7 +93,7 @@ The IAM role for the service managed user must contain the permissions to access
 
    If you leave this parameter blank, the `root` directory of your Amazon S3 bucket is used\. In this case, make sure that your IAM role provides access to this `root` directory\.
 **Note**  
-We recommend that you choose a directory path that contains the user name of the user, which enables you to effectively use a session policy\. The session policy limits user access in the Amazon S3 bucket to that user's `home` directory\.
+We recommend that you choose a directory path that contains the username of the user, which enables you to effectively use a session policy\. The session policy limits user access in the Amazon S3 bucket to that user's `home` directory\.
 
 1. For **Restricted**, select the check box so that your users can't access anything outside of that folder and can't see the Amazon S3 bucket or folder name\.
 **Note**  
@@ -160,7 +160,7 @@ This client works only with an SFTP\-enabled server\.
 
 1. At the prompt, enter the following command: `% sftp -i transfer-key sftp_user@service_endpoint`
 
-   In the preceding command, `sftp_user` is the user name and `transfer-key` is the SSH private key\. Here, `service_endpoint` is the server's endpoint as shown in the AWS Transfer Family console for the selected server\.
+   In the preceding command, `sftp_user` is the username and `transfer-key` is the SSH private key\. Here, `service_endpoint` is the server's endpoint as shown in the AWS Transfer Family console for the selected server\.
 
    An `sftp` prompt should appear\.
 

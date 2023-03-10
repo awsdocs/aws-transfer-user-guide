@@ -167,7 +167,7 @@ Pattern: `TransferSecurityPolicy-.+`
 Required: No
 
  ** [ServerId](#API_UpdateServer_RequestSyntax) **   <a name="TransferFamily-UpdateServer-request-ServerId"></a>
-A system\-assigned unique identifier for a server instance that the user account is assigned to\.  
+A system\-assigned unique identifier for a server instance that the Transfer Family user is assigned to\.  
 Type: String  
 Length Constraints: Fixed length of 19\.  
 Pattern: `^s-([0-9a-f]{17})$`   
@@ -175,7 +175,7 @@ Required: Yes
 
  ** [WorkflowDetails](#API_UpdateServer_RequestSyntax) **   <a name="TransferFamily-UpdateServer-request-WorkflowDetails"></a>
 Specifies the workflow ID for the workflow to assign and the execution role that's used for executing the workflow\.  
-In addition to a workflow to execute when a file is uploaded completely, `WorkflowDetails` can also contain a workflow ID \(and execution role\) for a workflow to execute on partial upload\. A partial upload occurs when a file is open when the session disconnects\.  
+In addition to a workflow to execute when a file is uploaded completely, `WorkflowDetails` can also contain a workflow ID \(and execution role\) for a workflow to execute on partial upload\. A partial upload occurs when the server session disconnects while the file is still being uploaded\.  
 To remove an associated workflow from a server, you can provide an empty `OnUpload` object, as in the following example\.  
  `aws transfer update-server --server-id s-01234567890abcdef --workflow-details '{"OnUpload":[]}'`   
 Type: [WorkflowDetails](API_WorkflowDetails.md) object  
@@ -196,7 +196,7 @@ If the action is successful, the service sends back an HTTP 200 response\.
 The following data is returned in JSON format by the service\.
 
  ** [ServerId](#API_UpdateServer_ResponseSyntax) **   <a name="TransferFamily-UpdateServer-response-ServerId"></a>
-A system\-assigned unique identifier for a server that the user account is assigned to\.  
+A system\-assigned unique identifier for a server that the Transfer Family user is assigned to\.  
 Type: String  
 Length Constraints: Fixed length of 19\.  
 Pattern: `^s-([0-9a-f]{17})$` 

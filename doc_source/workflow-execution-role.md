@@ -51,7 +51,7 @@ This section describes one possible set of AWS Identity and Access Management \(
                    "lambda:InvokeFunction"
                ],
                "Resource": [
-                   "arn:aws:lambda:region:account-id:function:${FunctionName}"
+                   "arn:aws:lambda:region:account-id:function:function-name"
                ]
            },
            {
@@ -79,9 +79,9 @@ Workflow execution roles also require a trust relationship with `transfer.amazon
 
 While you're establishing your trust relationship, you can also take steps to avoid the *confused deputy* problem\. For a description of this problem, as well as examples of how to avoid it, see [Cross\-service confused deputy prevention](confused-deputy.md)\.
 
-## Example execution role: Copy and tag<a name="example-workflow-role-copy-tag"></a>
+## Example execution role: decrypt, copy, and tag<a name="example-workflow-role-copy-tag"></a>
 
-If you have a workflow that copies an object to a different Amazon S3 location and tags the copied object, use the following IAM policy\.
+If you have workflows that include tagging, copying, and decrypt steps, you can use the following IAM policy\. Replace each `user input placeholder` with your own information\. 
 
 ```
 {
@@ -94,7 +94,7 @@ If you have a workflow that copies an object to a different Amazon S3 location a
                 "s3:GetObject",
                 "s3:GetObjectTagging"
             ],
-            "Resource": "arn:aws:s3:::${SourceBucketName}/${ObjectName}"
+            "Resource": "arn:aws:s3:::source-bucket-name/*"
         },
         {
             "Sid": "CopyWrite",
@@ -103,15 +103,15 @@ If you have a workflow that copies an object to a different Amazon S3 location a
                 "s3:PutObject",
                 "s3:PutObjectTagging"
             ],
-            "Resource": "arn:aws:s3:::${DestinationBucketName}/${ObjectName}"
+            "Resource": "arn:aws:s3:::destination-bucket-name/*"
         },
         {
             "Sid": "CopyList",
             "Effect": "Allow",
             "Action": "s3:ListBucket",
             "Resource": [
-                "arn:aws:s3:::${SourceBucketName}",
-                "arn:aws:s3:::${DestinationBucketName}"
+                "arn:aws:s3:::source-bucket-name",
+                "arn:aws:s3:::destination-bucket-name"
             ]
         },
         {
@@ -121,18 +121,46 @@ If you have a workflow that copies an object to a different Amazon S3 location a
                 "s3:PutObjectTagging",
                 "s3:PutObjectVersionTagging"
             ],
-            "Resource": "arn:aws:s3:::${DestinationBucketName}/${ObjectName}",
+            "Resource": "arn:aws:s3:::destination-bucket-name/*",
             "Condition": {
                 "StringEquals": {
                     "s3:RequestObjectTag/Archive": "yes"
                 }
             }
+        },
+        {
+            "Sid": "ListBucket",
+            "Effect": "Allow",
+            "Action": "s3:ListBucket",
+            "Resource": [
+                "arn:aws:s3:::destination-bucket-name"
+            ]
+        },
+        {
+            "Sid": "HomeDirObjectAccess",
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject",
+                "s3:GetObject",
+                "s3:DeleteObjectVersion",
+                "s3:DeleteObject",
+                "s3:GetObjectVersion"
+            ],
+            "Resource": "arn:aws:s3:::destination-bucket-name/*"
+        },
+        {
+            "Sid": "Decrypt",
+            "Effect": "Allow",
+            "Action": [
+                "secretsmanager:GetSecretValue"
+            ],
+            "Resource": "arn:aws:secretsmanager:region:account-ID:secret:aws/transfer/*"
         }
     ]
 }
 ```
 
-## Example execution role: Run function and delete<a name="example-workflow-role-custom-delete"></a>
+## Example execution role: run function and delete<a name="example-workflow-role-custom-delete"></a>
 
 In this example, you have a workflow that invokes an AWS Lambda function\. If the workflow deletes the uploaded file and has an exception handler step to act upon a failed workflow execution in the previous step, use the following IAM policy\. Replace each `user input placeholder` with your own information\. 
 
@@ -144,9 +172,10 @@ In this example, you have a workflow that invokes an AWS Lambda function\. If th
             "Sid": "Delete",
             "Effect": "Allow",
             "Action": [
-                "s3:DeleteObject"
+                "s3:DeleteObject",
+                "s3:DeleteObjectVersion"
             ],
-            "Resource": "arn:aws:s3:::${BucketName}/${ObjectName}"
+            "Resource": "arn:aws:s3:::bucket-name"
         },
         {
             "Sid": "Custom",
@@ -155,7 +184,7 @@ In this example, you have a workflow that invokes an AWS Lambda function\. If th
                 "lambda:InvokeFunction"
             ],
             "Resource": [
-                "arn:aws:lambda:region:account-id:function:${FunctionName}"
+                "arn:aws:lambda:region:account-id:function:function-name"
             ]
         }
     ]

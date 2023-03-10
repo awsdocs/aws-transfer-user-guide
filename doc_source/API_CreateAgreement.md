@@ -39,7 +39,7 @@ Required: Yes
 
  ** [BaseDirectory](#API_CreateAgreement_RequestSyntax) **   <a name="TransferFamily-CreateAgreement-request-BaseDirectory"></a>
 The landing directory \(folder\) for files transferred by using the AS2 protocol\.  
-A `BaseDirectory` example is *DOC\-EXAMPLE\-BUCKET*/*home*/*mydirectory*\.  
+A `BaseDirectory` example is `/DOC-EXAMPLE-BUCKET/home/mydirectory`\.  
 Type: String  
 Length Constraints: Maximum length of 1024\.  
 Pattern: `^$|/.*`   
@@ -139,7 +139,7 @@ HTTP Status Code: 400
 
 The following example creates an agreement, and returns the agreement ID\.
 
-#### <a name="w205ab1c52c12c11c17b3b5"></a>
+#### <a name="w225ab1c52c14c11c17b3b5"></a>
 
 ```
 aws transfer create-agreement --server-id s-021345abcdef6789 --local-profile-id p-1234567890abcdef0 --partner-profile-id p-abcdef01234567890 --base-folder /DOC-EXAMPLE-BUCKET/AS2-files --access-role arn:aws:iam::111122223333:role/AS2-role
@@ -149,7 +149,7 @@ aws transfer create-agreement --server-id s-021345abcdef6789 --local-profile-id 
 
 The API call returns the agreement ID for the new agreement\.
 
-#### <a name="w205ab1c52c12c11c17b5b5"></a>
+#### <a name="w225ab1c52c14c11c17b5b5"></a>
 
 ```
 {

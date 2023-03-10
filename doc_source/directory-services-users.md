@@ -158,7 +158,7 @@ A user must be in exactly one group \(an external ID\) that is listed in the **A
 
 1. On the server details page, choose **Actions**, and then choose **Test**\.
 
-1. For **Identity provider testing**, enter the user name and password for a user that is in one of the groups that has access\. 
+1. For **Identity provider testing**, enter the sign\-in credentials for a user that is in one of the groups that has access\. 
 
 1.  Choose **Test**\. 
 
@@ -186,7 +186,7 @@ If the user belongs to more than one group that has access, you receive the foll
 
 ### Connecting to the server using SSH \(Secure Shell\)<a name="directory-services-ssh-procedure"></a>
 
-After you configure your server and users, you can connect to the server using SSH and use the fully qualified user name for a user that has access\. 
+After you configure your server and users, you can connect to the server using SSH and use the fully qualified username for a user that has access\. 
 
 ```
 sftp user@active-directory-domain@vpc-endpoint
@@ -197,7 +197,7 @@ For example: `transferuserexample@mycompany.com@vpce-0123456abcdef-789xyz.vpc-sv
 This format targets the search of the federation, limiting the search of a potentially large Active Directory\. 
 
 **Note**  
-You can specify the simple user name\. However, in this case, the Active Directory code has to search all the directories in the federation\. This might limit the search, and authentication might fail even if the user should have access\. 
+You can specify the simple username\. However, in this case, the Active Directory code has to search all the directories in the federation\. This might limit the search, and authentication might fail even if the user should have access\. 
 
 After authenticating, the user is located in the home directory that you specified when you configured the user\.
 
@@ -315,7 +315,7 @@ Use the following Windows PowerShell command to retrieve the SID for a group, re
 Get-ADGroup -Filter {samAccountName -like "YourGroupName*"} -Properties * | Select SamAccountName,ObjectSid
 ```
 
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/azure-grant-access.png)
+![\[Windows PowerShell showing an Object SID being retrieved.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/azure-grant-access.png)
 
 **Grant access to groups**
 

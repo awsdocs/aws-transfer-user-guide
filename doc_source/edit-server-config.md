@@ -34,8 +34,12 @@ After you create an AWS Transfer Family server, you can edit the server configur
      + To change the server host key, see [Manage host keys for your SFTP\-enabled server](#configuring-servers-change-host-key)\.
      + To change the managed workflow for your server, see [Change the managed workflow for your server](#configuring-servers-change-workflow)\.
      + To edit the display banners for your server, see [Change the display banners for your server](#configuring-servers-change-banner)\.
+   + Under Additional configuration, you can edit the following information:
+     + **SetStat option**: enable this option to ignore the error that is generated when a client attempts to use `SETSTAT` on a file you are uploading to an Amazon S3 bucket\. For additional details, see the `SetStatOption` documentation in the [ProtocolDetails](https://docs.aws.amazon.com/transfer/latest/userguide/API_ProtocolDetails.html) topic\.
+     + **TLS session resumption**: provides a mechanism to resume or share a negotiated secret key between the control and data connection for an FTPS session\. For additional details, see the `TlsSessionResumptionMode` documentation in the [ProtocolDetails](https://docs.aws.amazon.com/transfer/latest/userguide/API_ProtocolDetails.html) topic\.
+     + **Passive IP**: indicates passive mode, for FTP and FTPS protocols\. Enter a single IPv4 address, such as the public IP address of a firewall, router, or load balancer\. For additional details, see the `PassiveIp` documentation in the [ProtocolDetails](https://docs.aws.amazon.com/transfer/latest/userguide/API_ProtocolDetails.html) topic\.
    + To start or stop your server, see [Put your server online or offline](#edit-online-offline)\.
-   + To delete a server, see [Delete a server](delete-server.md)\.
+   + To delete a server, see [Delete a server](configuring-servers.md#delete-server)\.
    + To edit a user's properties, see [Managing access controls](users-policies.md)\.  
 ![\[The server details console page for a server.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/edit-server-details-top.png)![\[The server details console page for a server.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/edit-server-details-endpoints.png)![\[The server details console page for a server.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/edit-server-details-users.png)![\[The server details console page for a server.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/edit-server-details-agreements.png)![\[The server details console page for a server.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/edit-server-details-hostkeys.png)
 **Note**  
@@ -189,7 +193,9 @@ On the AWS Transfer Family console, you can add an additional server host key\.
 
    The **Add server host key** page displays\.
 
-1. In the **Server Host Key** section, enter an RSA, ECDSA, or ED25519 private key that is used to identify your server when clients connect to it over the SFTP\-enabled server\.  
+1. In the **Server Host Key** section, enter an RSA, ECDSA, or ED25519 private key that is used to identify your server when clients connect to it over the SFTP\-enabled server\.
+**Note**  
+When you create a server host key, make sure to specify `-N ""` \(no passphrase\)\. See [Creating SSH Keys on macOS, Linux, or Unix](key-management.md#macOS-linux-unix-ssh) for details on how to generate key pairs\.  
 ![\[The Server Host Key console section.\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/create-server-configure-additional-details-server-host-key.png)
 
 1. \(Optional\) Add a description to differentiate among multiple server host keys\. You can also add tags for your key\.

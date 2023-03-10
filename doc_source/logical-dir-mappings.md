@@ -12,10 +12,11 @@ You can create your own directory structure across buckets and prefixes\. This f
 
 Before you build your logical directory mappings, you should understand the following rules:
 + When `Entry` is `"/"`, you can have only one mapping because overlapping paths are not allowed\.
-+ Targets can use the `${transfer:UserName}` variable if the bucket or file system path has been parameterized based on the user name\.
++ Targets can use the `${transfer:UserName}` variable if the bucket or file system path has been parameterized based on the username\.
 + Targets can be paths in different buckets or file systems, but you must make sure that the mapped IAM role \(the `Role` parameter in the response\) provides access to those buckets or file systems\.
 + Do not specify the `HomeDirectory` parameter because this value is implied by the `Entry` `Target` pairs when using the `LOGICAL` value for the `HomeDirectoryType` parameter\.
 + Targets should begin with a slash \(/\) character, but do not use trailing slashes \(/\) when you specify the `Target`\. For example, `/DOC-EXAMPLE-BUCKET/images` is acceptable, while `DOC-EXAMPLE-BUCKET/images` and `/DOC-EXAMPLE-BUCKET/images/` are not\.
++ Note that Amazon S3 is an object store, which means that folders are a virtual concept, and there is no actual directory hierarchy\. If your application issues a `stat` operation from a client, everything is classified as a file when you are using Amazon S3 for storage\. This behavior is described in [ Organizing objects in the Amazon S3 console using folders](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-folders.html)\. If your application requires that `stat` accurately show whether something is a file or folder, you can use Amazon EFS as the storage option for your Transfer Family servers\.
 
 **Important**  
 The root directory must exist on start\-up\. For Amazon S3, this means you must have already created an empty\-byte object ending with `/` to create the root folder\.
@@ -50,7 +51,7 @@ For chroot, create a directory structure that consists of a single `Entry` and `
 
 ------
 
-You can use an absolute path as in the previous example, or you can use a dynamic substitution for the user name with `${transfer:UserName}`, as in the following example\.
+You can use an absolute path as in the previous example, or you can use a dynamic substitution for the username with `${transfer:UserName}`, as in the following example\.
 
 ```
 [{"Entry": "/", "Target":
@@ -111,7 +112,7 @@ For more information about configuring logical directories and chroot for your u
 You can use logical directories with a Lambda function that connects to your custom identity provider\. To do so, in your Lambda function, you specify the `HomeDirectoryType` as **LOGICAL**, and add `Entry` and `Target` values for the `HomeDirectoryDetails` parameter\. For example:
 
 ```
-HomDirectoryType: "LOGICAL"
+HomeDirectoryType: "LOGICAL"
 HomeDirectoryDetails: "[{\"Entry\": \"/\", \"Target\": \"/DOC-EXAMPLE-BUCKET/theRealFolder"}]"
 ```
 

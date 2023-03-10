@@ -1,6 +1,6 @@
-# Monitoring server usage<a name="monitoring"></a>
+# Monitoring Transfer Family usage<a name="monitoring"></a>
 
-You can monitor activity in your server using Amazon CloudWatch and AWS CloudTrail\. For further analysis, you can also record server activity as readable, near real\-time metrics\.
+You can monitor activity in your server using Amazon CloudWatch and AWS CloudTrail\. For further analysis, you can also record server activity as readable, near real\-time metrics\. To view metrics that are specific to Transfer Family servers that have the AS2 protocol enabled, see [Monitoring AS2 usage](as2-monitoring.md)\.
 
 **Topics**
 + [Enable AWS CloudTrail logging](#monitoring-enable-cloudtrail)
@@ -182,7 +182,7 @@ The following example logging/invocation policy allows a specific server to assu
 ## Using CloudWatch metrics for Transfer Family<a name="metrics"></a>
 
 **Note**  
- You can also get metrics for Transfer Family from within the Transfer Family console itself\. For details, see [ Monitoring server usage in the console ](monitor-usage-transfer-console.md) 
+ You can also get metrics for Transfer Family from within the Transfer Family console itself\. For details, see [ Monitoring usage in the console ](monitor-usage-transfer-console.md) 
 
 You can get information about your server using CloudWatch metrics\. A *metric* represents a time\-ordered set of data points that are published to CloudWatch\. When using metrics, you must specify the Transfer Family namespace, metric name, and [dimension](#cw-dimensions)\. For more information about metrics, see [Metrics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Metric) in the *Amazon CloudWatch User Guide*\.
 

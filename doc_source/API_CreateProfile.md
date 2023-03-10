@@ -104,7 +104,7 @@ The following example creates a profile, and returns the profile ID\.
 
 The certificate IDs are created when you run `import-certificate`, one for the signing certificate, and one for the encryption certificate\.
 
-#### <a name="w205ab1c52c12c17c15b3b7"></a>
+#### <a name="w225ab1c52c14c17c15b3b7"></a>
 
 ```
 aws transfer create-profile --as2-id MYCORP --certificate-ids c-abcdefg123456hijk
@@ -115,7 +115,7 @@ aws transfer create-profile --as2-id MYCORP --certificate-ids c-abcdefg123456hij
 
 The API call returns the profile ID for the new profile\.
 
-#### <a name="w205ab1c52c12c17c15b5b5"></a>
+#### <a name="w225ab1c52c14c17c15b5b5"></a>
 
 ```
 {

@@ -32,7 +32,7 @@ Pattern: `arn:.*`
 Required: Yes
 
  ** [Tags](#API_TagResource_RequestSyntax) **   <a name="TransferFamily-TagResource-request-Tags"></a>
-Key\-value pairs assigned to ARNs that you can use to group and search for resources by type\. You can attach this metadata to user accounts for any purpose\.  
+Key\-value pairs assigned to ARNs that you can use to group and search for resources by type\. You can attach this metadata to resources \(servers, users, workflows, and so on\) for any purpose\.  
 Type: Array of [Tag](API_Tag.md) objects  
 Array Members: Minimum number of 1 item\. Maximum number of 50 items\.  
 Required: Yes

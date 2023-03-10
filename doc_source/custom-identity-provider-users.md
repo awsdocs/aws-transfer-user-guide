@@ -72,7 +72,7 @@ The event message structure from SFTP server sent to the authorizer Lambda funct
 }
 ```
 
-Where `username` and `password` are the values for username and password that are sent to the server\.
+Where `username` and `password` are the values for the sign\-in credentials that are sent to the server\.
 
 For example, you enter the following command to connect:
 
@@ -107,7 +107,7 @@ To implement different authentication strategies, edit the Lambda function\. To 
 
 ### Lambda function templates<a name="lambda-idp-templates"></a>
 
-You can deploy an AWS CloudFormation stack that uses a Lambda function for authentication\. We provide several templates that authenticate and authorize your users using username and password\. You can modify these templates or AWS Lambda code to further customize user access\.
+You can deploy an AWS CloudFormation stack that uses a Lambda function for authentication\. We provide several templates that authenticate and authorize your users using sign\-in credentials\. You can modify these templates or AWS Lambda code to further customize user access\.
 
 **To create an AWS CloudFormation stack to use for authentication**
 
@@ -123,7 +123,7 @@ We recommend that you edit the default user and password credentials\.
      A basic template for creating a AWS Lambda for use as a custom identity provider in AWS Transfer Family\. It authenticates against cognito for password\-based authentication and public keys are returned from an Amazon S3 bucket if public key based authentication is used\. After deployment, you can modify the Lambda function code to do something different\.
    + [AWS Secrets Manager stack template](https://s3.amazonaws.com/aws-transfer-resources/custom-idp-templates/aws-transfer-custom-idp-secrets-manager-lambda.template.yml)
 
-     A basic template that uses AWS Lambda with an AWS Transfer Family server to integrate Secrets Manager as an identity provider\. It authenticates against an entry in AWS Secrets Manager of the format `SFTP/username`\. Additionally, the secret must hold the key\-value pairs for all user properties returned to Transfer Family\. After deployment, you can modify the Lambda function code to do something different\.
+     A basic template that uses AWS Lambda with an AWS Transfer Family server to integrate Secrets Manager as an identity provider\. It authenticates against an entry in AWS Secrets Manager of the format `aws/transfer/server-id/username`\. Additionally, the secret must hold the key\-value pairs for all user properties returned to Transfer Family\. After deployment, you can modify the Lambda function code to do something different\.
    + [Okta stack template](https://s3.amazonaws.com/aws-transfer-resources/custom-idp-templates/aws-transfer-custom-idp-okta-lambda.template.yml): A basic template that uses AWS Lambda with an AWS Transfer Family server to integrate Okta as a custom identity provider\.
    + [Okta\-mfa stack template](https://s3.amazonaws.com/aws-transfer-resources/custom-idp-templates/aws-transfer-custom-idp-okta-mfa-lambda.template.yml): A basic template that uses AWS Lambda with an AWS Transfer Family server to integrate Okta, with MultiFactor Authentication, as a custom identity provider\.
    + [ Azure Active Directory template](https://s3.amazonaws.com/aws-transfer-resources/custom-idp-templates/aws-transfer-custom-idp-basic-lambda-azure-ad.template.yml): details for this stack are described in the blog post [ Authenticating to AWS Transfer Family with Azure Active Directory and AWS Lambda](http://aws.amazon.com/blogs/storage/authenticating-to-aws-transfer-family-with-azure-active-directory-and-aws-lambda/)\.
@@ -139,7 +139,7 @@ The following table describes details for the values that Transfer Family accept
 
 |  Value  |  Description  |  Required  | 
 | --- | --- | --- | 
-|  `Role`  |  Specifies the Amazon Resource Name \(ARN\) of the IAM role that controls your users' access to your Amazon S3 bucket or Amazon EFS file system\. The policies attached to this role determine the level of access that you want to provide your users when transferring files into and out of your Amazon S3 or Amazon EFS file system\. The IAM role should also contain a trust relationship that allows the server to access your resources when servicing your users' transfer requests\.  |  Required  | 
+|  `Role`  |  Specifies the Amazon Resource Name \(ARN\) of the IAM role that controls your users' access to your Amazon S3 bucket or Amazon EFS file system\. The policies attached to this role determine the level of access that you want to provide your users when transferring files into and out of your Amazon S3 or Amazon EFS file system\. The IAM role should also contain a trust relationship that allows the server to access your resources when servicing your users' transfer requests\. For details on establishing a trust relationship, see [To establish a trust relationship](requirements-roles.md#establish-trust-transfer)\.  |  Required  | 
 |  `PosixProfile`  |  The full POSIX identity, including user ID \(`Uid`\), group ID \(`Gid`\), and any secondary group IDs \(`SecondaryGids`\), that controls your users' access to your Amazon EFS file systems\. The POSIX permissions that are set on files and directories in your file system determine the level of access your users get when transferring files into and out of your Amazon EFS file systems\.  |  Required for Amazon EFS backing storage  | 
 |  `PublicKeys`  |  A list of SSH public key values that are valid for this user\. An empty list implies that this is not a valid login\. Must not be returned during password authentication\.  |  Optional  | 
 |  `Policy`  |  A session policy for your user so that you can use the same IAM role across multiple users\. This policy scopes down user access to portions of their Amazon S3 bucket\.   |  Optional  | 
@@ -160,7 +160,7 @@ After you create your custom identity provider, you should test your configurati
 
 1. On the **Servers** page, choose your new server, choose **Actions**, and then choose **Test**\.
 
-1. Enter the text for **Username** and **Password** that you set when you deployed the AWS CloudFormation stack\. If you kept the default options, the user name is `myuser` and the password is `MySuperSecretPassword`\.
+1. Enter the text for **Username** and **Password** that you set when you deployed the AWS CloudFormation stack\. If you kept the default options, the username is `myuser` and the password is `MySuperSecretPassword`\.
 
 1. Choose the **Server protocol** and enter the IP address for **Source IP**, if you set them when you deployed the AWS CloudFormation stack\.
 
@@ -177,7 +177,7 @@ After you create your custom identity provider, you should test your configurati
 
 1. Enter the server ID\.
 
-1. Enter the user name and password that you set when you deployed the AWS CloudFormation stack\. If you kept the default options, the user name is `myuser` and the password is `MySuperSecretPassword`\.
+1. Enter the username and password that you set when you deployed the AWS CloudFormation stack\. If you kept the default options, the username is `myuser` and the password is `MySuperSecretPassword`\.
 
 1. Enter the server protocol and source IP address, if you set them when you deployed the AWS CloudFormation stack\.
 
@@ -214,7 +214,7 @@ If you need either of these, you can use Lambda as an identity provider, without
 
 You can create an API Gateway method for use as an identity provider for Transfer Family\. This approach provides a highly secure way for you to create and provide APIs\. With API Gateway, you can create an HTTPS endpoint so that all incoming API calls are transmitted with greater security\. For more details about the API Gateway service, see the [API Gateway Developer Guide](https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html)\.
 
-API Gateway offers an authentication method named `AWS_IAM`, which gives you the same authentication based on AWS Identity and Access Management \(IAM\) that AWS uses internally\. If you enable authentication with `AWS_IAM`, only callers with explicit permissions to call an API can reach that API's API Gateway method\.
+API Gateway offers an authorization method named `AWS_IAM`, which gives you the same authentication based on AWS Identity and Access Management \(IAM\) that AWS uses internally\. If you enable authentication with `AWS_IAM`, only callers with explicit permissions to call an API can reach that API's API Gateway method\.
 
 To use your API Gateway method as a custom identity provider for Transfer Family, enable IAM for your API Gateway method\. As part of this process, you provide an IAM role with permissions for Transfer Family to use your gateway\.
 
@@ -235,7 +235,7 @@ To improve security, you can configure a web application firewall\. AWS WAF is a
         By default, your API Gateway method is used as a custom identity provider to authenticate a single user in a single server using a hardcoded SSH \(Secure Shell\) key or password\. After deployment, you can modify the Lambda function code to do something different\.
       + [AWS Secrets Manager stack template](https://s3.amazonaws.com/aws-transfer-resources/custom-idp-templates/aws-transfer-custom-idp-secrets-manager-apig.template.yml)
 
-        By default, your API Gateway method authenticates against an entry in Secrets Manager of the format `SFTP/username`\. Additionally, the secret must hold the key\-value pairs for all user properties returned to Transfer Family\. After deployment, you can modify the Lambda function code to do something different\. For more information, see [Enable password authentication for AWS Transfer Family using AWS Secrets Manager](http://aws.amazon.com/blogs/storage/enable-password-authentication-for-aws-transfer-family-using-aws-secrets-manager-updated/)\.
+        By default, your API Gateway method authenticates against an entry in Secrets Manager of the format `aws/transfer/server-id/username`\. Additionally, the secret must hold the key\-value pairs for all user properties returned to Transfer Family\. After deployment, you can modify the Lambda function code to do something different\. For more information, see [Enable password authentication for AWS Transfer Family using AWS Secrets Manager](http://aws.amazon.com/blogs/storage/enable-password-authentication-for-aws-transfer-family-using-aws-secrets-manager-updated/)\.
       + [Okta stack template](https://s3.amazonaws.com/aws-transfer-resources/custom-idp-templates/aws-transfer-custom-idp-okta-apig.template.yml)
 
         Your API Gateway method integrates with Okta as a custom identity provider in Transfer Family\. For more information, see [Using Okta as an identity provider with AWS Transfer Family](http://aws.amazon.com/blogs/storage/using-okta-as-an-identity-provider-with-aws-transfer-for-sftp/)\.
@@ -289,13 +289,13 @@ To create a custom identity provider for Transfer Family, your API Gateway metho
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/transfer/latest/userguide/images/apig-config-method-request.png)
 
 **Note**  
-The user name must be a minimum of 3 and a maximum of 100 characters\. You can use the following characters in the user name: a–z, A\-Z, 0–9, underscore \(\_\), hyphen \(\-\), period \(\.\), and at sign \(@\)\. However, the user name can't start with a hyphen \(\-\), period \(\.\), or at sign \(@\)\.
+The username must be a minimum of 3 and a maximum of 100 characters\. You can use the following characters in the username: a–z, A\-Z, 0–9, underscore \(\_\), hyphen \(\-\), period \(\.\), and at sign \(@\)\. However, the username can't start with a hyphen \(\-\), period \(\.\), or at sign \(@\)\.
 
 If Transfer Family attempts password authentication for your user, the service supplies a `Password:` header field\. In the absence of a `Password:` header, Transfer Family attempts public key authentication to authenticate your user\.
 
 When you are using an identity provider to authenticate and authorize end users, in addition to validating their credentials, you can allow or deny access requests based on the IP addresses of the clients used by your end users\. You can use this feature to ensure that data stored in your S3 buckets or your Amazon EFS file system can be accessed over the supported protocols only from IP addresses that you have specified as trusted\. To enable this feature, you must include `sourceIp` in the Query string\.
 
-If you have multiple protocols enabled for your server and want to provide access using the same user name over multiple protocols, you can do so as long as the credentials specific to each protocol have been set up in your identity provider\. To enable this feature, you must include the `protocol` value in the RESTful resource path\.
+If you have multiple protocols enabled for your server and want to provide access using the same username over multiple protocols, you can do so as long as the credentials specific to each protocol have been set up in your identity provider\. To enable this feature, you must include the `protocol` value in the RESTful resource path\.
 
 Your API Gateway method should always return HTTP status code `200`\. Any other HTTP status code means that there was an error accessing the API\.
 
@@ -394,15 +394,17 @@ You can include user policies in the Lambda function in JSON format\. For more i
 
 To implement different authentication strategies, edit the Lambda function that your gateway uses\. To help you meet your application's needs, you can use the following example Lambda functions in Node\.js\. For more information about Lambda, see the [AWS Lambda Developer Guide](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html) or [ Building Lambda functions with Node\.js](https://docs.aws.amazon.com/lambda/latest/dg/lambda-nodejs.html)\.
 
-The following example Lambda function takes your user name, password \(if you're performing password authentication\), server ID, protocol, and client IP address\. You can use a combination of these inputs to look up your identity provider and determine if the login should be accepted\.
+The following example Lambda function takes your username, password \(if you're performing password authentication\), server ID, protocol, and client IP address\. You can use a combination of these inputs to look up your identity provider and determine if the login should be accepted\.
 
 **Note**  
-If you have multiple protocols enabled for your server and want to provide access using the same user name over multiple protocols, you can do so as long as the credentials specific to the protocol have been set up in your identity provider\.  
+If you have multiple protocols enabled for your server and want to provide access using the same username over multiple protocols, you can do so as long as the credentials specific to the protocol have been set up in your identity provider\.  
 For File Transfer Protocol \(FTP\), we recommend maintaining separate credentials from Secure Shell \(SSH\) File Transfer Protocol \(SFTP\) and File Transfer Protocol over SSL \(FTPS\)\. We recommend maintaining separate credentials for FTP because, unlike SFTP and FTPS, FTP transmits credentials in clear text\. By isolating FTP credentials from SFTP or FTPS, if FTP credentials are shared or exposed, your workloads using SFTP or FTPS remain secure\.
 
 This example function works only with Amazon S3\. This example function returns the role and logical home directory details, along with the public keys \(if it performs public key authentication\)\.
 
-The [HomeDirectoryType](https://docs.aws.amazon.com/transfer/latest/userguide/API_CreateUser.html#TransferFamily-CreateUser-request-HomeDirectoryType) parameter specifies the type of landing directory \(folder\) that you want your user's home directory to be when they log in to the server\. If you set this parameter to `PATH`, the user sees the absolute Amazon S3 bucket or Amazon EFS paths as is in their file transfer protocol clients\. If you set this parameter to `LOGICAL`, you must provide mappings in the [HomeDirectoryMappings](https://docs.aws.amazon.com/transfer/latest/userguide/API_CreateUser.html#TransferFamily-CreateUser-request-HomeDirectoryMappings) parameter for how you want to make Amazon S3 or Amazon EFS paths visible to your users\.
+When you create service\-managed users, you set their home directory, either logical or physical\. Similarly, we need the Lambda function results to convey the desired user physical or logical directory structure\. The parameters you set depend on the value for the [HomeDirectoryType](https://docs.aws.amazon.com/transfer/latest/userguide/API_CreateUser.html#TransferFamily-CreateUser-request-HomeDirectoryType) field\.
++ `HomeDirectoryType` set to `PATH` – the `HomeDirectory` field must then be an absolute Amazon S3 bucket prefix or Amazon EFS absolute path that is visible to your users\.
++ `HomeDirectoryType` set to `LOGICAL` – Do *not* set a `HomeDirectory` field\. Instead, we set a `HomeDirectoryDetails` field that provides the desired Entry/Target mappings, similar to the described values in the [HomeDirectoryMappings](https://docs.aws.amazon.com/transfer/latest/userguide/API_CreateUser.html#TransferFamily-CreateUser-request-HomeDirectoryMappings) parameter for service\-managed users\.
 
 ------
 #### [ PATH home directory ]
@@ -416,7 +418,7 @@ exports.handler = (event, context, callback) => {
   console.log("Username:", event.username, "ServerId: ", event.serverId);
 
   var response;
-  // Check if the user name presented for authentication is correct. This doesn't check the value of the serverId, only that it is provided.
+  // Check if the username presented for authentication is correct. This doesn't check the value of the serverId, only that it is provided.
   // There is also event.protocol (one of "FTP", "FTPS", "SFTP") and event.sourceIp (e.g., "127.0.0.1") to further restrict logins.
   if (event.serverId !== "" && event.username == '${UserName}') {
     response = {
